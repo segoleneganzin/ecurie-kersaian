@@ -11,7 +11,7 @@ const EquestrianCenter = () => {
   return (
     <div className='h-dvh'>
       <Header menu={'equestrianCenter'} />
-      <main className='min-h-full text-principal-color'>
+      <main className='min-h-full text-principal-color overflow-x-hidden'>
         {/* **************************************PRESENTATION */}
         <div className='p-2 pt-16 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 xl:items-center xl:flex-row'>
           <img

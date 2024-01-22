@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme';
 export default {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
@@ -19,6 +20,10 @@ export default {
     },
     letterSpacing: {
       widest: '.25em',
+    },
+    screens: {
+      mobile: '370px',
+      ...defaultTheme.screens,
     },
   },
   plugins: [],
