@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* customized property */
+@layer utilities {
+  .w-300px {
+    width: 300px;
+  }
+  .h-300px {
+    height: 300px;
+  }
+  .w-650px {
+    width: 650px;
+  }
+  .h-650px {
+    height: 650px;
+  }
+  .min-w-300px {
+    min-width: 300px;
+  }
+  .max-w-300px {
+    max-width: 300px;
+  }
+  .min-w-650px {
+    min-width: 650px;
+  }
+  .max-w-650px {
+    max-width: 650px;
+  }
+}
