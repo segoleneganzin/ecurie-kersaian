@@ -5,6 +5,7 @@ import presentationImg from '../assets/images/presentation.avif';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
+import Planning from '../components/Planning';
 
 const EquestrianCenter = () => {
   return (
@@ -96,15 +97,7 @@ const EquestrianCenter = () => {
           </ul>
         </div>
         {/* ***************************************PLANNING */}
-        <div className='p-4 pt-16 lg:p-16 sm:p-8' id='planning'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-            Le planning
-          </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color  lg:text-xl'>
-            <li>Période scolaire</li>
-            <li>Vacances scolaires</li>
-          </ul>
-        </div>
+        <Planning />
         {/* ***************************************PRICES */}
         <EquestrianCenterPrices />
         {/* ***************************************CONTACT */}
