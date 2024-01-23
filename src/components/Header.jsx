@@ -24,7 +24,7 @@ const Header = ({ menu }) => {
       break;
   }
   return (
-    <header className='bg-principal-color flex flex-col gap-4 items-center justify-between pb-12 shadow-lg lg:flex-row lg:pr-12'>
+    <header className='bg-principal-color flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 shadow-lg lg:flex-row lg:pr-12'>
       <div className='flex flex-col justify-center pb-12 lg:flex-row lg:items-center lg:gap-20 lg:pb-0'>
         <a href='/' aria-label="Aller à la page d'accueil">
           <img src={logo} alt='Logo du site' />

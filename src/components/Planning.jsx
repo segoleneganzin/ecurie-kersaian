@@ -1,4 +1,4 @@
-// import WeeklyPlanner from './WeeklyPlanner';
+import WeeklyPlanner from './WeeklyPlanner';
 
 const Planning = () => {
   return (
@@ -8,7 +8,7 @@ const Planning = () => {
       </h2>
       {/* School period */}
       <h3 className='font-bold text-3xl'>Période scolaire</h3>
-      {/* <WeeklyPlanner /> */}
+      <WeeklyPlanner />
       <div className='overflow-scroll w-100dvh'>
         <table className='bg-white border-2 border-principal-color my-6 text-xs sm:text-base w-full'>
           <thead className='bg-principal-color text-white text-left'>

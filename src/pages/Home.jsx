@@ -20,19 +20,19 @@ const Home = () => {
       <main>
         <div className='flex flex-col gap-16 items-center justify-center mt-32 text-grey text-3xl lg:flex-row lg:gap-32'>
           <a
-            className='flex transform transition duration-500 hover:scale-125 hover:text-white'
+            className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
             onClick={() => goTo('/centre-equestre')}
           >
             <h2>Centre équestre</h2>
           </a>
           <a
-            className='flex transform transition duration-500 hover:scale-125 hover:text-white'
+            className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
             onClick={() => goTo('/pension')}
           >
             <h2>Pension</h2>
           </a>
           <a
-            className='flex transform transition duration-500 hover:scale-125 hover:text-white'
+            className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
             onClick={() => goTo('/elevage-de-freol')}
           >
             <h2>Élevage de Fréol</h2>
