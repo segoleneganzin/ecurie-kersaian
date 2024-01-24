@@ -1,52 +1,89 @@
-import {
-  getDocs,
-  doc,
-  updateDoc,
-  collection,
-  query,
-  setDoc,
-  deleteDoc,
-} from 'firebase/firestore';
+/* eslint-disable no-unused-vars */
+import { getDoc, doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
-const fetchSchoolTimeWeeklyPlannerApi = async (day) => {
+const fetchSchoolTimeWeeklyPlannerApi = async () => {
   try {
-    const dayCollectionQuery = query(
-      collection(db, 'schoolTimeWeeklyPlanner', 'weeklyPlanner', day)
+    const querySnapshot = await getDoc(
+      doc(db, 'schoolWeeklyPlanner', 'schedule')
     );
-    const dayCollectionSnapshot = await getDocs(dayCollectionQuery);
-    const formattedDatas = dayCollectionSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return formattedDatas;
+
+    return querySnapshot.data();
   } catch (error) {
     console.log(error);
   }
 };
 
-const updateTimeSlot = async (docId, datas, type) => {
+const addDays = async (datas) => {
   try {
-    await updateDoc(doc(db, 'skills', docId), datas);
-    sessionStorage.removeItem(`${type}skills`);
+    await setDoc(doc(db, 'schoolWeeklyPlanner', 'schedule'), datas);
+  } catch (error) {
+    console.log(error);
+  }
+};
+// ****** code pour créer automatiquement les données par défaut (à utiliser dans le fichier WeeklyPlanner)
+// const createDatas = () => {
+//   const days = [];
+//   daysOfWeek.forEach((day) => {
+//     const scheduleDatas = [];
+//     timeSlots.forEach((timeSlot) =>
+//       scheduleDatas.push({ timeSlot, available: true })
+//     );
+//     days.push({ day: day, schedule: scheduleDatas });
+//   });
+//   const datas = { days };
+//   addDays(datas);
+// };
+// createDatas();
+// ***************************************************************
+
+const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }) => {
+  try {
+    // Récupération les données existantes depuis Firebase
+    const docDatas = await fetchSchoolTimeWeeklyPlannerApi();
+    // Récupération le timeSlot spécifique que vous souhaitez mettre à jour
+    const targetTimeSlot = docDatas.days[dayIndex]['schedule'][timeSlotIndex];
+    // Mise à jour le timeSlot avec les nouvelles données
+    const updatedTimeSlot = {
+      ...targetTimeSlot,
+      ...datas,
+    };
+    // Mise à jour le timeSlot spécifique dans le tableau des jours
+    docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
+    await updateDoc(doc(db, 'schoolWeeklyPlanner', 'schedule'), docDatas);
   } catch (error) {
     console.log(error);
   }
 };
 
-const addTimeSlot = async (docId, datas, type) => {
+const removeTimeSlot = async (dayIndex, timeSlotIndex) => {
   try {
-    await setDoc(doc(db, 'skills', docId), datas);
-    sessionStorage.removeItem(`${type}skills`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const removeTimeSlot = async (docId, type) => {
-  try {
-    await deleteDoc(doc(db, 'skills', docId));
-    sessionStorage.removeItem(`${type}skills`);
+    // Récupération les données existantes depuis Firebase
+    const docDatas = await fetchSchoolTimeWeeklyPlannerApi();
+    // Récupération le timeSlot spécifique que vous souhaitez mettre à jour
+    const targetTimeSlot = docDatas.days[dayIndex]['schedule'][timeSlotIndex];
+    // Utilisez la déconstruction pour extraire les propriétés à conserver
+    const { available, timeSlot, ...remainingProperties } = targetTimeSlot;
+    const propertiesToRemove = [
+      'cellBg',
+      'duration',
+      'endTime',
+      'startTime',
+      'title',
+    ];
+    // Supprimez les propriétés spécifiées à partir des propriétés restantes
+    for (const propToRemove of propertiesToRemove) {
+      delete remainingProperties[propToRemove];
+    }
+    // Mise à jour le timeSlot avec les nouvelles données
+    const updatedTimeSlot = {
+      ...remainingProperties,
+      timeSlot: targetTimeSlot.timeSlot,
+      available: true,
+    };
+    // Mise à jour le timeSlot spécifique dans le tableau des jours
+    docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
+    await updateDoc(doc(db, 'schoolWeeklyPlanner', 'schedule'), docDatas);
   } catch (error) {
     console.log(error);
   }
@@ -55,6 +92,6 @@ const removeTimeSlot = async (docId, type) => {
 export {
   fetchSchoolTimeWeeklyPlannerApi,
   updateTimeSlot,
-  addTimeSlot,
+  addDays,
   removeTimeSlot,
 };

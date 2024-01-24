@@ -2,7 +2,11 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSchoolTimeWeeklyPlannerApi } from '../api/SchoolTimeWeeklyPlannerApi';
+import {
+  fetchSchoolTimeWeeklyPlannerApi,
+  removeTimeSlot,
+  updateTimeSlot,
+} from '../api/SchoolTimeWeeklyPlannerApi';
 
 // import WeeklyPlannerModal from './WeeklyPlannerModal';
 
@@ -68,18 +72,12 @@ const timeSlots = [
   '20h00',
 ];
 
-const days = [
-  'monday',
-  'tuesday',
-  'wednesday',
-  'thursday',
-  'friday',
-  'saturday',
-  'sunday',
-];
-
 const WeeklyPlanner = ({ editable = false, onSave }) => {
+  // const [schedule, setSchedule] = useState(initialSchedule);
   const [schedule, setSchedule] = useState(initialSchedule);
+  // console.log(schedule);
+  // console.log(scheduleTest.days);
+
   // const [schedule, setSchedule] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [state, setState] = useState({
@@ -94,18 +92,14 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
   });
   const [deleteButton, setDeleteButton] = useState(null);
 
-  // const fetchPlanning = () => {
-  //   const planning = [];
-  //   days.forEach((day) => {
-  //     planning.push(fetchSchoolTimeWeeklyPlannerApi(day));
-  //   });
-  //   return planning;
-  // };
-  // // Fetch initial schedule from Firestore
-  // useEffect(() => {
-  //   const initialSchedule = fetchPlanning();
-  //   setSchedule(initialSchedule);
-  // }, []);
+  const fetchPlanning = async () => {
+    const datas = await fetchSchoolTimeWeeklyPlannerApi();
+    setSchedule(datas.days);
+  };
+  // Fetch initial schedule from Firestore
+  useEffect(() => {
+    fetchPlanning();
+  }, []);
 
   const openModal = (day, timeSlot) => {
     if (!editable) return;
@@ -115,7 +109,7 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
     );
     if (!selectedTimeSlot.available) {
       setState({
-        day,
+        day: day,
         timeSlot: selectedTimeSlot.startTime,
         available: false,
         duration: selectedTimeSlot.duration,
@@ -140,6 +134,7 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
       );
       setModalOpen(true);
     } else {
+      setDeleteButton('');
       reset({
         duration: 60,
         title: 'test',
@@ -169,102 +164,85 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
     });
   };
 
-  const addTimeSlot = () => {
+  const addTimeSlot = async () => {
     if (!editable) return;
     try {
-      // Logique pour ajouter le nouveau créneau à l'état du planning
-      const updatedSchedule = [...schedule];
-      const selectedDay = updatedSchedule.find(
-        (item) => item.day === state.day
-      );
-      const timeSlotIndex = selectedDay.schedule.findIndex(
-        (item) => item.timeSlot === state.timeSlot
-      );
+      const selectedDay = schedule.find((item) => item.day === state.day);
+      const dayIndex = daysOfWeek.findIndex((item) => item === state.day);
       const timeSlot = selectedDay.schedule.find(
         (item) => item.timeSlot === state.timeSlot
       );
-      if (timeSlot.available) {
-        // TODO verifier que le créneau ne dépasse pas sur un autre déjà créé (message alerte 'attention vous dépasser sur un creneau deja défini)
-        const inputDuration = getValues('duration');
-        const inputTitle = getValues('title');
-        const inputCellBg = getValues('cellBg');
-        // Récupérer l'heure de début et l'heure de fin
-        setState({
+      console.log(timeSlot);
+      const timeSlotIndex = selectedDay.schedule.findIndex(
+        (item) => item.timeSlot === state.timeSlot
+      );
+      const inputDuration = getValues('duration');
+      const inputTitle = getValues('title');
+      const inputCellBg = getValues('cellBg');
+      setState({
+        duration: inputDuration,
+        title: inputTitle,
+        cellBg: inputCellBg,
+      });
+      const numberOfSlots = inputDuration / 15; // 15 minutes par case
+      const TimeSlotsLength = timeSlotIndex + numberOfSlots;
+      const startTime = timeSlot.timeSlot;
+      const endTime =
+        timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
+      if (!timeSlot.available) {
+        console.log(state.day + ' ' + timeSlot.startTime);
+        // gestion de la réduction du temps
+        await deleteTimeSlot(state.day, timeSlot.startTime);
+      }
+      for (let i = timeSlotIndex; i < TimeSlotsLength; i++) {
+        const datas = {
+          timeSlot: timeSlots[i],
+          available: false,
           duration: inputDuration,
           title: inputTitle,
           cellBg: inputCellBg,
-        });
-        const startTime = timeSlot.timeSlot;
-        const endTime =
-          timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
-        const numberOfSlots = inputDuration / 15; // 15 minutes par case
-
-        const slotsToAdd = Array.from({ length: numberOfSlots }).map(
-          (_, index) => ({
-            timeSlot: timeSlots[timeSlots.indexOf(state.timeSlot) + index],
-            available: false,
-            duration: inputDuration,
-            title: inputTitle,
-            cellBg: inputCellBg,
-            startTime: startTime,
-            endTime: endTime,
-          })
-        );
-        selectedDay.schedule.splice(timeSlotIndex, 1, ...slotsToAdd);
-        // Sauvegarder le planning mis à jour
-        setSchedule(updatedSchedule);
-        onSave(updatedSchedule);
-        // Fermer la modale
-        closeModal();
-      } else {
-        console.log('coucou');
-        // console.log(selectedDay, timeSlot.startTime, updatedSchedule);
-        // editTimeSlot(selectedDay, timeSlot.startTime, updatedSchedule);
+          startTime: startTime,
+          endTime: endTime,
+        };
+        await updateTimeSlot(dayIndex, i, { datas });
       }
+      // Recharger le planning
+      fetchPlanning();
+      // Fermer la modale
+      closeModal();
     } catch (error) {
       console.log('Error getting cached document:', error);
     }
   };
 
-  const deleteTimeSlot = (day, startTime, schedule) => {
+  const deleteTimeSlot = async (day, startTime) => {
     if (!editable) return;
     try {
-      const updatedSchedule = [...schedule];
-      const selectedDay = updatedSchedule.find((item) => item.day === day);
-      console.log(selectedDay);
-      const selectedTimeSlot = selectedDay.schedule.find(
+      console.log(schedule);
+      const selectedDay = schedule.find((item) => item.day === day);
+      const dayIndex = daysOfWeek.findIndex((item) => item === day);
+      const startTimeSlotIndex = selectedDay.schedule.findIndex(
+        (item) => item.timeSlot === startTime
+      );
+      const timeSlot = selectedDay['schedule'].find(
         (item) => item.startTime === startTime
       );
-      const timeSlotIndexStart = selectedDay.schedule.findIndex(
-        (item) => item.startTime === startTime
-      );
-      const timeSlotNumberCell = selectedTimeSlot.duration / 15;
-      // Vérifier si le créneau existe avant de le supprimer
-      if (timeSlotIndexStart !== -1) {
-        const cellToAvailable = [];
-        for (
-          let i = timeSlotIndexStart;
-          i <= timeSlotIndexStart + timeSlotNumberCell;
-          i++
-        ) {
-          cellToAvailable.push(i);
-        }
-        for (const cell of cellToAvailable) {
-          selectedDay.schedule[cell].available = true;
-        }
-        // Mettre à jour l'état du planning
-        setSchedule(updatedSchedule);
-        onSave(updatedSchedule);
-        closeModal();
+      const numberOfSlots = timeSlot.duration / 15; // 15 minutes par case
+      const TimeSlotsLength = startTimeSlotIndex + numberOfSlots;
+      for (let i = startTimeSlotIndex; i < TimeSlotsLength; i++) {
+        const datas = {
+          timeSlot: timeSlots[i],
+          available: true,
+        };
+        await removeTimeSlot(dayIndex, i);
       }
+      // Recharger le planning
+      fetchPlanning();
+      // Fermer la modale
+      closeModal();
     } catch (error) {
       console.log('Error getting cached document:', error);
     }
-  };
-
-  const editTimeSlot = (day, startTime, schedule) => {
-    deleteTimeSlot(day, startTime, schedule);
-    addTimeSlot();
   };
 
   //********************************************** manage error into modal form
@@ -283,14 +261,6 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
     },
   });
 
-  // useForm({
-  //   defaultValues: {
-  //     duration: 60,
-  //     title: 'test',
-  //     cellBg: '#000000',
-  //   },
-  // });
-
   const inputErrorClass = {
     duration: errors.duration ? 'border border-red-300' : 'border border-black',
     title: errors.title ? 'border border-red-300' : 'border border-black',
@@ -305,72 +275,76 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
   return (
     <div>
       <h3>Weekly Planner</h3>
-      <table className='border border-principal-color'>
-        <thead className='h-16 bg-principal-color text-white'>
-          <tr>
-            <th>Time</th>
-            {daysOfWeek.map((day) => (
-              <th key={day} className='min-w-36'>
-                {day}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {timeSlots.map((timeSlot) => (
-            <tr key={timeSlot} className='h-10'>
-              <td
-                className={
-                  'align-top pl-2 pr-2 text-right leading-4' +
-                  (timeSlot.endsWith('h00')
-                    ? 'font-bold align-top pl-2 pr-2 text-right'
-                    : '')
-                }
-              >
-                {timeSlot}
-              </td>
-              {daysOfWeek.map((day) => {
-                const scheduleItem = schedule
-                  .find((item) => item.day === day)
-                  .schedule.find((item) => item.timeSlot === timeSlot);
-                return (
+      <div className='overflow-x-auto p-6'>
+        <div className='max-h-500px overflow-scroll m-0 rounded-lg max-w-screen-sm md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl'>
+          <table className='rounded-lg'>
+            <thead className='h-16 bg-principal-color text-white sticky top-0 z-20'>
+              <tr>
+                <th></th>
+                {daysOfWeek.map((day) => (
+                  <th key={day} className='min-w-36'>
+                    {day}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {timeSlots.map((timeSlot) => (
+                <tr key={timeSlot} className='h-10 left-0'>
                   <td
-                    key={`${day}-${timeSlot}`}
                     className={
-                      scheduleItem.available
-                        ? `border border-black bg-lime-200 h-fit`
-                        : `border-l border-black text-white h-fit`
+                      'align-top bg-principal-color text-white pl-2 pr-2 text-right leading-4 left-0 sticky z-10'
                     }
-                    style={{
-                      backgroundColor: scheduleItem.available
-                        ? ''
-                        : scheduleItem.cellBg,
-                    }}
-                    onClick={() => (editable ? openModal(day, timeSlot) : '')}
                   >
-                    {!scheduleItem.available ? (
-                      <div className='text-center p-0 m-0'>
-                        {timeSlot === scheduleItem.startTime ? (
-                          <p className='text-center p-0 m-0 flex flex-col'>
-                            <span>
-                              {scheduleItem.startTime}/{scheduleItem.endTime}
-                            </span>
-                            <span>{scheduleItem.title}</span>
-                          </p>
+                    {timeSlot}
+                  </td>
+                  {daysOfWeek.map((day) => {
+                    const scheduleItem = schedule
+                      .find((item) => item.day === day)
+                      .schedule.find((item) => item.timeSlot === timeSlot);
+                    return (
+                      <td
+                        key={`${day}-${timeSlot}`}
+                        className={
+                          scheduleItem.available
+                            ? `border-t border-black bg-lime-200 h-fit`
+                            : `border-t-0 border-black text-white h-fit`
+                        }
+                        style={{
+                          backgroundColor: scheduleItem.available
+                            ? ''
+                            : scheduleItem.cellBg,
+                        }}
+                        onClick={() =>
+                          editable ? openModal(day, timeSlot) : ''
+                        }
+                      >
+                        {!scheduleItem.available ? (
+                          <div className='text-center p-0 m-0'>
+                            {timeSlot === scheduleItem.startTime ? (
+                              <p className='text-center p-0 m-0 flex flex-col'>
+                                <span>
+                                  {scheduleItem.startTime}/
+                                  {scheduleItem.endTime}
+                                </span>
+                                <span>{scheduleItem.title}</span>
+                              </p>
+                            ) : (
+                              ''
+                            )}
+                          </div>
                         ) : (
                           ''
                         )}
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
       {/* Modale pour ajouter un nouveau créneau */}
       {isModalOpen ? (
         <div className='fixed inset-0 z-10 overflow-y-auto'>
@@ -537,6 +511,7 @@ const initialSchedule = daysOfWeek.map((day) => ({
   day,
   schedule: timeSlots.map((timeSlot) => ({ timeSlot, available: true })),
 }));
+
 WeeklyPlanner.propTypes = {
   editable: PropTypes.bool,
   onSave: PropTypes.func,
