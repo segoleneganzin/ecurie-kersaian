@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { fetchSchoolTimeWeeklyPlannerApi } from '../api/SchoolTimeWeeklyPlannerApi';
+
 // import WeeklyPlannerModal from './WeeklyPlannerModal';
 
 const daysOfWeek = [
@@ -64,12 +68,23 @@ const timeSlots = [
   '20h00',
 ];
 
+const days = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
+];
+
 const WeeklyPlanner = ({ editable = false, onSave }) => {
   const [schedule, setSchedule] = useState(initialSchedule);
+  // const [schedule, setSchedule] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [newTimeSlot, setNewTimeSlot] = useState({
+  const [state, setState] = useState({
     day: null,
-    time: null,
+    timeSlot: null,
     available: true,
     duration: 60,
     title: null,
@@ -77,27 +92,63 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
     endTime: null,
     cellBg: null,
   });
+  const [deleteButton, setDeleteButton] = useState(null);
 
-  const openModal = (day, time) => {
+  // const fetchPlanning = () => {
+  //   const planning = [];
+  //   days.forEach((day) => {
+  //     planning.push(fetchSchoolTimeWeeklyPlannerApi(day));
+  //   });
+  //   return planning;
+  // };
+  // // Fetch initial schedule from Firestore
+  // useEffect(() => {
+  //   const initialSchedule = fetchPlanning();
+  //   setSchedule(initialSchedule);
+  // }, []);
+
+  const openModal = (day, timeSlot) => {
     if (!editable) return;
     const selectedDay = schedule.find((item) => item.day === day);
-
     const selectedTimeSlot = selectedDay.schedule.find(
-      (item) => item.timeSlot === time
+      (item) => item.timeSlot === timeSlot
     );
     if (!selectedTimeSlot.available) {
-      console.log(selectedTimeSlot);
-      alert('créneau déjà occupé');
-    } else {
-      setNewTimeSlot({
+      setState({
         day,
-        time,
-        available: true,
-        duration: 60, // Valeur par défaut
-        title: null, // Valeur par défaut
-        startTime: time, // Heure de début par défaut
-        endTime: null, // Heure de fin initialisée à null
-        cellBg: null,
+        timeSlot: selectedTimeSlot.startTime,
+        available: false,
+        duration: selectedTimeSlot.duration,
+        title: selectedTimeSlot.title,
+        startTime: selectedTimeSlot.startTime,
+        endTime: selectedTimeSlot.endTime,
+        cellBg: selectedTimeSlot.cellBg,
+      });
+      setValue('duration', selectedTimeSlot.duration);
+      setValue('title', selectedTimeSlot.title);
+      setValue('cellBg', selectedTimeSlot.cellBg);
+      setDeleteButton(
+        <button
+          onClick={() =>
+            deleteTimeSlot(day, selectedTimeSlot.startTime, schedule)
+          }
+          type='button'
+          className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'
+        >
+          Supprimer
+        </button>
+      );
+      setModalOpen(true);
+    } else {
+      reset({
+        duration: 60,
+        title: 'test',
+        cellBg: '#000000',
+      });
+      setState({
+        day,
+        timeSlot,
+        startTime: timeSlot,
       });
       setModalOpen(true);
     }
@@ -105,88 +156,150 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
 
   const closeModal = () => {
     setModalOpen(false);
-    setNewTimeSlot({
+    // reset values
+    setState({
       day: null,
-      time: null,
+      timeSlot: null,
       available: true,
       duration: 60,
-      title: null, // Valeur par défaut
-      startTime: null, // Heure de début par défaut
-      endTime: null, // Heure de fin initialisée à null
+      title: null,
+      startTime: null,
+      endTime: null,
       cellBg: null,
     });
   };
 
   const addTimeSlot = () => {
     if (!editable) return;
-    // Logique pour ajouter le nouveau créneau à l'état du planning
-    const updatedSchedule = [...schedule];
-    const selectedDay = updatedSchedule.find(
-      (item) => item.day === newTimeSlot.day
-    );
-    const timeSlotIndex = selectedDay.schedule.findIndex(
-      (item) => item.timeSlot === newTimeSlot.time
-    );
-    const durationInSlots = newTimeSlot.duration / 15 + 1; // 15 minutes par case
+    try {
+      // Logique pour ajouter le nouveau créneau à l'état du planning
+      const updatedSchedule = [...schedule];
+      const selectedDay = updatedSchedule.find(
+        (item) => item.day === state.day
+      );
+      const timeSlotIndex = selectedDay.schedule.findIndex(
+        (item) => item.timeSlot === state.timeSlot
+      );
+      const timeSlot = selectedDay.schedule.find(
+        (item) => item.timeSlot === state.timeSlot
+      );
+      if (timeSlot.available) {
+        // TODO verifier que le créneau ne dépasse pas sur un autre déjà créé (message alerte 'attention vous dépasser sur un creneau deja défini)
+        const inputDuration = getValues('duration');
+        const inputTitle = getValues('title');
+        const inputCellBg = getValues('cellBg');
+        // Récupérer l'heure de début et l'heure de fin
+        setState({
+          duration: inputDuration,
+          title: inputTitle,
+          cellBg: inputCellBg,
+        });
+        const startTime = timeSlot.timeSlot;
+        const endTime =
+          timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
+        const numberOfSlots = inputDuration / 15; // 15 minutes par case
 
-    // Récupérer l'heure de début et l'heure de fin
-    const startTime = newTimeSlot.time;
-    const endTime =
-      timeSlots[timeSlots.indexOf(startTime) + newTimeSlot.duration / 15];
-    const slotsToAdd = Array.from({ length: durationInSlots }).map(
-      (_, index) => ({
-        timeSlot: timeSlots[timeSlots.indexOf(newTimeSlot.time) + index],
-        available: false,
-        duration: newTimeSlot.duration,
-        // title: index === 0 ? newTimeSlot.title : '',
-        title: newTimeSlot.title,
-        startTime: startTime,
-        endTime: endTime,
-        cellBg: newTimeSlot.cellBg,
-      })
-    );
-
-    selectedDay.schedule.splice(timeSlotIndex, 1, ...slotsToAdd);
-
-    // Sauvegarder le planning mis à jour
-    setSchedule(updatedSchedule);
-    onSave(updatedSchedule);
-
-    // Fermer la modale
-    closeModal();
+        const slotsToAdd = Array.from({ length: numberOfSlots }).map(
+          (_, index) => ({
+            timeSlot: timeSlots[timeSlots.indexOf(state.timeSlot) + index],
+            available: false,
+            duration: inputDuration,
+            title: inputTitle,
+            cellBg: inputCellBg,
+            startTime: startTime,
+            endTime: endTime,
+          })
+        );
+        selectedDay.schedule.splice(timeSlotIndex, 1, ...slotsToAdd);
+        // Sauvegarder le planning mis à jour
+        setSchedule(updatedSchedule);
+        onSave(updatedSchedule);
+        // Fermer la modale
+        closeModal();
+      } else {
+        console.log('coucou');
+        // console.log(selectedDay, timeSlot.startTime, updatedSchedule);
+        // editTimeSlot(selectedDay, timeSlot.startTime, updatedSchedule);
+      }
+    } catch (error) {
+      console.log('Error getting cached document:', error);
+    }
   };
 
   const deleteTimeSlot = (day, startTime, schedule) => {
     if (!editable) return;
-    const updatedSchedule = [...schedule];
-    const selectedDay = updatedSchedule.find((item) => item.day === day);
-    console.log(selectedDay);
-    const selectedTimeSlot = selectedDay.schedule.find(
-      (item) => item.startTime === startTime
-    );
-    const timeSlotIndexStart = selectedDay.schedule.findIndex(
-      (item) => item.startTime === startTime
-    );
-    const timeSlotNumberCell = selectedTimeSlot.duration / 15;
-    // Vérifier si le créneau existe avant de le supprimer
-    if (timeSlotIndexStart !== -1) {
-      const cellToAvailable = [];
-      for (
-        let i = timeSlotIndexStart;
-        i <= timeSlotIndexStart + timeSlotNumberCell;
-        i++
-      ) {
-        cellToAvailable.push(i);
+    try {
+      const updatedSchedule = [...schedule];
+      const selectedDay = updatedSchedule.find((item) => item.day === day);
+      console.log(selectedDay);
+      const selectedTimeSlot = selectedDay.schedule.find(
+        (item) => item.startTime === startTime
+      );
+      const timeSlotIndexStart = selectedDay.schedule.findIndex(
+        (item) => item.startTime === startTime
+      );
+      const timeSlotNumberCell = selectedTimeSlot.duration / 15;
+      // Vérifier si le créneau existe avant de le supprimer
+      if (timeSlotIndexStart !== -1) {
+        const cellToAvailable = [];
+        for (
+          let i = timeSlotIndexStart;
+          i <= timeSlotIndexStart + timeSlotNumberCell;
+          i++
+        ) {
+          cellToAvailable.push(i);
+        }
+        for (const cell of cellToAvailable) {
+          selectedDay.schedule[cell].available = true;
+        }
+        // Mettre à jour l'état du planning
+        setSchedule(updatedSchedule);
+        onSave(updatedSchedule);
+        closeModal();
       }
-      console.log(cellToAvailable);
-      for (const cell of cellToAvailable) {
-        selectedDay.schedule[cell].available = true;
-      }
-      // Mettre à jour l'état du planning
-      setSchedule(updatedSchedule);
-      onSave(updatedSchedule);
-      closeModal();
+    } catch (error) {
+      console.log('Error getting cached document:', error);
     }
+  };
+
+  const editTimeSlot = (day, startTime, schedule) => {
+    deleteTimeSlot(day, startTime, schedule);
+    addTimeSlot();
+  };
+
+  //********************************************** manage error into modal form
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      duration: 60,
+      title: 'test',
+      cellBg: '#000000',
+    },
+  });
+
+  // useForm({
+  //   defaultValues: {
+  //     duration: 60,
+  //     title: 'test',
+  //     cellBg: '#000000',
+  //   },
+  // });
+
+  const inputErrorClass = {
+    duration: errors.duration ? 'border border-red-300' : 'border border-black',
+    title: errors.title ? 'border border-red-300' : 'border border-black',
+    cellBg: errors.cellBg ? 'border border-red-300' : 'border border-black',
+  };
+  const inputErrorMessage = {
+    duration: errors.duration ? 'Veuillez renseigner une durée' : '',
+    title: errors.title ? 'Veuillez renseigner un intitulé' : '',
+    cellBg: errors.cellBg ? 'Veuillez renseigner une couleur de fond' : '',
   };
 
   return (
@@ -205,8 +318,17 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
         </thead>
         <tbody>
           {timeSlots.map((timeSlot) => (
-            <tr key={timeSlot}>
-              <td className='p-2'>{timeSlot}</td>
+            <tr key={timeSlot} className='h-10'>
+              <td
+                className={
+                  'align-top pl-2 pr-2 text-right leading-4' +
+                  (timeSlot.endsWith('h00')
+                    ? 'font-bold align-top pl-2 pr-2 text-right'
+                    : '')
+                }
+              >
+                {timeSlot}
+              </td>
               {daysOfWeek.map((day) => {
                 const scheduleItem = schedule
                   .find((item) => item.day === day)
@@ -226,24 +348,19 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
                     }}
                     onClick={() => (editable ? openModal(day, timeSlot) : '')}
                   >
-                    {!scheduleItem.available &&
-                    (scheduleItem.startTime ||
-                      scheduleItem.title ||
-                      scheduleItem.endTime) ? (
-                      <p className='text-center p-0 m-0'>
+                    {!scheduleItem.available ? (
+                      <div className='text-center p-0 m-0'>
                         {timeSlot === scheduleItem.startTime ? (
-                          <p className='text-center p-0 m-0 flex flex-col gap-6'>
-                            <span>{scheduleItem.startTime}</span>{' '}
+                          <p className='text-center p-0 m-0 flex flex-col'>
+                            <span>
+                              {scheduleItem.startTime}/{scheduleItem.endTime}
+                            </span>
                             <span>{scheduleItem.title}</span>
                           </p>
                         ) : (
                           ''
                         )}
-                        <br />
-                        {timeSlot === scheduleItem.endTime
-                          ? scheduleItem.endTime
-                          : ''}
-                      </p>
+                      </div>
                     ) : (
                       ''
                     )}
@@ -301,38 +418,56 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
                       className='text-lg leading-6 font-medium text-gray-900'
                       id='modal-title'
                     >
-                      Ajouter un créneau
+                      Ajouter ou modifier un créneau
                     </h3>
-                    <form className='mt-2'>
-                      <label>Jour:</label>
-                      <p>{newTimeSlot.day}</p>
-                      <label>Heure:</label>
-                      <p>{newTimeSlot.time}</p>
-                      <label htmlFor='duration'>Durée (minutes):</label>
+                    <form
+                      onSubmit={handleSubmit(addTimeSlot)}
+                      className='mt-2'
+                      noValidate
+                    >
+                      {/* day */}
+                      <p>Jour : {state.day}</p>
+                      {/* timeStart */}
+                      <p>Heure de début : {state.timeSlot}</p>
+                      {/* duration */}
+                      <label
+                        className='block mb-2 text-lg font-bold'
+                        htmlFor='duration'
+                      >
+                        Durée (tranche de 15 minutes):
+                      </label>
                       <input
-                        type='number'
                         id='duration'
-                        value={newTimeSlot.duration}
-                        onChange={(e) =>
-                          setNewTimeSlot({
-                            ...newTimeSlot,
-                            duration: e.target.value,
-                          })
-                        }
+                        name='duration'
+                        type='number'
+                        className={inputErrorClass.duration}
+                        {...register('duration', { required: true })}
                       />
-                      <label htmlFor='title'>Intitulé :</label>
+                      {errors.duration && (
+                        <span className='text-red-800'>
+                          {inputErrorMessage.duration}
+                        </span>
+                      )}
+                      {/* title */}
+                      <label
+                        className='block mb-2 text-lg font-bold'
+                        htmlFor='title'
+                      >
+                        Intitulé :
+                      </label>
                       <input
-                        type='text'
                         id='title'
-                        value={newTimeSlot.title}
-                        onChange={(e) =>
-                          setNewTimeSlot({
-                            ...newTimeSlot,
-                            title: e.target.value,
-                          })
-                        }
+                        name='title'
+                        type='text'
+                        className={inputErrorClass.title}
+                        {...register('title', { required: true })}
                       />
-                      {/* couleur */}
+                      {errors.title && (
+                        <span className='text-red-800'>
+                          {inputErrorMessage.title}
+                        </span>
+                      )}
+                      {/* cell bg color */}
                       <label
                         className='block mb-2 text-lg font-bold'
                         htmlFor='cellBg'
@@ -340,47 +475,40 @@ const WeeklyPlanner = ({ editable = false, onSave }) => {
                         Choisissez une couleur de fond :
                       </label>
                       <input
-                        type='color'
                         id='cellBg'
-                        className='p-2 border border-gray-300 rounded'
-                        value={newTimeSlot.cellBg}
-                        onChange={(e) =>
-                          setNewTimeSlot({
-                            ...newTimeSlot,
-                            cellBg: e.target.value,
-                          })
-                        }
+                        name='cellBg'
+                        type='color'
+                        className={inputErrorClass.cellBg}
+                        {...register('cellBg', { required: true })}
                       />
+                      {errors.cellBg && (
+                        <span className='text-red-800'>
+                          {inputErrorMessage.cellBg}
+                        </span>
+                      )}
+                      <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+                        <span className='mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto'>
+                          <button className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'>
+                            Valider
+                          </button>
+                        </span>
+                      </div>
                     </form>
                   </div>
                 </div>
               </div>
               <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
                 <span className='mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto'>
-                  <button
-                    onClick={addTimeSlot}
-                    type='button'
-                    className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'
-                  >
-                    Valider
-                  </button>
-                </span>
-              </div>
-              <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
-                <span className='mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto'>
-                  <button
+                  {/* <button
                     onClick={() =>
-                      deleteTimeSlot(
-                        newTimeSlot.day,
-                        newTimeSlot.startTime,
-                        schedule
-                      )
+                      deleteTimeSlot(state.day, state.startTime, schedule)
                     }
                     type='button'
                     className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'
                   >
                     Supprimer
-                  </button>
+                  </button> */}
+                  {deleteButton}
                 </span>
               </div>
               <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
