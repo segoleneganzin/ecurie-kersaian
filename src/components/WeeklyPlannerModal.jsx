@@ -158,7 +158,6 @@ const WeeklyPlannerModal = ({
       const endTime =
         timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
       if (!timeSlot.available) {
-        console.log(state.day + ' ' + timeSlot.startTime);
         // gestion de la réduction du temps
         await deleteTimeSlot(state.day, timeSlot.startTime);
       }

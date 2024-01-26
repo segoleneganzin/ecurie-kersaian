@@ -109,7 +109,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     const datas = await fetchWeeklyPlanner(period);
     setSchedule(datas.days);
   };
-  // Fetch initial schedule from Firestore
   useEffect(() => {
     fetchPlanning();
     // eslint-disable-next-line react-hooks/exhaustive-deps

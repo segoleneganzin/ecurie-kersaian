@@ -1,10 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { fetchPricesByCategory } from '../api/PricesApi';
 import AdminPricesModal from './AdminPricesModal';
+import { useEffect } from 'react';
+import GeneralPrices from './GeneralPrices';
 
 const EquestrianCenterPrices = ({ editable = false }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [state, setState] = useState({
+    equestrianCenterPrices: null,
+    pensionPrices: null,
+  });
+
+  const getPrices = async () => {
+    const equestrianCenterPricesDb = await fetchPricesByCategory(
+      'equestrianCenter'
+    );
+    const pensionPricesDb = await fetchPricesByCategory('pension');
+    setState({
+      equestrianCenterPrices: equestrianCenterPricesDb,
+      pensionPrices: pensionPricesDb,
+    });
+  };
+
+  useEffect(() => {
+    getPrices();
+  }, []);
 
   // eslint-disable-next-line no-unused-vars
   const openModal = () => {
@@ -18,21 +40,20 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       </h2>
       <h3 className='font-bold text-2xl'>Saison 2023/2024</h3>
 
-      <ul className='py-4'>
-        <li className='text-sm'>
-          <span className='font-bold text-xl'>Cotisation annuelle :</span> 40€
-        </li>
-        <li className='text-sm'>
-          <span className='font-bold text-xl'>Licence annuelle FFE :</span>
-          <ul>
-            <li>- de 18 ans : 25€</li>
-            <li>+ de 18 ans : 36€</li>
-          </ul>
-        </li>
-      </ul>
+      <GeneralPrices editable={editable} />
+
       {/* Forfaits */}
       <div className='py-4'>
-        {editable ? <button onClick={openModal}>Modifier</button> : ''}
+        {editable ? (
+          <button
+            onClick={openModal}
+            className='bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit'
+          >
+            Modifier
+          </button>
+        ) : (
+          ''
+        )}
 
         <h4 className='font-bold text-xl'>
           Forfaits "tout compris" (Adhésion + licence + cours)
@@ -59,17 +80,37 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               <th className='py-2 px-4 border border-principal-color'>
                 1h/semaine
               </th>
-              <td className='py-2 px-4 border border-principal-color'>455€</td>
-              <td className='py-2 px-4 border border-principal-color'>525€</td>
-              <td className='py-2 px-4 border border-principal-color'>543€</td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['oneHourWeekly']['baby']}
+                €
+              </td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['oneHourWeekly']['under18']}
+                €
+              </td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['oneHourWeekly']['over18']}
+                €
+              </td>
             </tr>
             <tr className='h-16 text-left'>
               <th className='py-2 px-4 border border-principal-color'>
                 2h/semaine
               </th>
               <td className='py-2 px-4 bg-principal-color border border-principal-color'></td>
-              <td className='py-2 px-4 border border-principal-color'>980€</td>
-              <td className='py-2 px-4 border border-principal-color'>1015€</td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['twoHoursWeekly']['under18']}
+                €
+              </td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['twoHoursWeekly']['over18']}
+                €
+              </td>
             </tr>
           </tbody>
         </table>
@@ -100,13 +141,21 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               <th className='py-2 px-4 border border-principal-color'>
                 5 heures
               </th>
-              <td className='py-2 px-4  border border-principal-color'>85€</td>
+              <td className='py-2 px-4  border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['cardGroupLessons']['fiveHours']}
+                €
+              </td>
             </tr>
             <tr className='h-16 text-left'>
               <th className='py-2 px-4 border border-principal-color'>
                 10 heures
               </th>
-              <td className='py-2 px-4  border border-principal-color'>160€</td>
+              <td className='py-2 px-4  border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['cardGroupLessons']['tenHours']}
+                €
+              </td>
             </tr>
             <tr className='h-16 text-left'>
               <th
@@ -120,13 +169,25 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               <th className='py-2 px-4 border border-principal-color'>
                 5 cours club
               </th>
-              <td className='py-2 px-4  border border-principal-color'>145€</td>
+              <td className='py-2 px-4  border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['cardPrivatesLessons'][
+                    'fiveClubLessons'
+                  ]}
+                €
+              </td>
             </tr>
             <tr className='h-16'>
               <th className='py-2 px-4 border border-principal-color'>
                 5 cours propriétaire
               </th>
-              <td className='py-2 px-4  border border-principal-color'>135€</td>
+              <td className='py-2 px-4  border border-principal-color'>
+                {state.equestrianCenterPrices &&
+                  state.equestrianCenterPrices['cardPrivatesLessons'][
+                    'fiveOwnerLessons'
+                  ]}
+                €
+              </td>
             </tr>
           </tbody>
         </table>
@@ -158,18 +219,30 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 Tiers de pension
               </th>
               <td className='py-2 px-4 border border-principal-color'>
-                1 cours par semaine + 1 monte libre
+                {state.pensionPrices &&
+                  state.pensionPrices['thirdPartPension']['description']}
               </td>
-              <td className='py-2 px-4 border border-principal-color'>100€</td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {' '}
+                {state.pensionPrices &&
+                  state.pensionPrices['thirdPartPension']['price']}
+                €
+              </td>
             </tr>
             <tr className='h-16 text-left'>
               <th className='py-2 px-4 border border-principal-color'>
                 Demi pension
               </th>
               <td className='py-2 px-4 border border-principal-color'>
-                1 cours par semaine + 2 montes libres
+                {state.pensionPrices &&
+                  state.pensionPrices['halfPension']['description']}
               </td>
-              <td className='py-2 px-4 border border-principal-color'>150€</td>
+              <td className='py-2 px-4 border border-principal-color'>
+                {' '}
+                {state.pensionPrices &&
+                  state.pensionPrices['halfPension']['price']}
+                €
+              </td>
             </tr>
           </tbody>
         </table>
@@ -178,6 +251,10 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         <AdminPricesModal
           setModalOpen={setModalOpen}
           type={'equestrianCenter'}
+          generalPrices={state.generalPrices}
+          equestrianCenterPrices={state.equestrianCenterPrices}
+          pensionPrices={state.pensionPrices}
+          getPrices={getPrices}
         />
       ) : (
         ''
