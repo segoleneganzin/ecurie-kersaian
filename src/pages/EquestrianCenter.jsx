@@ -97,8 +97,13 @@ const EquestrianCenter = () => {
           </ul>
         </div>
         {/* ***************************************PLANNING */}
-        {/* <Planning /> */}
-        <WeeklyPlanner />
+        <div className='p-4 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+            Le planning
+          </h2>
+          <WeeklyPlanner period={'school'} />
+          <WeeklyPlanner period={'holiday'} />
+        </div>
         {/* ***************************************TARIFS */}
         <EquestrianCenterPrices />
         {/* ***************************************CONTACT */}

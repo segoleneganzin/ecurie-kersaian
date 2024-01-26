@@ -30,12 +30,12 @@ const Home = () => {
           >
             <h2>Pension</h2>
           </a>
-          <a
+          {/* <a
             className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
             onClick={() => goTo('/elevage-de-freol')}
           >
             <h2>Élevage de Fréol</h2>
-          </a>
+          </a> */}
         </div>
       </main>
     </div>

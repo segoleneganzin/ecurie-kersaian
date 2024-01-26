@@ -8,10 +8,10 @@ import { db } from '../firebase-config';
  * @function
  * @returns {Promise<Object>} - Les données du planning hebdomadaire.
  */
-const fetchSchoolTimeWeeklyPlannerApi = async () => {
+const fetchWeeklyPlanner = async (period) => {
   try {
     const querySnapshot = await getDoc(
-      doc(db, 'schoolWeeklyPlanner', 'schedule')
+      doc(db, `${period}WeeklyPlanner`, 'schedule')
     );
     return querySnapshot.data();
   } catch (error) {
@@ -26,9 +26,9 @@ const fetchSchoolTimeWeeklyPlannerApi = async () => {
  * @function
  * @param {Object} datas - Les données des jours à ajouter.
  */
-const addDays = async (datas) => {
+const addDays = async (datas, period) => {
   try {
-    await setDoc(doc(db, 'schoolWeeklyPlanner', 'schedule'), datas);
+    await setDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), datas);
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +44,7 @@ const addDays = async (datas) => {
 //     days.push({ day: day, schedule: scheduleDatas });
 //   });
 //   const datas = { days };
-//   addDays(datas);
+//   addDays(datas, period);
 // };
 // createDatas();
 // ***************************************************************
@@ -58,10 +58,10 @@ const addDays = async (datas) => {
  * @param {number} timeSlotIndex - L'index du créneau horaire dans le tableau des créneaux horaires.
  * @param {Object} datas - Les nouvelles données du créneau horaire.
  */
-const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }) => {
+const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }, period) => {
   try {
     // Récupération des données existantes depuis Firebase
-    const docDatas = await fetchSchoolTimeWeeklyPlannerApi();
+    const docDatas = await fetchWeeklyPlanner(period);
     // Récupération du créneau horaire spécifique que vous souhaitez mettre à jour
     const targetTimeSlot = docDatas.days[dayIndex]['schedule'][timeSlotIndex];
     // Mise à jour du créneau horaire avec les nouvelles données
@@ -71,7 +71,7 @@ const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }) => {
     };
     // Mise à jour du créneau horaire spécifique dans le tableau des jours
     docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
-    await updateDoc(doc(db, 'schoolWeeklyPlanner', 'schedule'), docDatas);
+    await updateDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), docDatas);
   } catch (error) {
     console.log(error);
   }
@@ -85,10 +85,10 @@ const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }) => {
  * @param {number} dayIndex - L'index du jour dans le tableau des jours.
  * @param {number} timeSlotIndex - L'index du créneau horaire dans le tableau des créneaux horaires.
  */
-const removeTimeSlot = async (dayIndex, timeSlotIndex) => {
+const removeTimeSlot = async (dayIndex, timeSlotIndex, period) => {
   try {
     // Récupération des données existantes depuis Firebase
-    const docDatas = await fetchSchoolTimeWeeklyPlannerApi();
+    const docDatas = await fetchWeeklyPlanner(period);
     // Récupération du créneau horaire spécifique que vous souhaitez supprimer
     const targetTimeSlot = docDatas.days[dayIndex]['schedule'][timeSlotIndex];
     // Utilisation de la déconstruction pour extraire les propriétés à conserver
@@ -112,15 +112,10 @@ const removeTimeSlot = async (dayIndex, timeSlotIndex) => {
     };
     // Mise à jour du créneau horaire spécifique dans le tableau des jours
     docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
-    await updateDoc(doc(db, 'schoolWeeklyPlanner', 'schedule'), docDatas);
+    await updateDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), docDatas);
   } catch (error) {
     console.log(error);
   }
 };
 
-export {
-  fetchSchoolTimeWeeklyPlannerApi,
-  updateTimeSlot,
-  addDays,
-  removeTimeSlot,
-};
+export { fetchWeeklyPlanner, updateTimeSlot, addDays, removeTimeSlot };

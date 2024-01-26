@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import {
-  removeTimeSlot,
-  updateTimeSlot,
-} from '../api/SchoolTimeWeeklyPlannerApi';
+import { removeTimeSlot, updateTimeSlot } from '../api/WeeklyPlannerApi';
 
 /**
  * Composant Modal pour ajouter ou modifier un créneau horaire dans le planning hebdomadaire.
@@ -28,6 +25,7 @@ const WeeklyPlannerModal = ({
   timeSlots,
   selectedTimeSlot,
   selectedDay,
+  period,
 }) => {
   const [state, setState] = useState({
     day: null,
@@ -174,7 +172,7 @@ const WeeklyPlannerModal = ({
           startTime: startTime,
           endTime: endTime,
         };
-        await updateTimeSlot(dayIndex, i, { datas });
+        await updateTimeSlot(dayIndex, i, { datas }, period);
       }
       // Recharger le planning
       fetchPlanning();
@@ -204,7 +202,7 @@ const WeeklyPlannerModal = ({
       const numberOfSlots = timeSlot.duration / 15; // 15 minutes par case
       const TimeSlotsLength = startTimeSlotIndex + numberOfSlots;
       for (let i = startTimeSlotIndex; i < TimeSlotsLength; i++) {
-        await removeTimeSlot(dayIndex, i);
+        await removeTimeSlot(dayIndex, i, period);
       }
       // Recharger le planning
       fetchPlanning();
@@ -268,25 +266,6 @@ const WeeklyPlannerModal = ({
                   <p>Jour : {state.day}</p>
                   {/* timeStart */}
                   <p>Heure de début : {state.timeSlot}</p>
-                  {/* duration */}
-                  <label
-                    className='block mb-2 text-lg font-bold'
-                    htmlFor='duration'
-                  >
-                    Durée (tranche de 15 minutes):
-                  </label>
-                  <input
-                    id='duration'
-                    name='duration'
-                    type='number'
-                    className={inputErrorClass.duration}
-                    {...register('duration', { required: true })}
-                  />
-                  {errors.duration && (
-                    <span className='text-red-800'>
-                      {inputErrorMessage.duration}
-                    </span>
-                  )}
                   {/* title */}
                   <label
                     className='block mb-2 text-lg font-bold'
@@ -306,6 +285,26 @@ const WeeklyPlannerModal = ({
                       {inputErrorMessage.title}
                     </span>
                   )}
+                  {/* duration */}
+                  <label
+                    className='block mb-2 text-lg font-bold'
+                    htmlFor='duration'
+                  >
+                    Durée (tranche de 15 minutes):
+                  </label>
+                  <input
+                    id='duration'
+                    name='duration'
+                    type='number'
+                    className={inputErrorClass.duration}
+                    {...register('duration', { required: true })}
+                  />
+                  {errors.duration && (
+                    <span className='text-red-800'>
+                      {inputErrorMessage.duration}
+                    </span>
+                  )}
+
                   {/* cell bg color */}
                   <label
                     className='block mb-2 text-lg font-bold'
@@ -366,5 +365,6 @@ WeeklyPlannerModal.propTypes = {
   timeSlots: PropTypes.arrayOf(PropTypes.string),
   selectedTimeSlot: PropTypes.object,
   selectedDay: PropTypes.object,
+  period: PropTypes.string,
 };
 export default WeeklyPlannerModal;

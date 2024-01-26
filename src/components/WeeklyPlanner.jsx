@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { fetchSchoolTimeWeeklyPlannerApi } from '../api/SchoolTimeWeeklyPlannerApi';
+import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
 import WeeklyPlannerModal from './WeeklyPlannerModal';
 
 /**
@@ -11,7 +11,7 @@ import WeeklyPlannerModal from './WeeklyPlannerModal';
  * @param {boolean} props.editable - Indique si le planning est éditable.
  * @returns {JSX.Element} - Élément React représentant le composant.
  */
-const WeeklyPlanner = ({ editable = false }) => {
+const WeeklyPlanner = ({ editable = false, period }) => {
   /**
    * Liste des jours de la semaine.
    * @type {string[]}
@@ -106,12 +106,13 @@ const WeeklyPlanner = ({ editable = false }) => {
    * @function
    */
   const fetchPlanning = async () => {
-    const datas = await fetchSchoolTimeWeeklyPlannerApi();
+    const datas = await fetchWeeklyPlanner(period);
     setSchedule(datas.days);
   };
   // Fetch initial schedule from Firestore
   useEffect(() => {
     fetchPlanning();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -131,13 +132,11 @@ const WeeklyPlanner = ({ editable = false }) => {
   };
 
   return (
-    <div className='p-4 pt-16 lg:p-16 sm:p-8' id='planning'>
-      <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-        Le planning
-      </h2>
-      {/* *************************** */}
-      <h3 className='font-bold text-2xl'>Période scolaire</h3>
-      <div className='overflow-x-auto p-6'>
+    <div>
+      <h3 className='font-bold text-2xl'>
+        {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
+      </h3>
+      <div className='overflow-x-auto p-4'>
         <div className='max-h-500px overflow-scroll m-0 rounded-lg max-w-screen-sm md:max-w-screen-sm lg:max-w-screen-md xl:max-w-fit'>
           <table className='rounded-lg'>
             <thead className='h-16 bg-principal-color text-white sticky top-0 z-20'>
@@ -218,6 +217,7 @@ const WeeklyPlanner = ({ editable = false }) => {
           timeSlots={timeSlots}
           selectedTimeSlot={selectedTimeSlot}
           selectedDay={selectedDay}
+          period={period}
         />
       ) : (
         ''
@@ -228,6 +228,7 @@ const WeeklyPlanner = ({ editable = false }) => {
 
 WeeklyPlanner.propTypes = {
   editable: PropTypes.bool,
+  period: PropTypes.string,
 };
 
 export default WeeklyPlanner;

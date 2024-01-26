@@ -16,6 +16,10 @@ const Header = ({ menu }) => {
       headerMenu = <MenuPension />;
       headerSubtitle = 'Pension';
       break;
+    case 'admin':
+      headerMenu = '';
+      headerSubtitle = "Page d'administration";
+      break;
     case 'breeding':
       headerMenu = <MenuBreeding />;
       headerSubtitle = 'Élevage de Fréol';
