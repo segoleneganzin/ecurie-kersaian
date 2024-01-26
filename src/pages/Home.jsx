@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.jpg';
 
 const Home = () => {
-  //redirection alias
   const navigate = useNavigate();
   const goTo = (page) => {
     navigate(page);

@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 import {
   removeTimeSlot,
   updateTimeSlot,
@@ -69,7 +68,7 @@ const WeeklyPlannerModal = ({
   };
 
   //******************************* Gestion des données du formulaire
-  useEffect(() => {
+  const updateState = () => {
     if (!selectedTimeSlot.available) {
       setState({
         day: selectedDay.day,
@@ -112,6 +111,10 @@ const WeeklyPlannerModal = ({
         startTime: selectedTimeSlot.timeSlot,
       });
     }
+  };
+  useEffect(() => {
+    updateState();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Le tableau de dépendances vide signifie que cela s'exécute seulement une fois après le rendu initial
 
   const closeModal = () => {
@@ -355,4 +358,13 @@ const WeeklyPlannerModal = ({
   );
 };
 
+WeeklyPlannerModal.propTypes = {
+  setModalOpen: PropTypes.func,
+  fetchPlanning: PropTypes.func,
+  schedule: PropTypes.arrayOf(PropTypes.object),
+  daysOfWeek: PropTypes.arrayOf(PropTypes.string),
+  timeSlots: PropTypes.arrayOf(PropTypes.string),
+  selectedTimeSlot: PropTypes.object,
+  selectedDay: PropTypes.object,
+};
 export default WeeklyPlannerModal;

@@ -60,7 +60,7 @@ const Pension = () => {
             </div>
           </div>
         </div>
-        {/* **************************************FORMULAS */}
+        {/* **************************************FORMULES */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos formules
@@ -68,7 +68,7 @@ const Pension = () => {
         </div>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
-        {/* ***************************************PRICES */}
+        {/* ***************************************TARIFS */}
         <div className='p-2 pt-16 lg:p-16 sm:p-8' id='prices'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Les tarifs

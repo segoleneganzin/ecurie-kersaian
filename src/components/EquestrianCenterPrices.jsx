@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unescaped-entities */
-// import prices from '../assets/images/prices.jpg';
 
 const Prices = () => {
   return (
@@ -21,7 +20,7 @@ const Prices = () => {
           </ul>
         </li>
       </ul>
-      {/* Packages */}
+      {/* Forfaits */}
       <div className='py-4'>
         <h4 className='font-bold text-xl'>
           Forfaits "tout compris" (Adhésion + licence + cours)
@@ -63,7 +62,7 @@ const Prices = () => {
           </tbody>
         </table>
       </div>
-      {/* cards */}
+      {/* Cartes */}
       <div className='py-4'>
         <h4 className='font-bold text-xl'>Cartes</h4>
         <p className='italic py-4 font-sm'>
@@ -120,7 +119,7 @@ const Prices = () => {
           </tbody>
         </table>
       </div>
-      {/* Half and third party pension */}
+      {/* Demi et tiers de pension */}
       <div className='py-4'>
         <h4 className='font-bold text-xl'>Demi pension et tiers de pension</h4>
         <div className='py-4'>

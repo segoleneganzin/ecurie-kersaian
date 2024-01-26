@@ -6,7 +6,6 @@ import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
 import WeeklyPlanner from '../components/WeeklyPlanner';
-// import Planning from '../components/Planning';
 
 const EquestrianCenter = () => {
   return (
@@ -64,7 +63,7 @@ const EquestrianCenter = () => {
             </div>
           </div>
         </div>
-        {/* **************************************ACTIVITIES */}
+        {/* **************************************ACTIVITEES */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='activities'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos activités
@@ -86,7 +85,7 @@ const EquestrianCenter = () => {
         </div>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
-        {/* ***************************************CAVALRY */}
+        {/* ***************************************CAVALERIE */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='cavalry'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Notre cavalerie
@@ -100,7 +99,7 @@ const EquestrianCenter = () => {
         {/* ***************************************PLANNING */}
         {/* <Planning /> */}
         <WeeklyPlanner />
-        {/* ***************************************PRICES */}
+        {/* ***************************************TARIFS */}
         <EquestrianCenterPrices />
         {/* ***************************************CONTACT */}
         <Contact />

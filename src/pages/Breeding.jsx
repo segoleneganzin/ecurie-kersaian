@@ -40,19 +40,19 @@ const Breeding = () => {
             </div>
           </div>
         </div>
-        {/* **************************************STALLIONS */}
+        {/* **************************************ETALONS */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='stallions'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos étalons
           </h2>
         </div>
-        {/* ***************************************MARES */}
+        {/* ***************************************POULINIERES */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='mares'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos poulinières
           </h2>
         </div>
-        {/* ***************************************HORSE FOR SALE */}
+        {/* ***************************************CHEVAUX A VENDRE */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='horse-for-sale'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos chevaux à vendre
