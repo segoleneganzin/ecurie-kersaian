@@ -4,16 +4,16 @@
 const Prices = () => {
   return (
     <div className='p-2 pt-16 lg:p-16 sm:p-8' id='prices'>
-      <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+      <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
         Les tarifs
       </h2>
-      <h3 className='font-bold text-3xl'>Saison 2023/2024</h3>
+      <h3 className='font-bold text-2xl'>Saison 2023/2024</h3>
 
       <ul className='py-4'>
-        <li>
+        <li className='text-sm'>
           <span className='font-bold text-xl'>Cotisation annuelle :</span> 40€
         </li>
-        <li>
+        <li className='text-sm'>
           <span className='font-bold text-xl'>Licence annuelle FFE :</span>
           <ul>
             <li>- de 18 ans : 25€</li>
@@ -23,12 +23,12 @@ const Prices = () => {
       </ul>
       {/* Packages */}
       <div className='py-4'>
-        <h4 className='font-bold text-2xl'>
+        <h4 className='font-bold text-xl'>
           Forfaits "tout compris" (Adhésion + licence + cours)
         </h4>
         <div className='py-4'>
           <h5 className='font-bold'>Du 1er septembre au 6 juillet</h5>
-          <p className='italic '>
+          <p className='italic text-sm '>
             Cette année, exceptionnellement, les cours auront lieu du 9 octobre
             au 6 juillet. <br />
             Pas de cours durant les vacances scolaires.
@@ -65,8 +65,8 @@ const Prices = () => {
       </div>
       {/* cards */}
       <div className='py-4'>
-        <h4 className='font-bold text-2xl'>Cartes</h4>
-        <p className='italic py-4'>
+        <h4 className='font-bold text-xl'>Cartes</h4>
+        <p className='italic py-4 font-sm'>
           Cotisation et licence obligatoire (non comprises)
         </p>
         <table className='bg-white border-2 border-principal-color text-xs mobile:text-base'>
@@ -122,10 +122,12 @@ const Prices = () => {
       </div>
       {/* Half and third party pension */}
       <div className='py-4'>
-        <h4 className='font-bold text-2xl'>Demi pension et tiers de pension</h4>
+        <h4 className='font-bold text-xl'>Demi pension et tiers de pension</h4>
         <div className='py-4'>
-          <h5 className='font-bold'>(En fonction des chevaux disponibles)</h5>
-          <p className='italic py-4'>
+          <p className='font-bold text-sm'>
+            (En fonction des chevaux disponibles)
+          </p>
+          <p className='italic py-4 text-sm'>
             Cotisation et licence obligatoire (non comprises).
             <br />
             La monte libre exclus la pratique de l'obstacle.

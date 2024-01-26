@@ -17,11 +17,11 @@ const Pension = () => {
             className='h-300px m-auto max-w-300px min-w-300px object-cover rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
           />
           <div>
-            <p className='leading-10 text-center lg:text-xl xl:text-left'>
+            <p className='leading-10 text-center text-sm lg:text-xl xl:text-left'>
               Située au cœur de la campagne de{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>Languidic</span>,
+              <span className='font-bold text-xl lg:text-3xl'>Languidic</span>,
               <br /> l'écurie Kersaian est{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 dirigée par Alexia Lemoine
               </span>
               .
@@ -29,17 +29,17 @@ const Pension = () => {
               Depuis 2023, notre écurie est le point de rendez-vous idéal pour
               tous les passionnés de chevaux. <br />
               <br />À l'écurie Kersaian, on mise sur le{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 respect des chevaux
               </span>
               , la
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 {' '}
                 sécurité des cavaliers
               </span>
               , et une vraie connexion avec nos copains à quatre pattes. <br />
               On adore la vie en plein air et{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 nos chevaux vivent au pré
               </span>
               , loin du stress de la ville.
@@ -62,12 +62,7 @@ const Pension = () => {
         </div>
         {/* **************************************FORMULAS */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
-          {/* <img
-            src='./src/assets/images/presentation.avif'
-            alt=''
-            className='h-650px object-cover rounded-full w-650px'
-          /> */}
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos formules
           </h2>
         </div>
@@ -75,7 +70,7 @@ const Pension = () => {
         <Installations />
         {/* ***************************************PRICES */}
         <div className='p-2 pt-16 lg:p-16 sm:p-8' id='prices'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Les tarifs
           </h2>
         </div>
