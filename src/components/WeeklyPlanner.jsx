@@ -132,17 +132,17 @@ const WeeklyPlanner = ({ editable = false, period }) => {
 
   return (
     <div>
-      <h3 className='font-bold text-2xl'>
+      <h3 className='font-bold text-2xl pl-2 sm:pl-8 lg:pl-16'>
         {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
       </h3>
-      <div className='overflow-x-auto p-4'>
-        <div className='max-h-500px overflow-scroll m-0 rounded-lg max-w-screen-sm md:max-w-screen-sm lg:max-w-screen-md xl:max-w-fit'>
-          <table className='rounded-lg'>
-            <thead className='h-16 bg-principal-color text-white sticky top-0 z-20'>
+      <div className='overflow-x-auto my-2'>
+        <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit'>
+          <table>
+            <thead className='h-8 bg-principal-color text-white sticky top-0 z-20'>
               <tr>
-                <th></th>
+                {/* <th className={editable ? 'min-w-16' : ''}></th> */}
                 {daysOfWeek.map((day) => (
-                  <th key={day} className='min-w-28'>
+                  <th key={day} className='min-w-24 px-2'>
                     {day}
                   </th>
                 ))}
@@ -150,14 +150,16 @@ const WeeklyPlanner = ({ editable = false, period }) => {
             </thead>
             <tbody>
               {timeSlots.map((timeSlot) => (
-                <tr key={timeSlot} className='h-10 left-0'>
-                  <td
+                <tr key={timeSlot} className='h-6'>
+                  {/* <td
                     className={
-                      'align-top bg-principal-color text-white pl-2 pr-2 text-right leading-4 left-0 sticky z-10'
+                      editable
+                        ? 'align-top bg-principal-color text-white px-2 text-right left-0 sticky min-w-16 z-10'
+                        : 'bg-principal-color'
                     }
                   >
-                    {timeSlot}
-                  </td>
+                    {editable ? timeSlot : ''}
+                  </td> */}
                   {daysOfWeek.map((day) => {
                     const scheduleItem = schedule
                       .find((item) => item.day === day)
@@ -167,8 +169,10 @@ const WeeklyPlanner = ({ editable = false, period }) => {
                         key={`${day}-${timeSlot}`}
                         className={
                           scheduleItem.available
-                            ? `border-t border-black bg-lime-200 h-fit`
-                            : `border-t-0 border-black text-white h-fit`
+                            ? editable
+                              ? `border-t border-black bg-gray-200`
+                              : 'bg-gray-200'
+                            : `border-t-0 text-white h-fit`
                         }
                         style={{
                           backgroundColor: scheduleItem.available
@@ -180,9 +184,9 @@ const WeeklyPlanner = ({ editable = false, period }) => {
                         }
                       >
                         {!scheduleItem.available ? (
-                          <div className='text-center p-0 m-0'>
+                          <div className='text-center'>
                             {timeSlot === scheduleItem.startTime ? (
-                              <p className='text-center p-0 m-0 flex flex-col'>
+                              <p className='flex flex-col items-center px-1 w-full'>
                                 <span>
                                   {scheduleItem.startTime}/
                                   {scheduleItem.endTime}
@@ -192,6 +196,10 @@ const WeeklyPlanner = ({ editable = false, period }) => {
                             ) : (
                               ''
                             )}
+                          </div>
+                        ) : editable ? (
+                          <div className='text-center text-gray-400 italic'>
+                            {timeSlot}
                           </div>
                         ) : (
                           ''

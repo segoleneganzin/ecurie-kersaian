@@ -8,10 +8,10 @@ import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 const Admin = () => {
   const [choice, setChoice] = useState(null);
   return (
-    <div>
+    <div className='font-inconsolata'>
       <Header menu={'admin'} />
       <main className='min-h-full text-principal-color overflow-x-hidden'>
-        <div className='bg-principal-color flex flex-col gap-16 items-center justify-center pb-16 text-grey text-3xl lg:flex-row lg:gap-32'>
+        <div className='bg-principal-color flex flex-col gap-16 items-center justify-center pb-16 text-grey text-xl lg:flex-row lg:gap-32'>
           <a
             className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
             onClick={() => setChoice('equestrianCenter')}
@@ -28,10 +28,10 @@ const Admin = () => {
         {choice === 'equestrianCenter' ? (
           /* ***************************************PLANNING */
           <div>
-            <div className='p-4 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'>
-              <h3 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+            <div className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
+              <h2 className='font-bold pl-2 pb-10 sm:pl-8 lg:pl-16 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
                 Le planning
-              </h3>
+              </h2>
               <WeeklyPlanner editable period={'school'} />
               <WeeklyPlanner editable period={'holiday'} />
             </div>

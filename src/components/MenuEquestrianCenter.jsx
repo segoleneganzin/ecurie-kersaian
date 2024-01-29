@@ -10,7 +10,7 @@ const MenuEquestrianCenter = () => {
   useEffect(() => {
     if (hamburgerOpen) {
       setMenuClassName(
-        'absolute bg-principal-color flex flex-col h-fit pb-12 right-0 top-200 w-full z-97 lg:pl-12 lg:rounded-bl-3xl lg:w-fit'
+        'absolute bg-principal-color flex flex-col items-center h-fit pb-12 right-0 text-center top-200 w-full z-97 lg:pl-12 lg:rounded-bl-3xl lg:w-fit'
       );
     } else {
       setMenuClassName('hidden');
@@ -28,33 +28,33 @@ const MenuEquestrianCenter = () => {
           className='mt-16 space-y-10 text-center text-white text-xl lg:mr-14 lg:text-right'
           role='menu'
         >
-          <li className='menu__item' role='menuitem'>
-            <a href='#activities' rel='ugc'>
+          <li role='menuitem'>
+            <a href='#activities' rel='ugc' onClick={openResponsiveMenu}>
               Activités
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#installations' rel='ugc'>
+          <li role='menuitem'>
+            <a href='#installations' rel='ugc' onClick={openResponsiveMenu}>
               Installations
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#cavalry' rel='ugc'>
+          {/* <li className='w-fit' role='menuitem'>
+            <a href='#cavalry' rel='ugc' onClick={openResponsiveMenu}>
               Cavalerie
             </a>
-          </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#planning' rel='ugc'>
+          </li> */}
+          <li role='menuitem'>
+            <a href='#planning' rel='ugc' onClick={openResponsiveMenu}>
               Planning
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#prices' rel='ugc' className='color-white'>
+          <li role='menuitem'>
+            <a href='#prices' rel='ugc' onClick={openResponsiveMenu}>
               Tarifs
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#contact' rel='ugc' className='color-white'>
+          <li role='menuitem'>
+            <a href='#contact' rel='ugc' onClick={openResponsiveMenu}>
               Contact
             </a>
           </li>

@@ -1,7 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import presentationImg from '../assets/images/presentation.avif';
+import presentationImg from '../assets/images/cc.jpg';
+import lessonImg from '../assets/images/cours.jpg';
+import walkImg from '../assets/images/balade.jpg';
+import eventImg from '../assets/images/saian.jpg';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
@@ -11,7 +14,7 @@ const EquestrianCenter = () => {
   return (
     <div className='h-dvh'>
       <Header menu={'equestrianCenter'} />
-      <main className='min-h-full text-principal-color overflow-x-hidden'>
+      <main className='min-h-full text-principal-color overflow-x-hidden font-inconsolata'>
         {/* **************************************PRESENTATION */}
         <div className='p-2 pt-16 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 xl:items-center xl:flex-row'>
           <img
@@ -20,11 +23,11 @@ const EquestrianCenter = () => {
             className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
           />
           <div>
-            <p className='leading-8 text-center lg:text-xl xl:text-left text-sm'>
+            <p className='leading-8 text-center xl:text-left text-base'>
               Située au cœur de la campagne de{' '}
-              <span className='font-bold text-xl lg:text-3xl'>Languidic</span>,
+              <span className='font-bold text-xl'>Languidic</span>,
               <br /> l'écurie Kersaian est{' '}
-              <span className='font-bold text-xl lg:text-3xl'>
+              <span className='font-bold text-xl'>
                 dirigée par Alexia Lemoine
               </span>
               .
@@ -32,17 +35,11 @@ const EquestrianCenter = () => {
               Depuis 2023, notre écurie est le point de rendez-vous idéal pour
               tous les passionnés de chevaux. <br />
               <br />À l'écurie Kersaian, on mise sur le{' '}
-              <span className='font-bold text-xl lg:text-3xl'>
-                respect des chevaux
-              </span>
-              , la
-              <span className='font-bold text-xl lg:text-3xl'>
-                {' '}
-                sécurité des cavaliers
-              </span>
+              <span className='font-bold text-xl'>respect des chevaux</span>, la
+              <span className='font-bold text-xl'> sécurité des cavaliers</span>
               , et une vraie connexion avec nos copains à quatre pattes. <br />
               On adore la vie en plein air et{' '}
-              <span className='font-bold text-xl lg:text-3xl'>
+              <span className='font-bold text-xl'>
                 nos chevaux vivent au pré
               </span>
               , loin du stress de la ville.
@@ -64,41 +61,80 @@ const EquestrianCenter = () => {
           </div>
         </div>
         {/* **************************************ACTIVITEES */}
-        <div className='p-4 pt-16 lg:p-16 sm:p-8' id='activities'>
+        <div className='p-2 lg:p-16 pt-16 sm:p-8' id='activities'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos activités
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-sm lg:text-xl'>
-            <li>
-              - Des cours pour tout le monde à partir de 2 ans, encadrées par
-              une monitrice super sympa.
+          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base text-center lg:text-left lg:space-y-0 lg:flex lg:flex-col lg:gap-6 lg:items-start'>
+            <li className='flex flex-col lg:flex-row lg:items-center lg:gap-12'>
+              <img
+                src={lessonImg}
+                alt="cours d'équitation"
+                className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg'
+              />
+              <span>
+                Des{' '}
+                <span className='color-secondary-color font-bold text-lg'>
+                  cours
+                </span>{' '}
+                pour tout le monde à partir de 2 ans, encadrés par Alexia
+              </span>
             </li>
-            <li>
-              - Des balades à cheval dans la campagne de Languidic, avec une
-              vraie dose de nature.
+            <li className='flex flex-col lg:flex-row lg:items-center lg:gap-12'>
+              <img
+                src={walkImg}
+                alt='Shetlands dans la forêt'
+                className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg'
+              />
+              <span>
+                Des{' '}
+                <span className='color-secondary-color font-bold text-lg'>
+                  balades
+                </span>{' '}
+                au départ du club
+              </span>
             </li>
-            <li>
-              - Des événements, des sorties en compétitions, des balades à la
-              plage et des stages pendant les vacances
+            <li className='flex flex-col lg:flex-row lg:items-center lg:gap-12'>
+              <img
+                src={eventImg}
+                alt='Cheval qui saute un obstacle'
+                className='h-300px m-auto max-w-300px min-w-300px object-cover object-right-top rounded-full shadow-lg '
+              />
+              <span>
+                Des événements, des sorties en{' '}
+                <span className='color-secondary-color font-bold text-lg'>
+                  compétitions
+                </span>
+                , des{' '}
+                <span className='color-secondary-color font-bold text-lg'>
+                  balades à la plage
+                </span>{' '}
+                et des{' '}
+                <span className='color-secondary-color font-bold text-lg'>
+                  stages
+                </span>{' '}
+                pendant les vacances
+              </span>
             </li>
           </ul>
         </div>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
         {/* ***************************************CAVALERIE */}
-        <div className='p-4 pt-16 lg:p-16 sm:p-8' id='cavalry'>
+        {/* <div className='p-2 pt-16 lg:p-16 sm:p-8' id='cavalry'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Notre cavalerie
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-sm lg:text-xl'>
+          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base'>
             <li>Les shetlands</li>
             <li>Les poneys</li>
             <li>Les chevaux</li>
           </ul>
-        </div>
+        </div> */}
         {/* ***************************************PLANNING */}
-        <div className='p-4 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'>
-          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+        <div className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
+          {/* <div className='p-2 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'> */}
+          <h2 className='font-bold pl-2 pb-10 sm:pl-8 lg:pl-16 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Le planning
           </h2>
           <WeeklyPlanner period={'school'} />

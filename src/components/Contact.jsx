@@ -5,9 +5,12 @@ const Contact = () => {
         Contactez-nous
       </h2>
       <div className='flex flex-col gap-10 md:flex-row lg:gap-6'>
-        <ul className='leading-10 p-2 text-sm text-principal-color md:p-0'>
+        <ul className='leading-10 p-2 text-base text-principal-color md:p-0'>
           <li>
-            Adresse : Kerhouant Vraz, 56440 Languidic{' '}
+            <span className='color-secondary-color font-bold text-lg'>
+              Adresse :
+            </span>{' '}
+            Kerhouant Vraz, 56440 Languidic{' '}
             <a
               href='https://maps.app.goo.gl/5EoUuYe8artgZYcd8'
               target='_blank'
@@ -17,9 +20,21 @@ const Contact = () => {
               (voir sur Google Map)
             </a>
           </li>
-          <li>Téléphone : </li>
-          <li>Email : </li>
-          <li>Page Facebook : </li>
+          <li>
+            <span className='color-secondary-color font-bold text-lg'>
+              Téléphone :
+            </span>{' '}
+          </li>
+          <li>
+            <span className='color-secondary-color font-bold text-lg'>
+              Email :
+            </span>{' '}
+          </li>
+          <li>
+            <span className='color-secondary-color font-bold text-lg'>
+              Page Facebook :
+            </span>{' '}
+          </li>
         </ul>
       </div>
     </div>
