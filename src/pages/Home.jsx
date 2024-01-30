@@ -12,7 +12,7 @@ const Home = () => {
       <header>
         <a href='/' aria-label="Aller à la page d'accueil">
           <h1 className='m-auto pt-16 w-fit'>
-            <img src={logo} alt='Logo du site' />
+            <img src={logo} alt='Logo du site' className='w-64 sm:w-auto' />
           </h1>
         </a>
       </header>

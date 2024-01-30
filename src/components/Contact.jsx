@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 const Contact = () => {
   return (
     <div className='p-2 pt-16  sm:p-8 lg:p-16' id='contact'>
@@ -22,17 +23,27 @@ const Contact = () => {
           </li>
           <li>
             <span className='color-secondary-color font-bold text-lg'>
-              Téléphone :
+              Téléphone : 06 79 89 85 93
             </span>{' '}
           </li>
           <li>
             <span className='color-secondary-color font-bold text-lg'>
-              Email :
+              Email : alexia.lemoine@hotmail.fr
             </span>{' '}
           </li>
           <li>
+            <a
+              href='https://www.facebook.com/people/%C3%89curie-Kersa%C3%AFan/61551107019670/'
+              rel='noreferrer'
+              target='_blank'
+              className='text-white font-bold text-lg bg-sky-700 px-6 py-2 rounded-lg'
+            >
+              Page Facebook
+            </a>{' '}
+          </li>
+          <li>
             <span className='color-secondary-color font-bold text-lg'>
-              Page Facebook :
+              Horaires d'ouverture :
             </span>{' '}
           </li>
         </ul>

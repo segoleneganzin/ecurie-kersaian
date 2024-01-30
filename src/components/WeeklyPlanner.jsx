@@ -135,7 +135,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
       <h3 className='text-principal-color font-bold text-2xl pl-2 sm:pl-8 lg:pl-16'>
         {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
       </h3>
-      <div className='overflow-x-auto my-2'>
+      <div className='overflow-x-auto m-2'>
         <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit'>
           <table>
             <thead className='h-8 bg-principal-color text-white sticky top-0 z-20'>

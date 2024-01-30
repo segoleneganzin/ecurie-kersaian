@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
-import EquestrianCenterPricesForm from '../layouts/EquestrianCenterPricesForm';
-import GeneralPricesForm from '../layouts/GeneralPricesForm';
+import EquestrianCenterPricesForm from './EquestrianCenterPricesForm';
+import GeneralPricesForm from './GeneralPricesForm';
 
 const AdminPricesModal = ({
   setModalOpen,

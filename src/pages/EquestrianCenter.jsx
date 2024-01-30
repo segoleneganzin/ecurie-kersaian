@@ -1,10 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import presentationImg from '../assets/images/cc.jpg';
 import lessonImg from '../assets/images/cours.jpg';
 import walkImg from '../assets/images/balade.jpg';
 import eventImg from '../assets/images/saian.jpg';
+import ScrollUp from '../components/ScrollUp';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
@@ -12,6 +14,22 @@ import WeeklyPlanner from '../components/WeeklyPlanner';
 import Cavalry from '../components/Cavalry';
 
 const EquestrianCenter = () => {
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    // Adjust this value based on the scroll position where you want the button to appear
+    const showScrollButtonThreshold = 500;
+    setShowScrollButton(scrollPosition > showScrollButtonThreshold);
+  };
+  useEffect(() => {
+    handleScroll();
+    // Attach the event listener
+    window.addEventListener('scroll', handleScroll);
+    // Clean up the event listener on component unmount
+    // return () => {
+    //   window.removeEventListener('scroll', handleScroll);
+    // };
+  }, [showScrollButton]);
   return (
     <div className='h-dvh'>
       <Header menu={'equestrianCenter'} />
@@ -61,6 +79,15 @@ const EquestrianCenter = () => {
             </div>
           </div>
         </div>
+        {/* **************************************SCROLL UP */}
+        {showScrollButton && (
+          // <div className='fixed bottom-0 right-0 mb-4 mr-4 z-90'>
+          //   <a href='#' className='bg-principal-color rounded-lg'>
+          //     <img src={arrowUp} alt='' className='mx-4 my-2' />
+          //   </a>
+          // </div>
+          <ScrollUp />
+        )}
         {/* **************************************ACTIVITEES */}
         <div className='p-2 lg:p-16 pt-16 sm:p-8' id='activities'>
           <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>

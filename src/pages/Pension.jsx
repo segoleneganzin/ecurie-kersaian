@@ -2,13 +2,13 @@
 import Header from '../components/Header';
 import Installations from '../components/Installations';
 import Contact from '../components/Contact';
-import presentationImg from '../assets/images/pension-presentation.jpg';
+import presentationImg from '../assets/images/pension.jpg';
 
 const Pension = () => {
   return (
     <div className='h-dvh'>
       <Header menu={'pension'} />
-      <main className='min-h-full text-principal-color'>
+      <main className='min-h-full text-principal-color overflow-x-hidden font-inconsolata'>
         {/* **************************************PRESENTATION */}
         <div className='p-2 pt-16 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 xl:items-center xl:flex-row'>
           <img
