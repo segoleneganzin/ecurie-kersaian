@@ -16,7 +16,7 @@ const Breeding = () => {
             className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
           />
           <div>
-            <p className='leading-10 text-center lg:text-xl xl:text-left'>
+            <p className='leading-10 text-center text-sm lg:text-xl xl:text-left'>
               Au cœur de la campagne, l'Élevage Équin Prestige se démarque en
               tant que spécialiste passionné dans l'élevage de chevaux de sport.{' '}
               <br />
@@ -40,24 +40,24 @@ const Breeding = () => {
             </div>
           </div>
         </div>
-        {/* **************************************STALLIONS */}
+        {/* **************************************ETALONS */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='stallions'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos étalons
           </h2>
         </div>
-        {/* ***************************************MARES */}
+        {/* ***************************************POULINIERES */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='mares'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos poulinières
           </h2>
         </div>
-        {/* ***************************************HORSE FOR SALE */}
+        {/* ***************************************CHEVAUX A VENDRE */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='horse-for-sale'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos chevaux à vendre
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color lg:text-xl'>
+          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-sm lg:text-xl'>
             <li>Les shetlands</li>
             <li>Les poneys</li>
             <li>Les chevaux</li>

@@ -5,7 +5,7 @@ import presentationImg from '../assets/images/presentation.avif';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
-import Planning from '../components/Planning';
+import WeeklyPlanner from '../components/WeeklyPlanner';
 
 const EquestrianCenter = () => {
   return (
@@ -20,11 +20,11 @@ const EquestrianCenter = () => {
             className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
           />
           <div>
-            <p className='leading-10 text-center lg:text-xl xl:text-left'>
+            <p className='leading-8 text-center lg:text-xl xl:text-left text-sm'>
               Située au cœur de la campagne de{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>Languidic</span>,
+              <span className='font-bold text-xl lg:text-3xl'>Languidic</span>,
               <br /> l'écurie Kersaian est{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 dirigée par Alexia Lemoine
               </span>
               .
@@ -32,17 +32,17 @@ const EquestrianCenter = () => {
               Depuis 2023, notre écurie est le point de rendez-vous idéal pour
               tous les passionnés de chevaux. <br />
               <br />À l'écurie Kersaian, on mise sur le{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 respect des chevaux
               </span>
               , la
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 {' '}
                 sécurité des cavaliers
               </span>
               , et une vraie connexion avec nos copains à quatre pattes. <br />
               On adore la vie en plein air et{' '}
-              <span className='font-bold text-2xl lg:text-3xl'>
+              <span className='font-bold text-xl lg:text-3xl'>
                 nos chevaux vivent au pré
               </span>
               , loin du stress de la ville.
@@ -63,12 +63,12 @@ const EquestrianCenter = () => {
             </div>
           </div>
         </div>
-        {/* **************************************ACTIVITIES */}
+        {/* **************************************ACTIVITEES */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='activities'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos activités
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color lg:text-xl'>
+          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-sm lg:text-xl'>
             <li>
               - Des cours pour tout le monde à partir de 2 ans, encadrées par
               une monitrice super sympa.
@@ -85,20 +85,26 @@ const EquestrianCenter = () => {
         </div>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
-        {/* ***************************************CAVALRY */}
+        {/* ***************************************CAVALERIE */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='cavalry'>
-          <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Notre cavalerie
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color  lg:text-xl'>
+          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-sm lg:text-xl'>
             <li>Les shetlands</li>
             <li>Les poneys</li>
             <li>Les chevaux</li>
           </ul>
         </div>
         {/* ***************************************PLANNING */}
-        <Planning />
-        {/* ***************************************PRICES */}
+        <div className='p-4 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'>
+          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+            Le planning
+          </h2>
+          <WeeklyPlanner period={'school'} />
+          <WeeklyPlanner period={'holiday'} />
+        </div>
+        {/* ***************************************TARIFS */}
         <EquestrianCenterPrices />
         {/* ***************************************CONTACT */}
         <Contact />
