@@ -1791,3 +1791,13 @@ video {
     text-align: left;
   }
 }
+
+@media (min-width: 1536px) {
+  .\32xl\:m-auto {
+    margin: auto;
+  }
+
+  .\32xl\:max-w-screen-xl {
+    max-width: 1280px;
+  }
+}
