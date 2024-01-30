@@ -1,51 +1,19 @@
 /* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import EquestrianCenterPricesForm from '../layouts/EquestrianCenterPricesForm';
+import GeneralPricesForm from '../layouts/GeneralPricesForm';
 
-const AdminPricesModal = ({ setModalOpen, type }) => {
-  //******************************* Gestion des erreurs dans le formulaire modal
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    reset,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      duration: 60,
-      title: 'test',
-      cellBg: '#000000',
-    },
-  });
-
-  const inputErrorClass = {
-    duration: errors.duration ? 'border border-red-300' : 'border border-black',
-    title: errors.title ? 'border border-red-300' : 'border border-black',
-    cellBg: errors.cellBg ? 'border border-red-300' : 'border border-black',
-  };
-  const inputErrorMessage = {
-    duration: errors.duration ? 'Veuillez renseigner une durée' : '',
-    title: errors.title ? 'Veuillez renseigner un intitulé' : '',
-    cellBg: errors.cellBg ? 'Veuillez renseigner une couleur de fond' : '',
-  };
-
+const AdminPricesModal = ({
+  setModalOpen,
+  type,
+  generalPrices,
+  equestrianCenterPrices,
+  pensionPrices,
+  getPrices,
+}) => {
   const closeModal = () => {
     setModalOpen(false);
-    // // Réinitialisation des valeurs
-    // setState({
-    //   day: null,
-    //   timeSlot: null,
-    //   available: true,
-    //   duration: 60,
-    //   title: null,
-    //   startTime: null,
-    //   endTime: null,
-    //   cellBg: null,
-    // });
   };
-
   return (
     <div className='fixed inset-0 z-40 overflow-y-auto'>
       <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
@@ -92,7 +60,21 @@ const AdminPricesModal = ({ setModalOpen, type }) => {
                   Modifier les tarifs
                 </h3>
                 {type === 'equestrianCenter' ? (
-                  <EquestrianCenterPricesForm />
+                  <EquestrianCenterPricesForm
+                    equestrianCenterPrices={equestrianCenterPrices}
+                    pensionPrices={pensionPrices}
+                    closeModal={closeModal}
+                    getPrices={getPrices}
+                  />
+                ) : (
+                  ''
+                )}
+                {type === 'general' ? (
+                  <GeneralPricesForm
+                    generalPrices={generalPrices}
+                    closeModal={closeModal}
+                    getGeneralPrices={getPrices}
+                  />
                 ) : (
                   ''
                 )}
@@ -104,7 +86,7 @@ const AdminPricesModal = ({ setModalOpen, type }) => {
               <button
                 onClick={closeModal}
                 type='button'
-                className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'
+                className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-base sm:leading-5'
               >
                 Annuler
               </button>
@@ -118,5 +100,9 @@ const AdminPricesModal = ({ setModalOpen, type }) => {
 AdminPricesModal.propTypes = {
   setModalOpen: PropTypes.func,
   type: PropTypes.string,
+  generalPrices: PropTypes.object,
+  equestrianCenterPrices: PropTypes.object,
+  pensionPrices: PropTypes.object,
+  getPrices: PropTypes.func,
 };
 export default AdminPricesModal;

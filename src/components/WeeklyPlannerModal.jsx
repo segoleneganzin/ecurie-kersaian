@@ -91,7 +91,7 @@ const WeeklyPlannerModal = ({
             )
           }
           type='button'
-          className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'
+          className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-base sm:leading-5'
         >
           Supprimer
         </button>
@@ -158,7 +158,6 @@ const WeeklyPlannerModal = ({
       const endTime =
         timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
       if (!timeSlot.available) {
-        console.log(state.day + ' ' + timeSlot.startTime);
         // gestion de la réduction du temps
         await deleteTimeSlot(state.day, timeSlot.startTime);
       }
@@ -326,7 +325,7 @@ const WeeklyPlannerModal = ({
                   )}
                   <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
                     <span className='mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto'>
-                      <button className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'>
+                      <button className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-base sm:leading-5'>
                         Valider
                       </button>
                     </span>
@@ -345,7 +344,7 @@ const WeeklyPlannerModal = ({
               <button
                 onClick={closeModal}
                 type='button'
-                className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5'
+                className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-base sm:leading-5'
               >
                 Annuler
               </button>

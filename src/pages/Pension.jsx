@@ -17,7 +17,7 @@ const Pension = () => {
             className='h-300px m-auto max-w-300px min-w-300px object-cover rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
           />
           <div>
-            <p className='leading-10 text-center text-sm lg:text-xl xl:text-left'>
+            <p className='leading-10 text-center text-base lg:text-xl xl:text-left'>
               Située au cœur de la campagne de{' '}
               <span className='font-bold text-xl lg:text-3xl'>Languidic</span>,
               <br /> l'écurie Kersaian est{' '}
