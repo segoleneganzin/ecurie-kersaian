@@ -25,10 +25,6 @@ const EquestrianCenter = () => {
     handleScroll();
     // Attach the event listener
     window.addEventListener('scroll', handleScroll);
-    // Clean up the event listener on component unmount
-    // return () => {
-    //   window.removeEventListener('scroll', handleScroll);
-    // };
   }, [showScrollButton]);
   return (
     <div className='h-dvh'>
@@ -80,14 +76,7 @@ const EquestrianCenter = () => {
           </div>
         </div>
         {/* **************************************SCROLL UP */}
-        {showScrollButton && (
-          // <div className='fixed bottom-0 right-0 mb-4 mr-4 z-90'>
-          //   <a href='#' className='bg-principal-color rounded-lg'>
-          //     <img src={arrowUp} alt='' className='mx-4 my-2' />
-          //   </a>
-          // </div>
-          <ScrollUp />
-        )}
+        {showScrollButton && <ScrollUp />}
         {/* **************************************ACTIVITEES */}
         <div className='p-2 lg:p-16 pt-16 sm:p-8' id='activities'>
           <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>

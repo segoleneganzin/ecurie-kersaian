@@ -1,10 +1,26 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Installations from '../components/Installations';
 import Contact from '../components/Contact';
 import presentationImg from '../assets/images/pension.jpg';
+import ScrollUp from '../components/ScrollUp';
 
 const Pension = () => {
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    // Adjust this value based on the scroll position where you want the button to appear
+    const showScrollButtonThreshold = 500;
+    setShowScrollButton(scrollPosition > showScrollButtonThreshold);
+  };
+  useEffect(() => {
+    handleScroll();
+    // Attach the event listener
+    window.addEventListener('scroll', handleScroll);
+  }, [showScrollButton]);
+
   return (
     <div className='h-dvh'>
       <Header menu={'pension'} />
@@ -60,6 +76,8 @@ const Pension = () => {
             </div>
           </div>
         </div>
+        {/* **************************************SCROLL UP */}
+        {showScrollButton && <ScrollUp />}
         {/* **************************************FORMULES */}
         <div className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
@@ -77,6 +95,7 @@ const Pension = () => {
         {/* ***************************************CONTACT */}
         <Contact />
       </main>
+      <Footer />
     </div>
   );
 };

@@ -1,23 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 const MenuPension = () => {
-  // return (
-  //   <nav className='menu'>
-  //     <ul>
-  //       <li>
-  //         <a href='#activities'>Formules</a>
-  //       </li>
-  //       <li>
-  //         <a href='#installations'>Installations</a>
-  //       </li>
-  //       <li>
-  //         <a href='#prices'>Tarifs</a>
-  //       </li>
-  //       <li>
-  //         <a href='#contact'>Contact</a>
-  //       </li>
-  //     </ul>
-  //   </nav>
-  // );
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [menuClassName, setMenuClassName] = useState('hidden');
   const menu = useRef();
@@ -45,23 +27,35 @@ const MenuPension = () => {
           className='mr-14 mt-16 space-y-10 text-right text-white text-xl'
           role='menu'
         >
-          <li className='menu__item' role='menuitem'>
-            <a href='#formulas' rel='ugc'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
+            <a href='#formulas' rel='ugc' onClick={openResponsiveMenu}>
               Formules
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#installations' rel='ugc'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
+            <a href='#installations' rel='ugc' onClick={openResponsiveMenu}>
               Installations
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#prices' rel='ugc' className='color-white'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
+            <a href='#prices' rel='ugc' onClick={openResponsiveMenu}>
               Tarifs
             </a>
           </li>
-          <li className='menu__item' role='menuitem'>
-            <a href='#contact' rel='ugc' className='color-white'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
+            <a href='#contact' rel='ugc' onClick={openResponsiveMenu}>
               Contact
             </a>
           </li>
