@@ -132,7 +132,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
 
   return (
     <div>
-      <h3 className='font-bold text-2xl pl-2 sm:pl-8 lg:pl-16'>
+      <h3 className='text-principal-color font-bold text-2xl pl-2 sm:pl-8 lg:pl-16'>
         {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
       </h3>
       <div className='overflow-x-auto my-2'>

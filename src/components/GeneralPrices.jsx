@@ -32,7 +32,7 @@ const GeneralPrices = ({ editable = false }) => {
         ''
       )}
       {/* General prices*/}
-      <ul className='py-4 md:flex md:gap-16 md:justify-center md:border-2 border-black rounded-lg md:mt-2'>
+      <ul className='py-4 md:flex md:gap-16 md:justify-center md:border-2 border-green-800 rounded-lg md:mt-2'>
         <li className='text-base'>
           <span className='font-bold text-xl'>Cotisation annuelle :</span>{' '}
           {generalPrices && generalPrices['annualSubscription']}€

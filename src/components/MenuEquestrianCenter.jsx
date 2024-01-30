@@ -25,35 +25,53 @@ const MenuEquestrianCenter = () => {
       </div>
       <nav ref={menu} className={menuClassName}>
         <ul
-          className='mt-16 space-y-10 text-center text-white text-xl lg:mr-14 lg:text-right'
+          className='mt-16 space-y-10 text-center text-white text-xl lg:mr-14 lg:text-right flex flex-col items-center lg:items-end'
           role='menu'
         >
-          <li role='menuitem'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
             <a href='#activities' rel='ugc' onClick={openResponsiveMenu}>
               Activités
             </a>
           </li>
-          <li role='menuitem'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
             <a href='#installations' rel='ugc' onClick={openResponsiveMenu}>
               Installations
             </a>
           </li>
-          {/* <li className='w-fit' role='menuitem'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
             <a href='#cavalry' rel='ugc' onClick={openResponsiveMenu}>
               Cavalerie
             </a>
-          </li> */}
-          <li role='menuitem'>
+          </li>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
             <a href='#planning' rel='ugc' onClick={openResponsiveMenu}>
               Planning
             </a>
           </li>
-          <li role='menuitem'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
             <a href='#prices' rel='ugc' onClick={openResponsiveMenu}>
               Tarifs
             </a>
           </li>
-          <li role='menuitem'>
+          <li
+            role='menuitem'
+            className='w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right'
+          >
             <a href='#contact' rel='ugc' onClick={openResponsiveMenu}>
               Contact
             </a>

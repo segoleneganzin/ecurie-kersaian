@@ -9,6 +9,7 @@ import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
 import WeeklyPlanner from '../components/WeeklyPlanner';
+import Cavalry from '../components/Cavalry';
 
 const EquestrianCenter = () => {
   return (
@@ -47,13 +48,13 @@ const EquestrianCenter = () => {
             <div className='items-center mt-8 flex flex-col gap-5 md:flex-row md:justify-center xl:justify-start'>
               <a
                 href='#contact'
-                className='bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit'
+                className='bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit transform transition duration-400 hover:bg-principal-color'
               >
                 Nous situer
               </a>
               <a
                 href='#contact'
-                className='bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit'
+                className='bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit transform transition duration-400 hover:bg-principal-color'
               >
                 Nous contacter
               </a>
@@ -62,10 +63,10 @@ const EquestrianCenter = () => {
         </div>
         {/* **************************************ACTIVITEES */}
         <div className='p-2 lg:p-16 pt-16 sm:p-8' id='activities'>
-          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos activités
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base text-center lg:text-left lg:space-y-0 lg:flex lg:flex-col lg:gap-6 lg:items-start'>
+          <ul className='leading-10 mt-4 space-y-5 text-base text-center lg:text-left lg:space-y-0 lg:flex lg:flex-col lg:gap-6 lg:items-start'>
             <li className='flex flex-col lg:flex-row lg:items-center lg:gap-12'>
               <img
                 src={lessonImg}
@@ -121,20 +122,21 @@ const EquestrianCenter = () => {
         {/* ***************************************INSTALLATIONS */}
         <Installations />
         {/* ***************************************CAVALERIE */}
-        {/* <div className='p-2 pt-16 lg:p-16 sm:p-8' id='cavalry'>
+        <div className='p-2 pt-16 lg:p-16 sm:p-8' id='cavalry'>
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Notre cavalerie
           </h2>
-          <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base'>
+          {/* <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base'>
             <li>Les shetlands</li>
             <li>Les poneys</li>
             <li>Les chevaux</li>
-          </ul>
-        </div> */}
+          </ul> */}
+          <Cavalry />
+        </div>
         {/* ***************************************PLANNING */}
         <div className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
           {/* <div className='p-2 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'> */}
-          <h2 className='font-bold pl-2 pb-10 sm:pl-8 lg:pl-16 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          <h2 className='text-principal-color font-bold pl-2 pb-10 sm:pl-8 lg:pl-16 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Le planning
           </h2>
           <WeeklyPlanner period={'school'} />

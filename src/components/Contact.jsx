@@ -1,11 +1,11 @@
 const Contact = () => {
   return (
     <div className='p-2 pt-16  sm:p-8 lg:p-16' id='contact'>
-      <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+      <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
         Contactez-nous
       </h2>
       <div className='flex flex-col gap-10 md:flex-row lg:gap-6'>
-        <ul className='leading-10 p-2 text-base text-principal-color md:p-0'>
+        <ul className='leading-10 p-2 text-base md:p-0'>
           <li>
             <span className='color-secondary-color font-bold text-lg'>
               Adresse :

@@ -34,10 +34,12 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   };
   return (
     <div className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
-      <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+      <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
         Les tarifs
       </h2>
-      <h3 className='font-bold text-2xl'>Saison 2023/2024</h3>
+      <h3 className='text-principal-color font-bold text-2xl'>
+        Saison 2023/2024
+      </h3>
 
       <GeneralPrices editable={editable} />
 
@@ -54,7 +56,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           ''
         )}
 
-        <h4 className='font-bold text-xl bg-principal-color text-white rounded-lg text-center'>
+        <h4 className='font-bold text-xl bg-secondary-color text-white rounded-lg text-center'>
           Forfaits "tout compris" (Adhésion + licence + cours)
         </h4>
         <div className='py-4 md:flex  md:justify-between'>
@@ -66,9 +68,9 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               Pas de cours durant les vacances scolaires.
             </p>
           </div>
-          <div className='rounded-lg overflow-hidden border-2 border-principal-color mt-2 w-fit m-auto md:m-0'>
+          <div className='rounded-lg overflow-hidden border-2 border-secondary-color mt-2 w-fit m-auto md:m-0'>
             <table className='bg-whitetext-sm mobile:text-base'>
-              <thead className='bg-principal-color text-white'>
+              <thead className='bg-secondary-color text-white'>
                 <tr className='h-16'>
                   <th className='py-2 px-2 border-r border-white  text-left'>
                     Formules
@@ -84,31 +86,31 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               </thead>
               <tbody>
                 <tr className='h-16'>
-                  <th className='py-2 px-2 border-r border-b border-principal-color text-left'>
+                  <th className='py-2 px-2 border-r border-b border-secondary-color text-left'>
                     1h/semaine
                   </th>
-                  <td className='py-2 px-4 border-r border-b border-principal-color'>
+                  <td className='py-2 px-4 border-r border-b border-secondary-color'>
                     {state.equestrianCenterPrices &&
                       state.equestrianCenterPrices['oneHourWeekly']['baby']}
                     €
                   </td>
-                  <td className='py-2 px-4 border-r border-b border-principal-color'>
+                  <td className='py-2 px-4 border-r border-b border-secondary-color'>
                     {state.equestrianCenterPrices &&
                       state.equestrianCenterPrices['oneHourWeekly']['under18']}
                     €
                   </td>
-                  <td className='py-2 px-4 border-b border-principal-color'>
+                  <td className='py-2 px-4 border-b border-secondary-color'>
                     {state.equestrianCenterPrices &&
                       state.equestrianCenterPrices['oneHourWeekly']['over18']}
                     €
                   </td>
                 </tr>
                 <tr className='h-16 text-left'>
-                  <th className='py-2 px-2 border-r border-principal-color '>
+                  <th className='py-2 px-2 border-r border-secondary-color '>
                     2h/semaine
                   </th>
-                  <td className='py-2 px-4 bg-principal-color border-r border-principal-color'></td>
-                  <td className='py-2 px-4 border-r border-principal-color'>
+                  <td className='py-2 px-4 bg-secondary-color border-r border-secondary-color'></td>
+                  <td className='py-2 px-4 border-r border-secondary-color'>
                     {state.equestrianCenterPrices &&
                       state.equestrianCenterPrices['twoHoursWeekly']['under18']}
                     €
@@ -126,16 +128,16 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       </div>
       {/* Cartes */}
       <div className='py-4'>
-        <h4 className='font-bold text-xl  bg-principal-color text-white  rounded-lg text-center'>
+        <h4 className='font-bold text-xl  bg-secondary-color text-white  rounded-lg text-center'>
           Cartes
         </h4>
         <div className='py-4 md:flex  md:justify-between'>
           <p className='italic py-4 font-sm'>
             Cotisation et licence obligatoire (non comprises)
           </p>
-          <div className='rounded-lg overflow-hidden border-2 border-principal-color w-fit m-auto md:m-0'>
+          <div className='rounded-lg overflow-hidden border-2 border-secondary-color w-fit m-auto md:m-0'>
             <table className='bg-white text-sm mobile:text-base'>
-              <thead className='bg-principal-color text-white'>
+              <thead className='bg-secondary-color text-white'>
                 <tr className='h-16  text-left'>
                   <th className='py-2 px-4 border-r border-white'>Cartes</th>
                   <th className='py-2 px-4'>Tarifs</th>
@@ -144,17 +146,17 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               <tbody>
                 <tr className='h-16 text-left'>
                   <th
-                    className='py-2 px-4 border-b-2 border-principal-color'
+                    className='py-2 px-4 border-b-2 border-secondary-color'
                     colSpan='2'
                   >
                     Cours collectifs
                   </th>
                 </tr>
                 <tr className='h-16 text-left'>
-                  <th className='py-2 px-4 border-r border-b border-principal-color'>
+                  <th className='py-2 px-4 border-r border-b border-secondary-color'>
                     5 heures
                   </th>
-                  <td className='py-2 px-4  border-b border-principal-color'>
+                  <td className='py-2 px-4  border-b border-secondary-color'>
                     {state.equestrianCenterPrices &&
                       state.equestrianCenterPrices['cardGroupLessons'][
                         'fiveHours'
@@ -163,7 +165,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                   </td>
                 </tr>
                 <tr className='h-16 text-left'>
-                  <th className='py-2 px-4 border-r border-principal-color'>
+                  <th className='py-2 px-4 border-r border-secondary-color'>
                     10 heures
                   </th>
                   <td className='py-2 px-4'>
@@ -176,17 +178,17 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 </tr>
                 <tr className='h-16 text-left'>
                   <th
-                    className='py-2 px-4 border-t-2 border-b-2 border-principal-color'
+                    className='py-2 px-4 border-t-2 border-b-2 border-secondary-color'
                     colSpan='2'
                   >
                     Cours particuliers
                   </th>
                 </tr>
                 <tr className='h-16 text-left'>
-                  <th className='py-2 px-4 border-r border-b border-principal-color'>
+                  <th className='py-2 px-4 border-r border-b border-secondary-color'>
                     5 cours club
                   </th>
-                  <td className='py-2 px-4  border-b border-principal-color'>
+                  <td className='py-2 px-4  border-b border-secondary-color'>
                     {state.equestrianCenterPrices &&
                       state.equestrianCenterPrices['cardPrivatesLessons'][
                         'fiveClubLessons'
@@ -195,7 +197,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                   </td>
                 </tr>
                 <tr className='h-16'>
-                  <th className='py-2 px-4 border-r border-principal-color'>
+                  <th className='py-2 px-4 border-r border-secondary-color'>
                     5 cours propriétaire
                   </th>
                   <td className='py-2 px-4'>
@@ -213,7 +215,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       </div>
       {/* Demi et tiers de pension */}
       <div className='py-4'>
-        <h4 className='font-bold text-xl bg-principal-color text-white  rounded-lg text-center'>
+        <h4 className='font-bold text-xl bg-secondary-color text-white  rounded-lg text-center'>
           Demi pension et tiers de pension
         </h4>
         <div className='py-4 lg:flex lg:justify-between w-fit m-auto lg:m-0 lg:w-full'>
@@ -227,9 +229,9 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               La monte libre exclus la pratique de l'obstacle.
             </p>
           </div>
-          <div className='rounded-lg overflow-hidden border-2 border-principal-color'>
+          <div className='rounded-lg overflow-hidden border-2 border-secondary-color'>
             <table className='bg-white text-sm mobile:text-base'>
-              <thead className='bg-principal-color text-white'>
+              <thead className='bg-secondary-color text-white'>
                 <tr className='h-16 text-left'>
                   <th className='py-2 px-4 border-r border-white'>Formules</th>
                   <th className='py-2 px-4 border-r border-white'>
@@ -240,14 +242,14 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               </thead>
               <tbody>
                 <tr className='h-16 text-left'>
-                  <th className='py-2 px-4 border-b border-r border-principal-color'>
+                  <th className='py-2 px-4 border-b border-r border-secondary-color'>
                     Tiers de pension
                   </th>
-                  <td className='py-2 px-4 border-b border-r border-principal-color'>
+                  <td className='py-2 px-4 border-b border-r border-secondary-color'>
                     {state.pensionPrices &&
                       state.pensionPrices['thirdPartPension']['description']}
                   </td>
-                  <td className='py-2 px-4 border-b border-principal-color'>
+                  <td className='py-2 px-4 border-b border-secondary-color'>
                     {' '}
                     {state.pensionPrices &&
                       state.pensionPrices['thirdPartPension']['price']}
@@ -255,10 +257,10 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                   </td>
                 </tr>
                 <tr className='h-16 text-left'>
-                  <th className='py-2 px-4 border-r border-principal-color'>
+                  <th className='py-2 px-4 border-r border-secondary-color'>
                     Demi pension
                   </th>
-                  <td className='py-2 px-4 border-r border-principal-color'>
+                  <td className='py-2 px-4 border-r border-secondary-color'>
                     {state.pensionPrices &&
                       state.pensionPrices['halfPension']['description']}
                   </td>
