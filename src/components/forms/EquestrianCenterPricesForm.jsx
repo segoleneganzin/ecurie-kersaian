@@ -3,13 +3,25 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { updatePrices } from '../api/PricesApi';
+import { updatePrices } from '../../api/PricesApi';
 const EquestrianCenterPricesForm = ({
   equestrianCenterPrices,
   pensionPrices,
   closeModal,
   getPrices,
 }) => {
+  // ************** GROUP CLASSNAMES
+  const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
+  const formDataContainerClassName = 'mb-4';
+  const textareaContainerClassName = 'flex flex-col';
+  const labelClassName = 'pr-2 text-lg font-bold';
+  const inputClassName = 'border-b border-black max-w-12';
+  const inputErrorClassName = 'border-b border-red-300';
+  const textareaClassName = 'border border-black  pl-2';
+  const textareaErrorClassName = 'border border-red-300';
+  const buttonClassName =
+    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
+  //******************************* Gestion des erreurs dans le formulaire modal
   const {
     register,
     handleSubmit,
@@ -18,73 +30,44 @@ const EquestrianCenterPricesForm = ({
     formState: { errors },
   } = useForm();
 
-  const inputErrorClass = {
-    baby: errors.baby ? 'border-b border-red-300' : 'border-b border-black',
-    oneHourUnder18: errors.oneHourUnder18
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    oneHourOver18: errors.oneHourOver18
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    twoHoursUnder18: errors.twoHoursUnder18
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    twoHoursOver18: errors.twoHoursOver18
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    hours5: errors.hours5 ? 'border-b border-red-300' : 'border-b border-black',
-    hours10: errors.hours10
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    clubLesson5: errors.clubLesson5
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    ownerLesson5: errors.ownerLesson5
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    halfPensionDescription: errors.halfPensionDescription
-      ? 'border-b border-red-300'
-      : 'border border-black',
-    halfPensionTarif: errors.halfPensionTarif
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    thirdPartPensionDescription: errors.thirdPartPensionDescription
-      ? 'border-b border-red-300'
-      : 'border border-black',
-    thirdPartPensionTarif: errors.thirdPartPensionTarif
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
+  const inputErrorClass = (field) => {
+    const errorClasses = {
+      period: errors[field] ? textareaErrorClassName : textareaClassName,
+      infos: errors[field] ? textareaErrorClassName : textareaClassName,
+      halfPensionDescription: errors[field]
+        ? textareaErrorClassName
+        : textareaClassName,
+      thirdPartPensionDescription: errors[field]
+        ? textareaErrorClassName
+        : textareaClassName,
+
+      default: errors[field] ? inputErrorClassName : inputClassName,
+    };
+    return errorClasses[field] || errorClasses.default;
   };
-  const inputErrorMessage = {
-    baby: errors.baby ? 'Veuillez renseigner un tarif' : '',
-    oneHourUnder18: errors.oneHourUnder18 ? 'Veuillez renseigner un tarif' : '',
-    oneHourOver18: errors.oneHourOver18 ? 'Veuillez renseigner un tarif' : '',
-    twoHoursUnder18: errors.twoHoursUnder18
-      ? 'Veuillez renseigner un tarif'
-      : '',
-    twoHoursOver18: errors.twoHoursOver18 ? 'Veuillez renseigner un tarif' : '',
-    hours5: errors.hours5 ? 'Veuillez renseigner un tarif' : '',
-    hours10: errors.hours10 ? 'Veuillez renseigner un tarif' : '',
-    clubLesson5: errors.hours5 ? 'Veuillez renseigner un tarif' : '',
-    ownerLesson5: errors.hours10 ? 'Veuillez renseigner un tarif' : '',
-    halfPensionDescription: errors.halfPensionDescription
-      ? 'Veuillez renseigner un tarif'
-      : '',
-    halfPensionTarif: errors.halfPensionTarif
-      ? 'Veuillez renseigner un tarif'
-      : '',
-    thirdPartPensionDescription: errors.thirdPartPensionDescription
-      ? 'Veuillez renseigner un tarif'
-      : '',
-    thirdPartPensionTarif: errors.thirdPartPensionTarif
-      ? 'Veuillez renseigner un tarif'
-      : '',
+
+  const inputErrorMessage = (field) => {
+    const errorMessages = {
+      period: errors[field] ? 'Veuillez renseigner une période' : '',
+      infos: errors[field] ? '' : '',
+      halfPensionDescription: errors[field]
+        ? 'Veuillez renseigner une description'
+        : '',
+      thirdPartPensionDescription: errors[field]
+        ? 'Veuillez renseigner une description'
+        : '',
+
+      default: errors[field] ? 'Veuillez renseigner un tarif' : '',
+    };
+    return errorMessages[field] || errorMessages.default;
   };
 
   //**********************************************place data to input value
   const updateInputDatas = async () => {
     try {
       if (equestrianCenterPrices && pensionPrices) {
+        setValue('period', equestrianCenterPrices['period']);
+        setValue('infos', equestrianCenterPrices['infos']);
         setValue('baby', equestrianCenterPrices['oneHourWeekly']['baby']);
         setValue(
           'oneHourUnder18',
@@ -143,11 +126,13 @@ const EquestrianCenterPricesForm = ({
 
   const updateFormPrices = async () => {
     const equestrianCenterDatas = {
+      period: getValues('period'),
+      infos: getValues('infos'),
       cardGroupLessons: {
         fiveHours: parseInt(getValues('hours5')),
         tenHours: parseInt(getValues('hours10')),
       },
-      cardPrivateLessons: {
+      cardPrivatesLessons: {
         fiveClubLessons: parseInt(getValues('clubLesson5')),
         fiveOwnerLessons: parseInt(getValues('ownerLesson5')),
       },
@@ -164,11 +149,11 @@ const EquestrianCenterPricesForm = ({
     };
     const pensionDatas = {
       halfPension: {
-        description: parseInt(getValues('halfPensionDescription')),
+        description: getValues('halfPensionDescription'),
         price: parseInt(getValues('halfPensionTarif')),
       },
       thirdPartPension: {
-        description: parseInt(getValues('thirdPartPensionDescription')),
+        description: getValues('thirdPartPensionDescription'),
         price: parseInt(getValues('thirdPartPensionTarif')),
       },
     };
@@ -179,273 +164,313 @@ const EquestrianCenterPricesForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(updateFormPrices)} className='mt-2' noValidate>
+    <form
+      onSubmit={handleSubmit(updateFormPrices)}
+      className={formClassName}
+      noValidate
+    >
+      {/* ****************************PERIODE ET INFOS */}
+      <div className={textareaContainerClassName}>
+        <label className={labelClassName} htmlFor='period'>
+          Période :
+        </label>
+        <textarea
+          id='period'
+          name='period'
+          className={inputErrorClass('period')}
+          {...register('period', { required: true })}
+        />
+      </div>
+      {errors.period && (
+        <span className='text-red-800'>{inputErrorMessage('period')}</span>
+      )}
+      <div className={textareaContainerClassName}>
+        <label className={labelClassName} htmlFor='infos'>
+          Informations diverses :
+        </label>
+        <textarea
+          id='infos'
+          name='infos'
+          className={inputErrorClass('infos')}
+          {...register('infos')}
+        />
+      </div>
+      {errors.infos && (
+        <span className='text-red-800'>{inputErrorMessage('infos')}</span>
+      )}
+
       {/* ****************************FORFAITS */}
       <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
         Forfaits "tout compris"
       </h2>
       <div className='bg-principal-color h-2 mb-4 w-full'></div>
-      {/* TODO periode + complément d'info */}
-      {/*******  1h/ semaine */}
+
+      {/******* 1h/ semaine */}
       <h3 className='font-bold text-lg'>1h/ semaine</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='baby'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='baby'>
           Baby :
         </label>
         <input
           id='baby'
           name='baby'
           type='number'
-          className={inputErrorClass.baby}
+          className={inputErrorClass('baby')}
           {...register('baby', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.baby && (
-        <span className='text-red-800'>{inputErrorMessage.baby}</span>
+        <span className='text-red-800'>{inputErrorMessage('baby')}</span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='oneHourUnder18'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='oneHourUnder18'>
           - de 18ans :
         </label>
         <input
           id='oneHourUnder18'
           name='oneHourUnder18'
           type='number'
-          className={inputErrorClass.oneHourUnder18}
+          className={inputErrorClass('oneHourUnder18')}
           {...register('oneHourUnder18', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.oneHourUnder18 && (
-        <span className='text-red-800'>{inputErrorMessage.oneHourUnder18}</span>
+        <span className='text-red-800'>
+          {inputErrorMessage('oneHourUnder18')}
+        </span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='oneHourOver18'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='oneHourOver18'>
           + de 18ans :
         </label>
         <input
           id='oneHourOver18'
           name='oneHourOver18'
           type='number'
-          className={inputErrorClass.oneHourOver18}
+          className={inputErrorClass('oneHourOver18')}
           {...register('oneHourOver18', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.oneHourOver18 && (
-        <span className='text-red-800'>{inputErrorMessage.oneHourOver18}</span>
+        <span className='text-red-800'>
+          {inputErrorMessage('oneHourOver18')}
+        </span>
       )}
-      {/*******  2h/ semaine */}
+
+      {/* ******* 2h/ semaine */}
       <h3 className='font-bold text-lg mt-6'>2h/ semaine</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='twoHoursUnder18'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='twoHoursUnder18'>
           - de 18ans :
         </label>
         <input
           id='twoHoursUnder18'
           name='twoHoursUnder18'
           type='number'
-          className={inputErrorClass.twoHoursUnder18}
+          className={inputErrorClass('twoHoursUnder18')}
           {...register('twoHoursUnder18', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.twoHoursUnder18 && (
         <span className='text-red-800'>
-          {inputErrorMessage.twoHoursUnder18}
+          {inputErrorMessage('twoHoursUnder18')}
         </span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='twoHoursOver18'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='twoHoursOver18'>
           + de 18ans :
         </label>
         <input
           id='twoHoursOver18'
           name='twoHoursOver18'
           type='number'
-          className={inputErrorClass.twoHoursOver18}
+          className={inputErrorClass('twoHoursOver18')}
           {...register('twoHoursOver18', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.twoHoursOver18 && (
-        <span className='text-red-800'>{inputErrorMessage.twoHoursOver18}</span>
+        <span className='text-red-800'>
+          {inputErrorMessage('twoHoursOver18')}
+        </span>
       )}
+
       {/* ****************************CARTES */}
       <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
         Cartes
       </h2>
       <div className='bg-principal-color h-2 mb-4 w-full'></div>
-      {/*******  cours collectifs */}
+
+      {/******* cours collectifs */}
       <h3 className='font-bold text-lg'>Cours collectifs</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='hours5'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='hours5'>
           5 heures :
         </label>
         <input
           id='hours5'
           name='hours5'
           type='number'
-          className={inputErrorClass.hours5}
+          className={inputErrorClass('hours5')}
           {...register('hours5', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.hours5 && (
-        <span className='text-red-800'>{inputErrorMessage.hours5}</span>
+        <span className='text-red-800'>{inputErrorMessage('hours5')}</span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='hours10'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='hours10'>
           10 heures :
         </label>
         <input
           id='hours10'
           name='hours10'
           type='number'
-          className={inputErrorClass.hours10}
+          className={inputErrorClass('hours10')}
           {...register('hours10', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.hours10 && (
-        <span className='text-red-800'>{inputErrorMessage.hours10}</span>
+        <span className='text-red-800'>{inputErrorMessage('hours10')}</span>
       )}
-      {/*******  cours particuliers */}
+
+      {/******* cours particuliers */}
       <h3 className='font-bold text-lg mt-6'>Cours particuliers</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='clubLesson5'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='clubLesson5'>
           5 cours club :
         </label>
         <input
           id='clubLesson5'
           name='clubLesson5'
           type='number'
-          className={inputErrorClass.clubLesson5}
+          className={inputErrorClass('clubLesson5')}
           {...register('clubLesson5', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.clubLesson5 && (
-        <span className='text-red-800'>{inputErrorMessage.clubLesson5}</span>
+        <span className='text-red-800'>{inputErrorMessage('clubLesson5')}</span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='ownerLesson5'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='ownerLesson5'>
           5 cours propriétaire :
         </label>
         <input
           id='ownerLesson5'
           name='ownerLesson5'
           type='number'
-          className={inputErrorClass.ownerLesson5}
+          className={inputErrorClass('ownerLesson5')}
           {...register('ownerLesson5', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.ownerLesson5 && (
-        <span className='text-red-800'>{inputErrorMessage.ownerLesson5}</span>
+        <span className='text-red-800'>
+          {inputErrorMessage('ownerLesson5')}
+        </span>
       )}
+
       {/* ****************************DEMI ET TIERS DE PENSION */}
       <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
         Demi et tiers de pension
       </h2>
       <div className='bg-principal-color h-2 mb-4 w-full'></div>
-      {/* TODO complément d'info */}
-      {/*******  demi pension */}
+
+      {/******* demi pension */}
       <h3 className='font-bold text-lg mt-6'>Demi pension</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div className='flex flex-col'>
-        <label
-          className='pr-2 text-lg font-bold'
-          htmlFor='halfPensionDescription'
-        >
+      <div className={textareaContainerClassName}>
+        <label className={labelClassName} htmlFor='halfPensionDescription'>
           Description :
         </label>
         <textarea
           id='halfPensionDescription'
           name='halfPensionDescription'
           type='text'
-          className={inputErrorClass.halfPensionDescription}
+          className={inputErrorClass('halfPensionDescription')}
           {...register('halfPensionDescription', { required: true })}
         />
       </div>
       {errors.halfPensionDescription && (
         <span className='text-red-800'>
-          {inputErrorMessage.halfPensionDescription}
+          {inputErrorMessage('halfPensionDescription')}
         </span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='halfPensionTarif'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='halfPensionTarif'>
           Tarif :
         </label>
         <input
           id='halfPensionTarif'
           name='halfPensionTarif'
           type='number'
-          className={inputErrorClass.halfPensionTarif}
+          className={inputErrorClass('halfPensionTarif')}
           {...register('halfPensionTarif', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.halfPensionTarif && (
         <span className='text-red-800'>
-          {inputErrorMessage.halfPensionTarif}
+          {inputErrorMessage('halfPensionTarif')}
         </span>
       )}
-      {/*******  tiers de pension */}
+
+      {/******* tiers de pension */}
       <h3 className='font-bold text-lg mt-6'>Tiers de pension</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div className='flex flex-col'>
-        <label
-          className='pr-2 text-lg font-bold'
-          htmlFor='thirdPartPensionDescription'
-        >
+      <div className={textareaContainerClassName}>
+        <label className={labelClassName} htmlFor='thirdPartPensionDescription'>
           Description :
         </label>
         <textarea
           id='thirdPartPensionDescription'
           name='thirdPartPensionDescription'
           type='text'
-          className={inputErrorClass.thirdPartPensionDescription}
+          className={inputErrorClass('thirdPartPensionDescription')}
           {...register('thirdPartPensionDescription', { required: true })}
         />
       </div>
       {errors.thirdPartPensionDescription && (
         <span className='text-red-800'>
-          {inputErrorMessage.thirdPartPensionDescription}
+          {inputErrorMessage('thirdPartPensionDescription')}
         </span>
       )}
-      <div>
-        <label
-          className='pr-2 text-lg font-bold'
-          htmlFor='thirdPartPensionTarif'
-        >
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='thirdPartPensionTarif'>
           Tarif :
         </label>
         <input
           id='thirdPartPensionTarif'
           name='thirdPartPensionTarif'
           type='number'
-          className={inputErrorClass.thirdPartPensionTarif}
+          className={inputErrorClass('thirdPartPensionTarif')}
           {...register('thirdPartPensionTarif', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.thirdPartPensionTarif && (
         <span className='text-red-800'>
-          {inputErrorMessage.thirdPartPensionTarif}
+          {inputErrorMessage('thirdPartPensionTarif')}
         </span>
       )}
+
       <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
-        <span className='mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto'>
-          <button className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-base sm:leading-5'>
-            Valider
-          </button>
-        </span>
+        <button
+          className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
+        >
+          Valider
+        </button>
       </div>
     </form>
   );

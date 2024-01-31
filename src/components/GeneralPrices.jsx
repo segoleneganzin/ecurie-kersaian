@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import AdminPricesModal from './AdminPricesModal';
+// import AdminPricesModal from './AdminPricesModal';
+import Modal from './Modal';
 import { fetchPricesByCategory } from '../api/PricesApi';
 
 const GeneralPrices = ({ editable = false }) => {
+  // CLASSNAME
+  const adminEditButtonClassname =
+    'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2';
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [generalPrices, setGeneralPrices] = useState(null);
 
@@ -22,10 +27,17 @@ const GeneralPrices = ({ editable = false }) => {
   return (
     <div>
       {editable ? (
-        <button
-          onClick={openModal}
-          className='bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit'
-        >
+        <h4 className='text-principal-color font-bold text-2xl'>
+          Saison {generalPrices && generalPrices['season']}
+        </h4>
+      ) : (
+        <h3 className='text-principal-color font-bold text-2xl'>
+          Saison {generalPrices && generalPrices['season']}
+        </h3>
+      )}
+
+      {editable ? (
+        <button onClick={openModal} className={adminEditButtonClassname}>
           Modifier
         </button>
       ) : (
@@ -52,7 +64,7 @@ const GeneralPrices = ({ editable = false }) => {
         </li>
       </ul>
       {isModalOpen ? (
-        <AdminPricesModal
+        <Modal
           setModalOpen={setModalOpen}
           type={'general'}
           generalPrices={generalPrices}

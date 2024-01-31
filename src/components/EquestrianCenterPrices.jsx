@@ -2,11 +2,16 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { fetchPricesByCategory } from '../api/PricesApi';
-import AdminPricesModal from './AdminPricesModal';
+// import AdminPricesModal from './AdminPricesModal';
+import Modal from './Modal';
 import { useEffect } from 'react';
 import GeneralPrices from './GeneralPrices';
 
 const EquestrianCenterPrices = ({ editable = false }) => {
+  // CLASSNAME
+  const adminEditButtonClassname =
+    'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2';
+
   const [isModalOpen, setModalOpen] = useState(false);
   const [state, setState] = useState({
     equestrianCenterPrices: null,
@@ -34,37 +39,47 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   };
   return (
     <div className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
-      <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-        Les tarifs
-      </h2>
-      <h3 className='text-principal-color font-bold text-2xl'>
-        Saison 2023/2024
-      </h3>
+      {editable ? (
+        <h3 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          Les tarifs
+        </h3>
+      ) : (
+        <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
+          Les tarifs
+        </h2>
+      )}
 
       <GeneralPrices editable={editable} />
 
       {/* Forfaits */}
       <div className='py-4'>
         {editable ? (
-          <button
-            onClick={openModal}
-            className='bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit'
-          >
+          <button onClick={openModal} className={adminEditButtonClassname}>
             Modifier
           </button>
         ) : (
           ''
         )}
+        {editable ? (
+          <h5 className='font-bold text-xl bg-secondary-color text-white rounded-lg text-center'>
+            Forfaits "tout compris" (Adhésion + licence + cours)
+          </h5>
+        ) : (
+          <h4 className='font-bold text-xl bg-secondary-color text-white rounded-lg text-center'>
+            Forfaits "tout compris" (Adhésion + licence + cours)
+          </h4>
+        )}
 
-        <h4 className='font-bold text-xl bg-secondary-color text-white rounded-lg text-center'>
-          Forfaits "tout compris" (Adhésion + licence + cours)
-        </h4>
         <div className='py-4 md:flex  md:justify-between'>
           <div className='md:max-w-300px lg:max-w-full'>
-            <h5 className='font-bold'>Du 1er septembre au 6 juillet</h5>
-            <p className='italic text-base '>
-              Cette année, exceptionnellement, les cours auront lieu du 9
-              octobre au 6 juillet. <br />
+            <p className='font-bold'>
+              {state.equestrianCenterPrices &&
+                state.equestrianCenterPrices['period']}
+            </p>
+            <p className='italic text-base mr-2 '>
+              {state.equestrianCenterPrices &&
+                state.equestrianCenterPrices['infos']}{' '}
+              <br />
               Pas de cours durant les vacances scolaires.
             </p>
           </div>
@@ -128,9 +143,16 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       </div>
       {/* Cartes */}
       <div className='py-4'>
-        <h4 className='font-bold text-xl  bg-secondary-color text-white  rounded-lg text-center'>
-          Cartes
-        </h4>
+        {editable ? (
+          <h5 className='font-bold text-xl  bg-secondary-color text-white  rounded-lg text-center'>
+            Cartes
+          </h5>
+        ) : (
+          <h4 className='font-bold text-xl  bg-secondary-color text-white  rounded-lg text-center'>
+            Cartes
+          </h4>
+        )}
+
         <div className='py-4 md:flex  md:justify-between'>
           <p className='italic py-4 font-sm'>
             Cotisation et licence obligatoire (non comprises)
@@ -215,9 +237,16 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       </div>
       {/* Demi et tiers de pension */}
       <div className='py-4'>
-        <h4 className='font-bold text-xl bg-secondary-color text-white  rounded-lg text-center'>
-          Demi pension et tiers de pension
-        </h4>
+        {editable ? (
+          <h5 className='font-bold text-xl bg-secondary-color text-white  rounded-lg text-center'>
+            Demi pension et tiers de pension
+          </h5>
+        ) : (
+          <h4 className='font-bold text-xl bg-secondary-color text-white  rounded-lg text-center'>
+            Demi pension et tiers de pension
+          </h4>
+        )}
+
         <div className='py-4 lg:flex lg:justify-between w-fit m-auto lg:m-0 lg:w-full'>
           <div>
             <p className='font-bold text-base'>
@@ -277,7 +306,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         </div>
       </div>
       {isModalOpen ? (
-        <AdminPricesModal
+        <Modal
           setModalOpen={setModalOpen}
           type={'equestrianCenter'}
           generalPrices={state.generalPrices}

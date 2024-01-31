@@ -3,8 +3,18 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { updatePrices } from '../api/PricesApi';
+import { updatePrices } from '../../api/PricesApi';
+
 const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
+  // ************** CLASSNAMES
+  const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
+  const formDataContainerClassName = 'mb-4';
+  const labelClassName = 'pr-2 text-lg font-bold';
+  const inputClassName = 'border-b border-black max-w-12';
+  const inputErrorClassName = 'border-b border-red-300';
+  const buttonClassName =
+    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
+  //******************************* Gestion des erreurs dans le formulaire modal
   const {
     register,
     handleSubmit,
@@ -13,33 +23,23 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
     formState: { errors },
   } = useForm();
 
-  const inputErrorClass = {
-    annualSubscription: errors.annualSubscription
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    ffeLicenseUnder18: errors.ffeLicenseUnder18
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-    ffeLicenseOver18: errors.ffeLicenseOver18
-      ? 'border-b border-red-300'
-      : 'border-b border-black',
-  };
-  const inputErrorMessage = {
-    annualSubscription: errors.annualSubscription
-      ? 'Veuillez renseigner un tarif'
-      : '',
-    ffeLicenseUnder18: errors.ffeLicenseUnder18
-      ? 'Veuillez renseigner un tarif'
-      : '',
-    ffeLicenseOver18: errors.ffeLicenseOver18
-      ? 'Veuillez renseigner un tarif'
-      : '',
+  const inputErrorClass = (field) => {
+    return errors[field] ? inputErrorClassName : inputClassName;
   };
 
-  //**********************************************place data to input value
+  const inputErrorMessage = (field) => {
+    const errorMessages = {
+      season: errors[field] ? 'Veuillez renseigner la saison' : '',
+      default: errors[field] ? 'Veuillez renseigner un tarif' : '',
+    };
+    return errorMessages[field] || errorMessages.default;
+  };
+
+  //******************************* Gestion des données du formulaire
   const updateInputDatas = async () => {
     try {
       if (generalPrices) {
+        setValue('season', generalPrices['season']);
         setValue('annualSubscription', generalPrices['annualSubscription']);
         setValue('ffeLicenseUnder18', generalPrices['ffeLicense']['under18']);
         setValue('ffeLicenseOver18', generalPrices['ffeLicense']['over18']);
@@ -55,8 +55,8 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
 
   const updateFormPrices = async () => {
     const generalDatas = {
+      season: getValues('season'),
       annualSubscription: parseInt(getValues('annualSubscription')),
-
       ffeLicense: {
         under18: parseInt(getValues('ffeLicenseUnder18')),
         over18: parseInt(getValues('ffeLicenseOver18')),
@@ -68,77 +68,96 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(updateFormPrices)} className='mt-2' noValidate>
-      {/* ****************************FORFAITS */}
+    <form
+      onSubmit={handleSubmit(updateFormPrices)}
+      className={formClassName}
+      noValidate
+    >
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='season'>
+          Saison :
+        </label>
+        <input
+          id='season'
+          name='season'
+          type='text'
+          className={inputErrorClass('season') + 'w-20'}
+          {...register('season', { required: true })}
+        />
+      </div>
+      {errors.season && (
+        <span className='text-red-800'>{inputErrorMessage('season')}</span>
+      )}
+      {/* ****************************GENERAL */}
       <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
         Tarifs généraux
       </h2>
       <div className='bg-principal-color h-2 mb-4 w-full'></div>
       {/*******  cotisation annuelle */}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='annualSubscription'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='annualSubscription'>
           Cotisation annuelle :
         </label>
         <input
           id='annualSubscription'
           name='annualSubscription'
           type='number'
-          className={inputErrorClass.annualSubscription}
+          className={inputErrorClass('annualSubscription')}
           {...register('annualSubscription', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.annualSubscription && (
         <span className='text-red-800'>
-          {inputErrorMessage.annualSubscription}
+          {inputErrorMessage('annualSubscription')}
         </span>
       )}
       {/*******  Licence FFE */}
       <h3 className='font-bold text-lg mt-6'>Licence annuelle FFE</h3>
       <div className='bg-principal-color h-1 my-4 w-full'></div>
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='ffeLicenseUnder18'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='ffeLicenseUnder18'>
           - de 18ans :
         </label>
         <input
           id='ffeLicenseUnder18'
           name='ffeLicenseUnder18'
           type='number'
-          className={inputErrorClass.ffeLicenseUnder18}
+          className={inputErrorClass('ffeLicenseUnder18')}
           {...register('ffeLicenseUnder18', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.ffeLicenseUnder18 && (
         <span className='text-red-800'>
-          {inputErrorMessage.ffeLicenseUnder18}
+          {inputErrorMessage('ffeLicenseUnder18')}
         </span>
       )}
-      <div>
-        <label className='pr-2 text-lg font-bold' htmlFor='ffeLicenseOver18'>
+      <div className={formDataContainerClassName}>
+        <label className={labelClassName} htmlFor='ffeLicenseOver18'>
           + de 18ans :
         </label>
         <input
           id='ffeLicenseOver18'
           name='ffeLicenseOver18'
           type='number'
-          className={inputErrorClass.ffeLicenseOver18}
+          className={inputErrorClass('ffeLicenseOver18')}
           {...register('ffeLicenseOver18', { required: true })}
         />
         <span>€</span>
       </div>
       {errors.ffeLicenseOver18 && (
         <span className='text-red-800'>
-          {inputErrorMessage.ffeLicenseOver18}
+          {inputErrorMessage('ffeLicenseOver18')}
         </span>
       )}
 
       <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
-        <span className='mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto'>
-          <button className='inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-base sm:leading-5'>
-            Valider
-          </button>
-        </span>
+        <button
+          className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
+        >
+          Valider
+        </button>
       </div>
     </form>
   );

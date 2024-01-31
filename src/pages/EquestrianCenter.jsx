@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import presentationImg from '../assets/images/cc.jpg';
-import lessonImg from '../assets/images/cours.jpg';
-import walkImg from '../assets/images/balade.jpg';
-import eventImg from '../assets/images/saian.jpg';
+import lessonImg from '../assets/images/cours.webp';
+import walkImg from '../assets/images/balade.webp';
+import eventImg from '../assets/images/saian.webp';
 import ScrollUp from '../components/ScrollUp';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
@@ -36,6 +36,8 @@ const EquestrianCenter = () => {
             src={presentationImg}
             alt="Cheval en train d'être brossé"
             className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
+            width={650}
+            height={650}
           />
           <div>
             <p className='leading-8 text-center xl:text-left text-base'>
@@ -88,6 +90,8 @@ const EquestrianCenter = () => {
                 src={lessonImg}
                 alt="cours d'équitation"
                 className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg'
+                width={300}
+                height={300}
               />
               <span>
                 Des{' '}
@@ -102,6 +106,8 @@ const EquestrianCenter = () => {
                 src={walkImg}
                 alt='Shetlands dans la forêt'
                 className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg'
+                width={300}
+                height={300}
               />
               <span>
                 Des{' '}
@@ -116,6 +122,8 @@ const EquestrianCenter = () => {
                 src={eventImg}
                 alt='Cheval qui saute un obstacle'
                 className='h-300px m-auto max-w-300px min-w-300px object-cover object-right-top rounded-full shadow-lg '
+                width={300}
+                height={300}
               />
               <span>
                 Des événements, des sorties en{' '}

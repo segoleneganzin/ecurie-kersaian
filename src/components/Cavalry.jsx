@@ -1,10 +1,10 @@
 import { useState, createRef } from 'react';
 // carousel img
-import bachataHector from '../assets/images/bachata-hector.jpg';
-import bachata from '../assets/images/bachata.jpg';
-import shetland from '../assets/images/shetland.jpg';
-import shetlands from '../assets/images/shetlands.jpg';
-import intrepide from '../assets/images/intrepide.jpg';
+import bachataHector from '../assets/images/bachata-hector.webp';
+import bachata from '../assets/images/bachata.webp';
+import shetland from '../assets/images/shetland.webp';
+import shetlands from '../assets/images/shetlands.webp';
+import intrepide from '../assets/images/intrepide.webp';
 
 const Cavalry = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -112,6 +112,8 @@ const Cavalry = () => {
                 src={img.src}
                 className='w-full object-contain sm:max-h-500px'
                 alt={img.alt}
+                width={710}
+                height={500}
               />
               <figcaption className='text-lg text-center'>{img.alt}</figcaption>
             </figure>
