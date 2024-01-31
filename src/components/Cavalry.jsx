@@ -4,6 +4,7 @@ import bachataHector from '../assets/images/bachata-hector.jpg';
 import bachata from '../assets/images/bachata.jpg';
 import shetland from '../assets/images/shetland.jpg';
 import shetlands from '../assets/images/shetlands.jpg';
+import intrepide from '../assets/images/intrepide.jpg';
 
 const Cavalry = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -15,6 +16,7 @@ const Cavalry = () => {
     { src: bachata, alt: 'Bachata' },
     { src: shetlands, alt: 'Les shetlands' },
     { src: shetland, alt: 'Un shetland' },
+    { src: intrepide, alt: 'Intrépide' },
   ];
   const refs = images.map(() => createRef());
 

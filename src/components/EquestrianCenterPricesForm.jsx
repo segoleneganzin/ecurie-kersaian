@@ -144,32 +144,32 @@ const EquestrianCenterPricesForm = ({
   const updateFormPrices = async () => {
     const equestrianCenterDatas = {
       cardGroupLessons: {
-        fiveHours: getValues('hours5'),
-        tenHours: getValues('hours10'),
+        fiveHours: parseInt(getValues('hours5')),
+        tenHours: parseInt(getValues('hours10')),
       },
       cardPrivateLessons: {
-        fiveClubLessons: getValues('clubLesson5'),
-        fiveOwnerLessons: getValues('ownerLesson5'),
+        fiveClubLessons: parseInt(getValues('clubLesson5')),
+        fiveOwnerLessons: parseInt(getValues('ownerLesson5')),
       },
       oneHourWeekly: {
-        baby: getValues('baby'),
-        under18: getValues('oneHourUnder18'),
-        over18: getValues('oneHourOver18'),
+        baby: parseInt(getValues('baby')),
+        under18: parseInt(getValues('oneHourUnder18')),
+        over18: parseInt(getValues('oneHourOver18')),
       },
       twoHoursWeekly: {
-        baby: getValues('baby'),
-        under18: getValues('twoHoursUnder18'),
-        over18: getValues('twoHoursOver18'),
+        baby: parseInt(getValues('baby')),
+        under18: parseInt(getValues('twoHoursUnder18')),
+        over18: parseInt(getValues('twoHoursOver18')),
       },
     };
     const pensionDatas = {
       halfPension: {
-        description: getValues('halfPensionDescription'),
-        price: getValues('halfPensionTarif'),
+        description: parseInt(getValues('halfPensionDescription')),
+        price: parseInt(getValues('halfPensionTarif')),
       },
       thirdPartPension: {
-        description: getValues('thirdPartPensionDescription'),
-        price: getValues('thirdPartPensionTarif'),
+        description: parseInt(getValues('thirdPartPensionDescription')),
+        price: parseInt(getValues('thirdPartPensionTarif')),
       },
     };
     await updatePrices('equestrianCenter', equestrianCenterDatas);

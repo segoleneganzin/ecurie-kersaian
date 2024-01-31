@@ -21,7 +21,7 @@ const Installations = () => {
           <span className='color-secondary-color font-bold text-lg'>
             manège
           </span>{' '}
-          (40x10m)
+          (40x16m)
         </li>
         <li>
           Une grande{' '}

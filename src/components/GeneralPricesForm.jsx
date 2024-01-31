@@ -55,11 +55,11 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
 
   const updateFormPrices = async () => {
     const generalDatas = {
-      annualSubscription: getValues('annualSubscription'),
+      annualSubscription: parseInt(getValues('annualSubscription')),
 
       ffeLicense: {
-        under18: getValues('ffeLicenseUnder18'),
-        over18: getValues('ffeLicenseOver18'),
+        under18: parseInt(getValues('ffeLicenseUnder18')),
+        over18: parseInt(getValues('ffeLicenseOver18')),
       },
     };
     await updatePrices('general', generalDatas);
