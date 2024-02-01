@@ -3,11 +3,22 @@ import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../context/UserContext';
 
+/**
+ * Composant React pour le formulaire de réauthentification.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Function} props.setOpenUpdate - La fonction pour gérer l'état de l'ouverture de la mise à jour.
+ * @returns {JSX.Element} Le formulaire de réauthentification.
+ */
 const ReauthenticateForm = (props) => {
+  // Utilisation du contexte utilisateur pour la fonction de connexion
   const { signIn, currentUser } = useContext(UserContext);
+
+  // État pour gérer le message de validation en cas d'erreur
   const [validation, setValidation] = useState('');
 
-  // ************** CLASSNAMES
+  // *************************** CLASSNAMES ***************************
   const formClassName =
     'mt-4 mx-6 border-2 border-principal-color p-2 rounded-lg';
   const formDataContainerClassName = 'mb-4 flex flex-col';
@@ -17,7 +28,9 @@ const ReauthenticateForm = (props) => {
   const errorMessageClassName = 'text-red-200';
   const buttonClassName =
     'm-auto flex justify-center w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wider';
+  // ********************************************************************
 
+  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -25,37 +38,63 @@ const ReauthenticateForm = (props) => {
     formState: { errors },
   } = useForm();
 
+  /**
+   * Fonction pour obtenir la classe d'erreur pour un champ donné.
+   * @param {string} field - Nom du champ.
+   * @returns {string} - Classe d'erreur du champ.
+   */
   const inputErrorClass = (field) => {
     return errors[field] ? inputErrorClassName : inputClassName;
   };
 
+  // Messages d'erreur pour les champs du formulaire
   const inputErrorMessage = {
     email: errors.email ? 'Veuillez rentrer votre email' : '',
     password: errors.password ? 'Veuillez rentrer votre mot de passe' : '',
   };
 
-  //   reauthenticate for securise update
+  /**
+   * Fonction pour la réauthentification et ouverture de la mise à jour.
+   *
+   * @async
+   * @function
+   * @throws {Error} Une erreur si la réauthentification échoue.
+   */
   const reauthenticate = async () => {
-    if (getValues('email') === currentUser.email) {
-      await signIn(
-        getValues('email'),
-        getValues('password'),
-        setValidation,
-        false
-      );
-      const isConnected = await signIn(
-        getValues('email'),
-        getValues('password'),
-        setValidation,
-        false
-      );
-      if (isConnected) {
-        props.setOpenUpdate(true);
+    try {
+      // Vérification si l'email saisi correspond à l'utilisateur actuel
+      if (getValues('email') === currentUser.email) {
+        // Tentative de connexion avec les informations fournies
+        await signIn(
+          getValues('email'),
+          getValues('password'),
+          setValidation,
+          false
+        );
+
+        // Vérification si la connexion est réussie
+        const isConnected = await signIn(
+          getValues('email'),
+          getValues('password'),
+          setValidation,
+          false
+        );
+
+        // Si la connexion est réussie, ouvrir la mise à jour
+        if (isConnected) {
+          props.setOpenUpdate(true);
+        }
+      } else {
+        // Si l'email ne correspond pas à l'utilisateur actuel, afficher un message d'erreur
+        setValidation('Votre email est erroné');
       }
-    } else {
-      setValidation('Votre email est erroné');
+    } catch (error) {
+      // Gestion des erreurs
+      console.error(error);
     }
   };
+
+  // Rendu du formulaire de réauthentification
   return (
     <div>
       <form
@@ -111,7 +150,10 @@ const ReauthenticateForm = (props) => {
     </div>
   );
 };
+
+// Propriétés attendues par le composant
 ReauthenticateForm.propTypes = {
   setOpenUpdate: PropTypes.func,
 };
+
 export default ReauthenticateForm;

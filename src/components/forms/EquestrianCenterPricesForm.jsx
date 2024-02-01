@@ -1,28 +1,43 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
+
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { updatePrices } from '../../api/PricesApi';
+
+/**
+ * Composant React pour le formulaire de tarifs du centre équestre.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.equestrianCenterPrices - Les tarifs du centre équestre.
+ * @param {Object} props.pensionPrices - Les tarifs de pension.
+ * @param {Function} props.closeModal - Fonction pour fermer la modal.
+ * @param {Function} props.getPrices - Fonction pour récupérer les tarifs.
+ * @returns {JSX.Element} Le formulaire de tarifs du centre équestre.
+ */
 const EquestrianCenterPricesForm = ({
   equestrianCenterPrices,
   pensionPrices,
   closeModal,
   getPrices,
 }) => {
-  // ************** GROUP CLASSNAMES
+  // ************************************************************** CLASSNAMES
   const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
   const formDataContainerClassName = 'mb-4';
   const textareaContainerClassName = 'flex flex-col';
   const labelClassName = 'pr-2 text-lg font-bold';
   const inputClassName = 'border-b border-black max-w-12';
   const inputErrorClassName = 'border-b border-red-300';
-  const textareaClassName = 'border border-black  pl-2';
+  const textareaClassName = 'border border-black pl-2';
   const textareaErrorClassName = 'border border-red-300';
   const errorMessageClassName = 'text-red-800';
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  //******************************* Gestion des erreurs dans le formulaire modal
+  // ********************************************************************
+
+  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -31,6 +46,11 @@ const EquestrianCenterPricesForm = ({
     formState: { errors },
   } = useForm();
 
+  /**
+   * Fonction pour obtenir la classe d'erreur pour un champ donné.
+   * @param {string} field - Nom du champ.
+   * @returns {string} - Classe d'erreur du champ.
+   */
   const inputErrorClass = (field) => {
     const errorClasses = {
       period: errors[field] ? textareaErrorClassName : textareaClassName,
@@ -47,6 +67,11 @@ const EquestrianCenterPricesForm = ({
     return errorClasses[field] || errorClasses.default;
   };
 
+  /**
+   * Fonction pour obtenir le message d'erreur pour un champ donné.
+   * @param {string} field - Nom du champ.
+   * @returns {string} - Message d'erreur du champ.
+   */
   const inputErrorMessage = (field) => {
     const errorMessages = {
       period: errors[field] ? 'Veuillez renseigner une période' : '',
@@ -63,7 +88,7 @@ const EquestrianCenterPricesForm = ({
     return errorMessages[field] || errorMessages.default;
   };
 
-  //**********************************************place data to input value
+  // *********** Remplir les données dans les champs du formulaire
   const updateInputDatas = async () => {
     try {
       if (equestrianCenterPrices && pensionPrices) {
@@ -120,11 +145,14 @@ const EquestrianCenterPricesForm = ({
       console.log('Error getting cached document:', e);
     }
   };
+
+  // Utiliser useEffect pour appeler la fonction de remplissage des données lors du chargement initial
   useEffect(() => {
     updateInputDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Fonction pour mettre à jour les tarifs dans le backend
   const updateFormPrices = async () => {
     const equestrianCenterDatas = {
       period: getValues('period'),
@@ -478,6 +506,7 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
+      {/* Bouton de validation */}
       <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
         <button
           className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
@@ -488,6 +517,8 @@ const EquestrianCenterPricesForm = ({
     </form>
   );
 };
+
+// Déclaration des types des propriétés du composant
 EquestrianCenterPricesForm.propTypes = {
   generalPrices: PropTypes.object,
   equestrianCenterPrices: PropTypes.object,
@@ -495,4 +526,5 @@ EquestrianCenterPricesForm.propTypes = {
   closeModal: PropTypes.func,
   getPrices: PropTypes.func,
 };
+
 export default EquestrianCenterPricesForm;

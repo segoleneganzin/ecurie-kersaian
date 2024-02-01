@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-undef */
+
 //****************************************************************************
 //For admin's logged in
 //****************************************************************************
@@ -10,12 +11,26 @@ import ForgotPassword from './ForgotPassword';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.webp';
 
+/**
+ * Composant React pour le module de connexion pour les administrateurs.
+ *
+ * @component
+ * @returns {JSX.Element} Le formulaire de connexion pour les administrateurs.
+ */
 const SignInModule = () => {
+  // Utilisation de useNavigate pour la navigation
   const navigate = useNavigate();
+
+  // Utilisation du contexte utilisateur pour la fonction de connexion
   const { signIn } = useContext(UserContext);
+
+  // État pour gérer le message de validation en cas d'erreur
   const [validation, setValidation] = useState('');
+
+  // État pour gérer l'affichage du composant ForgotPassword
   const [forgotPassword, setForgotPassword] = useState(false);
-  // ************** CLASSNAMES
+
+  // ************************************************************** CLASSNAMES
   const formClassName =
     'bg-secondary-color mt-4 mx-6 border-2 border-principal-color p-4 rounded-lg max-w-sm mx-auto';
   const formDataContainerClassName = 'mb-4';
@@ -27,7 +42,9 @@ const SignInModule = () => {
   const errorMessageClassName = 'text-red-200';
   const buttonClassName =
     'm-auto flex justify-center w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wider';
-  //******************************* Gestion des erreurs dans le formulaire modal
+  // ********************************************************************
+
+  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -35,19 +52,38 @@ const SignInModule = () => {
     formState: { errors },
   } = useForm();
 
+  /**
+   * Fonction pour obtenir la classe d'erreur pour un champ donné.
+   * @param {string} field - Nom du champ.
+   * @returns {string} - Classe d'erreur du champ.
+   */
   const inputErrorClass = (field) => {
     return errors[field] ? inputErrorClassName : inputClassName;
   };
 
+  // Messages d'erreur pour les champs du formulaire
   const inputErrorMessage = {
     email: errors.email ? 'Veuillez rentrer votre email' : '',
     password: errors.password ? 'Veuillez rentrer votre mot de passe' : '',
   };
 
+  /**
+   * Fonction pour gérer la soumission du formulaire de connexion.
+   *
+   * @function
+   * @throws {Error} Une erreur si la connexion échoue.
+   */
   const handleForm = () => {
-    signIn(getValues('email'), getValues('password'), setValidation);
+    try {
+      // Appel à la fonction signIn pour tenter la connexion
+      signIn(getValues('email'), getValues('password'), setValidation);
+    } catch (error) {
+      // Gestion des erreurs
+      console.error(error);
+    }
   };
 
+  // Rendu du composant
   return (
     <div className='font-inconsolata min-h-screen bg-principal-color '>
       <header className='flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
@@ -66,6 +102,7 @@ const SignInModule = () => {
       </header>
       <main className='min-h-dvh text-principal-color overflow-x-hidden font-inconsolata 2xl:max-w-screen-xl 2xl:m-auto'>
         {forgotPassword ? (
+          // Affichage du composant ForgotPassword si l'état forgotPassword est vrai
           <ForgotPassword setForgotPassword={setForgotPassword} />
         ) : (
           <div>

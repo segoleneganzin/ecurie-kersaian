@@ -8,13 +8,15 @@ import { removeTimeSlot, updateTimeSlot } from '../../api/WeeklyPlannerApi';
  *
  * @component
  * @param {Object} props - Les propriétés du composant.
- * @param {function} props.setModalOpen - Fonction pour fermer la modal.
+ * @param {function} props.closeModal - Fonction pour fermer la modal.
  * @param {function} props.fetchPlanning - Fonction pour recharger le planning.
  * @param {Object[]} props.schedule - Le tableau des jours avec les créneaux horaires.
  * @param {string[]} props.daysOfWeek - Le tableau des jours de la semaine.
  * @param {string[]} props.timeSlots - Le tableau des créneaux horaires de la journée.
  * @param {Object} props.selectedTimeSlot - Le créneau horaire sélectionné.
  * @param {Object} props.selectedDay - Le jour sélectionné.
+ * @param {string} props.period - La période du planning (peut être "scolaire" ou "vacances").
+ * @param {function} props.setDeleteButton - Fonction pour mettre à jour le bouton de suppression.
  * @returns {JSX.Element} - L'élément JSX du composant Modal.
  */
 const WeeklyPlannerForm = ({
@@ -38,8 +40,8 @@ const WeeklyPlannerForm = ({
     endTime: null,
     cellBg: null,
   });
-  // const [deleteButton, setDeleteButton] = useState(null);
-  // ************** GROUP CLASSNAMES
+
+  // ************************************************************** CLASSNAMES
   const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
   const formDataContainerClassName = 'mb-4';
   const labelClassName = 'pr-2 text-lg font-bold';
@@ -48,7 +50,8 @@ const WeeklyPlannerForm = ({
   const errorMessageClassName = 'text-red-800';
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  //******************************* Gestion des erreurs dans le formulaire modal
+  // ********************************************************************
+
   const {
     register,
     handleSubmit,
@@ -64,6 +67,11 @@ const WeeklyPlannerForm = ({
     },
   });
 
+  /**
+   * Obtenir la classe d'erreur pour un champ donné.
+   * @param {string} field - Le nom du champ.
+   * @returns {string} - La classe d'erreur du champ.
+   */
   const inputErrorClass = (field) => {
     const errorClasses = {
       cellBg: errors[field] ? inputErrorClassName : '',
@@ -71,12 +79,21 @@ const WeeklyPlannerForm = ({
     };
     return errorClasses[field] || errorClasses.default;
   };
+
+  /**
+   * Obtenir le message d'erreur pour un champ donné.
+   */
   const inputErrorMessage = {
     duration: errors.duration ? 'Veuillez renseigner une durée valide' : '',
     title: errors.title ? 'Veuillez renseigner un intitulé' : '',
     cellBg: errors.cellBg ? 'Veuillez renseigner une couleur de fond' : '',
   };
 
+  /**
+   * Vérifier si la durée est valide (multiple de 15 minutes et supérieure à 15 minutes).
+   * @param {number} value - La valeur de la durée.
+   * @returns {boolean} - true si la durée est valide, sinon false.
+   */
   const isDurationValid = (value) => {
     let res = true;
     if (value % 15 !== 0 || value < 15) {
@@ -130,6 +147,7 @@ const WeeklyPlannerForm = ({
       });
     }
   };
+
   useEffect(() => {
     updateState();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -215,24 +233,25 @@ const WeeklyPlannerForm = ({
       console.log('Error getting cached document:', error);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(addTimeSlot)}
       className={formClassName}
       noValidate
     >
-      {/* day */}
+      {/* jour */}
       <p className={formDataContainerClassName}>
         <span className={labelClassName}>Jour :</span> {state.day}
       </p>
-      {/* timeStart */}
+      {/* heure de début */}
       <p className={formDataContainerClassName}>
         <span className={labelClassName}>Heure de début :</span>{' '}
         {state.timeSlot}
       </p>
       {/* separation */}
       <div className='border-t-2 border-principal-color w-full mb-4'></div>
-      {/* title */}
+      {/* titre */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='title'>
           Intitulé :
@@ -248,7 +267,7 @@ const WeeklyPlannerForm = ({
       {errors.title && (
         <span className={errorMessageClassName}>{inputErrorMessage.title}</span>
       )}
-      {/* duration */}
+      {/* durée */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='duration'>
           Durée (tranche de 15 minutes) :
@@ -270,7 +289,7 @@ const WeeklyPlannerForm = ({
         </span>
       )}
 
-      {/* cell bg color */}
+      {/* Couleur de fond du créneau */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='cellBg'>
           Couleur de fond :
@@ -301,7 +320,6 @@ const WeeklyPlannerForm = ({
 
 WeeklyPlannerForm.propTypes = {
   closeModal: PropTypes.func,
-  setModalOpen: PropTypes.func,
   fetchPlanning: PropTypes.func,
   schedule: PropTypes.arrayOf(PropTypes.object),
   daysOfWeek: PropTypes.arrayOf(PropTypes.string),
@@ -311,4 +329,5 @@ WeeklyPlannerForm.propTypes = {
   period: PropTypes.string,
   setDeleteButton: PropTypes.func,
 };
+
 export default WeeklyPlannerForm;
