@@ -1,11 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../context/UserContext';
+import SignInModule from '../apiAuthentication/SignInModule';
 import Header from '../components/Header';
 import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Footer from '../components/Footer';
 
 const Admin = () => {
+  const { currentUser } = useContext(UserContext);
   const [choice, setChoice] = useState(null);
   const defaultDisplay = (
     <div className='flex flex-col items-center gap-8 mt-10 px-6 text-center'>
@@ -26,7 +29,7 @@ const Admin = () => {
       </ul>
     </div>
   );
-  return (
+  return currentUser ? (
     <div className='font-inconsolata min-h-screen'>
       <Header menu={'admin'} />
       <main className='min-h-dvh text-principal-color overflow-x-hidden font-inconsolata 2xl:max-w-screen-xl 2xl:m-auto'>
@@ -45,7 +48,7 @@ const Admin = () => {
           </a>
         </div>
         {choice === null && defaultDisplay}
-        {choice === 'equestrianCenter' ? (
+        {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
           <div>
             <div className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
@@ -68,10 +71,8 @@ const Admin = () => {
             {/* ***************************************TARIFS */}
             <EquestrianCenterPrices editable />
           </div>
-        ) : (
-          ''
         )}
-        {choice === 'pension' ? (
+        {choice === 'pension' && (
           <div>
             {/* **************************************FORMULES */}
             <div className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
@@ -86,11 +87,13 @@ const Admin = () => {
               </h3>
             </div>
           </div>
-        ) : (
-          ''
         )}
       </main>
       <Footer />
+    </div>
+  ) : (
+    <div>
+      <SignInModule />
     </div>
   );
 };

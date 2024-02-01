@@ -4,6 +4,7 @@ import EquestrianCenterPricesForm from './forms/EquestrianCenterPricesForm';
 import GeneralPricesForm from './forms/GeneralPricesForm';
 import WeeklyPlannerForm from './forms/WeeklyPlannerForm';
 import HolidayWeeklyPlannerForm from './forms/HolidayWeeklyPlannerForm';
+import UpdateLog from '../apiAuthentication/UpdateLog';
 
 const Modal = (props) => {
   const [deleteButton, setDeleteButton] = useState(null);
@@ -27,6 +28,9 @@ const Modal = (props) => {
       case 'holidayWeeklyPlanner':
         setTitle('Gestion des plannings'); // gestion des dates de vacances
         break;
+      case 'updateLog':
+        setTitle('Gestion des paramètres de connexion'); // gestion des dates de vacances
+        break;
       default:
         break;
     }
@@ -41,25 +45,24 @@ const Modal = (props) => {
     props.setModalOpen(false);
   };
   return (
-    <div className='fixed inset-0 z-40 overflow-y-auto'>
+    <div
+      className='fixed inset-0 z-40 overflow-y-auto'
+      aria-hidden={!props.isModalOpen}
+      aria-describedby='modalTitle'
+      role='dialog'
+    >
       <div className='flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
         <div className='fixed inset-0 transition-opacity' onClick={closeModal}>
-          <div className='absolute inset-0 bg-gray-500 opacity-75'></div>
+          <span className='absolute inset-0 bg-gray-500 opacity-75'></span>
         </div>
-
-        <span
-          className='hidden sm:inline-block sm:align-middle sm:h-screen'
-          aria-hidden='true'
-        >
-          &#8203;
-        </span>
 
         <div className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full'>
           <div className='bg-white px-4 pt-5 pb-0 sm:p-6 sm:pb-4'>
             <div>
-              <div
+              <button
                 className='mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:h-10 sm:w-10 sm:absolute sm:right-4 sm:top-4'
                 onClick={closeModal}
+                autoFocus
               >
                 {/* Icone du modal */}
                 <svg
@@ -77,34 +80,30 @@ const Modal = (props) => {
                     d='M6 18L18 6M6 6l12 12'
                   ></path>
                 </svg>
-              </div>
+              </button>
               <div className='mt-3 text-center sm:mt-0  sm:text-left  w-full'>
                 <h3
                   className='text-lg font-bold leading-6 text-gray-900'
-                  id='modal-title'
+                  id='modalTitle'
                 >
                   {title && title}
                 </h3>
-                {props.type === 'equestrianCenter' ? (
+                {props.type === 'equestrianCenter' && (
                   <EquestrianCenterPricesForm
                     equestrianCenterPrices={props.equestrianCenterPrices}
                     pensionPrices={props.pensionPrices}
                     closeModal={closeModal}
                     getPrices={props.getPrices}
                   />
-                ) : (
-                  ''
                 )}
-                {props.type === 'general' ? (
+                {props.type === 'general' && (
                   <GeneralPricesForm
                     generalPrices={props.generalPrices}
                     closeModal={closeModal}
                     getGeneralPrices={props.getPrices}
                   />
-                ) : (
-                  ''
                 )}
-                {props.type === 'weeklyPlanner' ? (
+                {props.type === 'weeklyPlanner' && (
                   <WeeklyPlannerForm
                     closeModal={closeModal}
                     fetchPlanning={props.fetchPlanning}
@@ -116,18 +115,15 @@ const Modal = (props) => {
                     period={props.period}
                     setDeleteButton={setDeleteButton}
                   />
-                ) : (
-                  ''
                 )}
-                {props.type === 'holidayWeeklyPlanner' ? (
+                {props.type === 'holidayWeeklyPlanner' && (
                   <HolidayWeeklyPlannerForm
                     closeModal={closeModal}
                     holidayDateWeeklyPlanner={props.holidayDateWeeklyPlanner}
                     fetchPlanning={props.fetchPlanning}
                   />
-                ) : (
-                  ''
                 )}
+                {props.type === 'updateLog' && <UpdateLog />}
               </div>
             </div>
           </div>
@@ -140,7 +136,7 @@ const Modal = (props) => {
                 buttonClassName + 'border-2 bg-blue-700 hover:bg-blue-500'
               }
             >
-              Annuler
+              {props.type === 'updateLog' ? 'Fermer' : 'Annuler'}
             </button>
           </div>
         </div>
@@ -149,6 +145,7 @@ const Modal = (props) => {
   );
 };
 Modal.propTypes = {
+  isModalOpen: PropTypes.bool,
   setModalOpen: PropTypes.func,
   type: PropTypes.string,
   generalPrices: PropTypes.object,

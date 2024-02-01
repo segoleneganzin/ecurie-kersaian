@@ -63,15 +63,14 @@ const GeneralPrices = ({ editable = false }) => {
           </ul>
         </li>
       </ul>
-      {isModalOpen ? (
+      {isModalOpen && (
         <Modal
+          isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
           type={'general'}
           generalPrices={generalPrices}
           getPrices={getGeneralPrices}
         />
-      ) : (
-        ''
       )}
     </div>
   );

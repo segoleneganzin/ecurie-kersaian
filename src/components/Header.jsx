@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import MenuEquestrianCenter from './MenuEquestrianCenter';
 import MenuPension from './MenuPension';
+import MenuAdmin from './menus/MenuAdmin';
 import logo from '../assets/images/logo.webp';
 
 const Header = ({ menu }) => {
@@ -16,7 +17,7 @@ const Header = ({ menu }) => {
       headerSubtitle = 'Pension';
       break;
     case 'admin':
-      headerMenu = '';
+      headerMenu = <MenuAdmin />;
       headerSubtitle = "Page d'administration";
       break;
     default:
@@ -25,7 +26,11 @@ const Header = ({ menu }) => {
   return (
     <header className='bg-principal-color flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 shadow-lg lg:flex-row lg:pr-12 font-inconsolata'>
       <div className='flex flex-col justify-center items-center pb-6 lg:flex-row lg:gap-20 lg:pb-0'>
-        <a href='/' aria-label="Aller à la page d'accueil" className='w-fit'>
+        <a
+          href={menu === 'admin' ? '/admin' : '/'}
+          aria-label="Aller à la page d'accueil"
+          className='w-fit'
+        >
           <img
             src={logo}
             alt='Logo du site'

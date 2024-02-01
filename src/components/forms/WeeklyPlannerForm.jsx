@@ -45,6 +45,7 @@ const WeeklyPlannerForm = ({
   const labelClassName = 'pr-2 text-lg font-bold';
   const inputClassName = 'border-b border-black max-w-12';
   const inputErrorClassName = 'border-b border-red-300';
+  const errorMessageClassName = 'text-red-800';
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
   //******************************* Gestion des erreurs dans le formulaire modal
@@ -245,7 +246,7 @@ const WeeklyPlannerForm = ({
         />
       </div>
       {errors.title && (
-        <span className='text-red-800'>{inputErrorMessage.title}</span>
+        <span className={errorMessageClassName}>{inputErrorMessage.title}</span>
       )}
       {/* duration */}
       <div className={formDataContainerClassName}>
@@ -264,7 +265,9 @@ const WeeklyPlannerForm = ({
         />
       </div>
       {errors.duration && (
-        <span className='text-red-800'>{inputErrorMessage.duration}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage.duration}
+        </span>
       )}
 
       {/* cell bg color */}
@@ -281,7 +284,9 @@ const WeeklyPlannerForm = ({
         />
       </div>
       {errors.cellBg && (
-        <span className='text-red-800'>{inputErrorMessage.cellBg}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage.cellBg}
+        </span>
       )}
       <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
         <button

@@ -12,6 +12,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   const labelClassName = 'pr-2 text-lg font-bold';
   const inputClassName = 'border-b border-black max-w-12';
   const inputErrorClassName = 'border-b border-red-300';
+  const errorMessageClassName = 'text-red-800';
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
   //******************************* Gestion des erreurs dans le formulaire modal
@@ -86,7 +87,9 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
         />
       </div>
       {errors.season && (
-        <span className='text-red-800'>{inputErrorMessage('season')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('season')}
+        </span>
       )}
       {/* ****************************GENERAL */}
       <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
@@ -108,7 +111,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
         <span>€</span>
       </div>
       {errors.annualSubscription && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('annualSubscription')}
         </span>
       )}
@@ -129,7 +132,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
         <span>€</span>
       </div>
       {errors.ffeLicenseUnder18 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('ffeLicenseUnder18')}
         </span>
       )}
@@ -147,7 +150,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
         <span>€</span>
       </div>
       {errors.ffeLicenseOver18 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('ffeLicenseOver18')}
         </span>
       )}

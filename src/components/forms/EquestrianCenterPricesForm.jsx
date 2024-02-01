@@ -19,6 +19,7 @@ const EquestrianCenterPricesForm = ({
   const inputErrorClassName = 'border-b border-red-300';
   const textareaClassName = 'border border-black  pl-2';
   const textareaErrorClassName = 'border border-red-300';
+  const errorMessageClassName = 'text-red-800';
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
   //******************************* Gestion des erreurs dans le formulaire modal
@@ -182,7 +183,9 @@ const EquestrianCenterPricesForm = ({
         />
       </div>
       {errors.period && (
-        <span className='text-red-800'>{inputErrorMessage('period')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('period')}
+        </span>
       )}
       <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='infos'>
@@ -196,7 +199,9 @@ const EquestrianCenterPricesForm = ({
         />
       </div>
       {errors.infos && (
-        <span className='text-red-800'>{inputErrorMessage('infos')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('infos')}
+        </span>
       )}
 
       {/* ****************************FORFAITS */}
@@ -222,7 +227,9 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.baby && (
-        <span className='text-red-800'>{inputErrorMessage('baby')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('baby')}
+        </span>
       )}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='oneHourUnder18'>
@@ -238,7 +245,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.oneHourUnder18 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('oneHourUnder18')}
         </span>
       )}
@@ -256,7 +263,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.oneHourOver18 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('oneHourOver18')}
         </span>
       )}
@@ -278,7 +285,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.twoHoursUnder18 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('twoHoursUnder18')}
         </span>
       )}
@@ -296,7 +303,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.twoHoursOver18 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('twoHoursOver18')}
         </span>
       )}
@@ -324,7 +331,9 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.hours5 && (
-        <span className='text-red-800'>{inputErrorMessage('hours5')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('hours5')}
+        </span>
       )}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='hours10'>
@@ -340,7 +349,9 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.hours10 && (
-        <span className='text-red-800'>{inputErrorMessage('hours10')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('hours10')}
+        </span>
       )}
 
       {/******* cours particuliers */}
@@ -360,7 +371,9 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.clubLesson5 && (
-        <span className='text-red-800'>{inputErrorMessage('clubLesson5')}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage('clubLesson5')}
+        </span>
       )}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='ownerLesson5'>
@@ -376,7 +389,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.ownerLesson5 && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('ownerLesson5')}
         </span>
       )}
@@ -403,7 +416,7 @@ const EquestrianCenterPricesForm = ({
         />
       </div>
       {errors.halfPensionDescription && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('halfPensionDescription')}
         </span>
       )}
@@ -421,7 +434,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.halfPensionTarif && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('halfPensionTarif')}
         </span>
       )}
@@ -442,7 +455,7 @@ const EquestrianCenterPricesForm = ({
         />
       </div>
       {errors.thirdPartPensionDescription && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('thirdPartPensionDescription')}
         </span>
       )}
@@ -460,7 +473,7 @@ const EquestrianCenterPricesForm = ({
         <span>€</span>
       </div>
       {errors.thirdPartPensionTarif && (
-        <span className='text-red-800'>
+        <span className={errorMessageClassName}>
           {inputErrorMessage('thirdPartPensionTarif')}
         </span>
       )}

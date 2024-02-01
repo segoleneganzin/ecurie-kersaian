@@ -13,6 +13,7 @@ const HolidayWeeklyPlannerForm = ({
   const labelClassName = 'pr-2 text-lg font-bold';
   const textareaClassName = 'border border-black pl-2';
   const textareaErrorClassName = 'border border-red-300';
+  const errorMessageClassName = 'text-red-800';
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
 
@@ -72,7 +73,9 @@ const HolidayWeeklyPlannerForm = ({
         />
       </div>
       {errors.holidayDates && (
-        <span className='text-red-800'>{inputErrorMessage.holidayDates}</span>
+        <span className={errorMessageClassName}>
+          {inputErrorMessage.holidayDates}
+        </span>
       )}
 
       <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>

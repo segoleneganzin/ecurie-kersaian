@@ -305,8 +305,9 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
-      {isModalOpen ? (
+      {isModalOpen && (
         <Modal
+          isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
           type={'equestrianCenter'}
           generalPrices={state.generalPrices}
@@ -314,8 +315,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           pensionPrices={state.pensionPrices}
           getPrices={getPrices}
         />
-      ) : (
-        ''
       )}
     </div>
   );

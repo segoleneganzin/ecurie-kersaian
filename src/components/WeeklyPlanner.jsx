@@ -252,8 +252,9 @@ const WeeklyPlanner = ({ editable = false, period }) => {
         </div>
       </div>
       {/* Modale pour ajouter un nouveau créneau */}
-      {isModalOpen ? (
+      {isModalOpen && (
         <Modal
+          isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
           type={'weeklyPlanner'}
           fetchPlanning={fetchPlanning}
@@ -264,18 +265,15 @@ const WeeklyPlanner = ({ editable = false, period }) => {
           selectedDay={selectedDay}
           period={period}
         />
-      ) : (
-        ''
       )}
-      {isHolidayModalOpen ? (
+      {isHolidayModalOpen && (
         <Modal
+          isModalOpen={isModalOpen}
           holidayDateWeeklyPlanner={schedulePeriod}
           type={'holidayWeeklyPlanner'}
           setModalOpen={setHolidayModalOpen}
           fetchPlanning={fetchPlanning}
         />
-      ) : (
-        ''
       )}
     </div>
   );
