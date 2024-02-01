@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import MenuEquestrianCenter from './MenuEquestrianCenter';
-import MenuPension from './MenuPension';
+import MenuEquestrianCenter from './menus/MenuEquestrianCenter';
+import MenuPension from './menus/MenuPension';
 import MenuAdmin from './menus/MenuAdmin';
 import logo from '../assets/images/logo.webp';
 
