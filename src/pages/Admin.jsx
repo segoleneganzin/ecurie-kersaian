@@ -1,15 +1,28 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
 import SignInModule from '../apiAuthentication/SignInModule';
 import Header from '../components/Header';
 import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
+import ScrollUp from '../components/ScrollUp';
 import Footer from '../components/Footer';
 
 const Admin = () => {
   const { currentUser } = useContext(UserContext);
   const [choice, setChoice] = useState(null);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    // Adjust this value based on the scroll position where you want the button to appear
+    const showScrollButtonThreshold = 500;
+    setShowScrollButton(scrollPosition > showScrollButtonThreshold);
+  };
+  useEffect(() => {
+    handleScroll();
+    // Attach the event listener
+    window.addEventListener('scroll', handleScroll);
+  }, [showScrollButton]);
   const defaultDisplay = (
     <div className='flex flex-col items-center gap-8 mt-10 px-6 text-center'>
       <p className='text-lg border-b-2 border-principal-color pb-8'>
@@ -47,6 +60,8 @@ const Admin = () => {
             <h2>Pension</h2>
           </a>
         </div>
+        {/* **************************************SCROLL UP */}
+        {showScrollButton && <ScrollUp />}
         {choice === null && defaultDisplay}
         {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
