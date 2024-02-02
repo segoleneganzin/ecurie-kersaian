@@ -79,6 +79,7 @@ const Pension = () => {
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Nos formules
           </h2>
+          <p className='italic'>(Bientôt disponible)</p>
         </div>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
@@ -87,6 +88,7 @@ const Pension = () => {
           <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
             Les tarifs
           </h2>
+          <p className='italic'>(Bientôt disponible)</p>
         </div>
         {/* ***************************************CONTACT */}
         <Contact />

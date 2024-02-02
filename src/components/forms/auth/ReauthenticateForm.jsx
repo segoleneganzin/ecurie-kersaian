@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
+import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 
 /**
  * Composant React pour le formulaire de réauthentification.
@@ -13,7 +14,7 @@ import { UserContext } from '../context/UserContext';
  */
 const ReauthenticateForm = (props) => {
   // Utilisation du contexte utilisateur pour la fonction de connexion
-  const { signIn, currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   // État pour gérer le message de validation en cas d'erreur
   const [validation, setValidation] = useState('');
@@ -64,26 +65,18 @@ const ReauthenticateForm = (props) => {
     try {
       // Vérification si l'email saisi correspond à l'utilisateur actuel
       if (getValues('email') === currentUser.email) {
-        // Tentative de connexion avec les informations fournies
-        await signIn(
-          getValues('email'),
-          getValues('password'),
-          setValidation,
-          false
+        const credential = EmailAuthProvider.credential(
+          currentUser.email,
+          getValues('password')
         );
-
-        // Vérification si la connexion est réussie
-        const isConnected = await signIn(
-          getValues('email'),
-          getValues('password'),
-          setValidation,
-          false
-        );
-
-        // Si la connexion est réussie, ouvrir la mise à jour
-        if (isConnected) {
-          props.setOpenUpdate(true);
-        }
+        reauthenticateWithCredential(currentUser, credential)
+          .then(() => {
+            // Si la connexion est réussie, ouvrir la mise à jour
+            props.setOpenUpdate(true);
+          })
+          .catch((error) => {
+            console.error('Erreur lors de la réauthentification', error);
+          });
       } else {
         // Si l'email ne correspond pas à l'utilisateur actuel, afficher un message d'erreur
         setValidation('Votre email est erroné');

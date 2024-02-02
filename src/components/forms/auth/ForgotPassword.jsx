@@ -1,8 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../firebase-config';
+import { auth } from '../../../firebase-config';
 import { useForm } from 'react-hook-form';
 
 /**
@@ -82,7 +81,9 @@ function ForgotPassword(props) {
   return emailMessage ? (
     // Affichage du message de succès après l'envoi de l'email
     <div className='forgot-password update-form'>
-      <p className='text-green-800 text-center mb-4'>L'email a été envoyé.</p>
+      <p className='text-green-800 text-center mb-4'>
+        L&apos;email a été envoyé.
+      </p>
       <button
         className={buttonClassName + ' bg-secondary-color'}
         onClick={() => props.setForgotPassword(false)}

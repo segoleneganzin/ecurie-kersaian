@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -234,7 +231,7 @@ const EquestrianCenterPricesForm = ({
 
       {/* ****************************FORFAITS */}
       <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
-        Forfaits "tout compris"
+        Forfaits &lsquo;tout compris&rsquo;
       </h2>
       <div className='bg-principal-color h-2 mb-4 w-full'></div>
 

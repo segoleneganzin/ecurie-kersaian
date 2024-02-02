@@ -7,7 +7,7 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../context/UserContext';
-import ForgotPassword from './ForgotPassword';
+import ForgotPassword from './forms/auth/ForgotPassword';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.webp';
 

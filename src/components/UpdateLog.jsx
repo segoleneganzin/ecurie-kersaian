@@ -3,8 +3,8 @@
 import { useState, useRef } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import UpdateMail from './UpdateMail';
-import UpdatePassword from './UpdatePassword';
+import UpdateMail from './forms/auth/UpdateMail';
+import UpdatePassword from './forms/auth/UpdatePassword';
 
 /**
  * Composant React pour la gestion des mises à jour du compte utilisateur.

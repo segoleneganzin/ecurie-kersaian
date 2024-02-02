@@ -4,11 +4,33 @@ import EquestrianCenterPricesForm from './forms/EquestrianCenterPricesForm';
 import GeneralPricesForm from './forms/GeneralPricesForm';
 import WeeklyPlannerForm from './forms/WeeklyPlannerForm';
 import HolidayWeeklyPlannerForm from './forms/HolidayWeeklyPlannerForm';
-import UpdateLog from '../apiAuthentication/UpdateLog';
+import UpdateLog from './UpdateLog';
 
+/**
+ * Composant Modal
+ * @param {Object} props - Les propriétés du composant.
+ * @param {boolean} props.isModalOpen - Indique si la modal est ouverte.
+ * @param {function} props.setModalOpen - Fonction pour définir l'état de la modal.
+ * @param {string} props.type - Type de la modal (e.g., 'equestrianCenter', 'general', 'weeklyPlanner', 'holidayWeeklyPlanner', 'updateLog').
+ * @param {Object} props.generalPrices - Prix généraux à éditer (pour le type 'general').
+ * @param {Object} props.equestrianCenterPrices - Prix du centre équestre à éditer (pour le type 'equestrianCenter').
+ * @param {Object} props.pensionPrices - Prix de la pension à éditer (pour le type 'equestrianCenter').
+ * @param {function} props.getPrices - Fonction pour récupérer les prix après édition.
+ * @param {function} props.fetchPlanning - Fonction pour récupérer le planning après édition (pour le type 'weeklyPlanner' et 'holidayWeeklyPlanner').
+ * @param {Array} props.schedule - Planning hebdomadaire (pour le type 'weeklyPlanner').
+ * @param {Array} props.daysOfWeek - Jours de la semaine (pour le type 'weeklyPlanner').
+ * @param {Array} props.timeSlots - Plages horaires (pour le type 'weeklyPlanner').
+ * @param {Object} props.selectedTimeSlot - Plage horaire sélectionnée (pour le type 'weeklyPlanner').
+ * @param {Object} props.selectedDay - Jour sélectionné (pour le type 'weeklyPlanner').
+ * @param {string} props.period - Période sélectionnée (pour le type 'weeklyPlanner').
+ * @param {string} props.holidayDateWeeklyPlanner - Date des vacances (pour le type 'holidayWeeklyPlanner').
+ * @param {function} props.setHolidayModalOpen - Fonction pour définir l'état de la modal des vacances (pour le type 'holidayWeeklyPlanner').
+ * @returns {JSX.Element} - Élément JSX représentant le composant Modal.
+ */
 const Modal = (props) => {
   const [deleteButton, setDeleteButton] = useState(null);
   const [title, setTitle] = useState(null);
+
   // ************** CLASSNAMES
   const buttonClassName =
     'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
@@ -35,15 +57,18 @@ const Modal = (props) => {
         break;
     }
   };
+
+  // Met à jour le titre lors du changement de type de la modal
   useEffect(() => {
     displayTitle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Le tableau de dépendances vide signifie que cela s'exécute seulement une fois après le rendu initial
 
-  // ************** CLOSE MODALE
+  // Fermeture de la modale
   const closeModal = () => {
     props.setModalOpen(false);
   };
+
   return (
     <div
       className='fixed inset-0 z-40 overflow-y-auto'
@@ -88,6 +113,7 @@ const Modal = (props) => {
                 >
                   {title && title}
                 </h3>
+                {/* Formulaires spécifiques à chaque type de modal */}
                 {props.type === 'equestrianCenter' && (
                   <EquestrianCenterPricesForm
                     equestrianCenterPrices={props.equestrianCenterPrices}
@@ -127,6 +153,7 @@ const Modal = (props) => {
               </div>
             </div>
           </div>
+          {/* Section de boutons (e.g., Fermer, Annuler) */}
           <div className='bg-gray-50 px-4 py-3 sm:px-6 flex flex-col gap-2 justify-center'>
             {deleteButton}
             <button
@@ -144,6 +171,8 @@ const Modal = (props) => {
     </div>
   );
 };
+
+// Propriétés attendues par le composant
 Modal.propTypes = {
   isModalOpen: PropTypes.bool,
   setModalOpen: PropTypes.func,
@@ -162,4 +191,5 @@ Modal.propTypes = {
   holidayDateWeeklyPlanner: PropTypes.string,
   setHolidayModalOpen: PropTypes.func,
 };
+
 export default Modal;

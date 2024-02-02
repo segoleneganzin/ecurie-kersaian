@@ -11,6 +11,7 @@ import Modal from './Modal';
  * @component
  * @param {Object} props - Propriétés du composant.
  * @param {boolean} props.editable - Indique si le planning est éditable.
+ * @param {string} props.period - Période du planning (scolaire ou vacances).
  * @returns {JSX.Element} - Élément React représentant le composant.
  */
 const WeeklyPlanner = ({ editable = false, period }) => {
@@ -84,6 +85,10 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     '20h00',
   ];
 
+  /**
+   * Planning initial avec tous les créneaux horaires disponibles.
+   * @type {Array}
+   */
   const initialSchedule = daysOfWeek.map((day) => ({
     day,
     schedule: timeSlots.map((timeSlot) => ({ timeSlot, available: true })),
@@ -139,6 +144,10 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     setModalOpen(true);
   };
 
+  /**
+   * Fonction pour ouvrir la modale d'édition des vacances.
+   * @function
+   */
   const openHolidayModal = () => {
     if (!editable) return;
     setHolidayModalOpen(true);

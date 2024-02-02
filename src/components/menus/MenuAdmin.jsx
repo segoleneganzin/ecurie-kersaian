@@ -1,16 +1,26 @@
 import { useState } from 'react';
 import Modal from '../Modal';
+
+/**
+ * Composant MenuAdmin pour afficher un lien qui ouvre une modal.
+ *
+ * @component
+ * @returns {JSX.Element} - L'élément JSX du composant MenuAdmin.
+ */
 const MenuAdmin = () => {
+  // État pour gérer l'ouverture/fermeture de la modal
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <div>
+      {/* Lien pour ouvrir la modal */}
       <a
         onClick={() => {
           setModalOpen(true);
         }}
         className='cursor-pointer w-10 h-10 bg-secondary-color rounded-full flex justify-center items-center'
       >
+        {/* Icône SVG */}
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 448 512'
@@ -23,6 +33,7 @@ const MenuAdmin = () => {
         </svg>
       </a>
 
+      {/* Affichage de la modal si isModalOpen est true */}
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}

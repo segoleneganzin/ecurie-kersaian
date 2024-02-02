@@ -1,12 +1,18 @@
-/* eslint-disable react/no-unescaped-entities */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { fetchPricesByCategory } from '../api/PricesApi';
-// import AdminPricesModal from './AdminPricesModal';
 import Modal from './Modal';
 import { useEffect } from 'react';
 import GeneralPrices from './GeneralPrices';
 
+/**
+ * Composant EquestrianCenterPrices pour afficher les tarifs du centre équestre.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {boolean} props.editable - Indique si le mode édition est activé.
+ * @returns {JSX.Element} - L'élément JSX du composant EquestrianCenterPrices.
+ */
 const EquestrianCenterPrices = ({ editable = false }) => {
   // CLASSNAME
   const adminEditButtonClassname =
@@ -18,6 +24,12 @@ const EquestrianCenterPrices = ({ editable = false }) => {
     pensionPrices: null,
   });
 
+  /**
+   * Fonction pour récupérer les tarifs depuis l'API.
+   *
+   * @async
+   * @function
+   */
   const getPrices = async () => {
     const equestrianCenterPricesDb = await fetchPricesByCategory(
       'equestrianCenter'
@@ -29,14 +41,22 @@ const EquestrianCenterPrices = ({ editable = false }) => {
     });
   };
 
+  // Utilisation de useEffect pour récupérer les tarifs lors du rendu initial
   useEffect(() => {
     getPrices();
   }, []);
 
+  /**
+   * Fonction pour ouvrir la modal d'édition.
+   *
+   * @function
+   */
   const openModal = () => {
     if (!editable) return;
     setModalOpen(true);
   };
+
+  // Rendu du composant EquestrianCenterPrices
   return (
     <div className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
       {editable ? (
@@ -49,6 +69,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         </h2>
       )}
 
+      {/* Affichage des tarifs généraux */}
       <GeneralPrices editable={editable} />
 
       {/* Forfaits */}
@@ -62,15 +83,16 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         )}
         {editable ? (
           <h5 className='font-bold text-xl bg-secondary-color text-white rounded-lg text-center'>
-            Forfaits "tout compris" (Adhésion + licence + cours)
+            Forfaits &lsquo;tout compris&rsquo; (Adhésion + licence + cours)
           </h5>
         ) : (
           <h4 className='font-bold text-xl bg-secondary-color text-white rounded-lg text-center'>
-            Forfaits "tout compris" (Adhésion + licence + cours)
+            Forfaits &lsquo;tout compris&rsquo; (Adhésion + licence + cours)
           </h4>
         )}
 
         <div className='py-4 md:flex  md:justify-between'>
+          {/* Informations sur les forfaits */}
           <div className='md:max-w-300px lg:max-w-full'>
             <p className='font-bold'>
               {state.equestrianCenterPrices &&
@@ -83,6 +105,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               Pas de cours durant les vacances scolaires.
             </p>
           </div>
+          {/* Tableau des tarifs des forfaits */}
           <div className='rounded-lg overflow-hidden border-2 border-secondary-color mt-2 w-fit m-auto md:m-0'>
             <table className='bg-whitetext-sm mobile:text-base'>
               <thead className='bg-secondary-color text-white'>
@@ -100,6 +123,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 </tr>
               </thead>
               <tbody>
+                {/* Lignes du tableau des tarifs des forfaits */}
                 <tr className='h-16'>
                   <th className='py-2 px-2 border-r border-b border-secondary-color text-left'>
                     1h/semaine
@@ -154,9 +178,11 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         )}
 
         <div className='py-4 md:flex  md:justify-between'>
+          {/* Informations sur les cartes */}
           <p className='italic py-4 font-sm'>
-            Cotisation et licence obligatoire (non comprises)
+            Cotisation et licence obligatoires (non comprises).
           </p>
+          {/* Tableau des tarifs des cartes */}
           <div className='rounded-lg overflow-hidden border-2 border-secondary-color w-fit m-auto md:m-0'>
             <table className='bg-white text-sm mobile:text-base'>
               <thead className='bg-secondary-color text-white'>
@@ -166,6 +192,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 </tr>
               </thead>
               <tbody>
+                {/* Lignes du tableau des tarifs des cartes */}
                 <tr className='h-16 text-left'>
                   <th
                     className='py-2 px-4 border-b-2 border-secondary-color'
@@ -248,16 +275,18 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         )}
 
         <div className='py-4 lg:flex lg:justify-between w-fit m-auto lg:m-0 lg:w-full'>
+          {/* Informations sur la demi et tiers pension */}
           <div>
             <p className='font-bold text-base'>
               (En fonction des chevaux disponibles)
             </p>
             <p className='italic py-4 text-base'>
-              Cotisation et licence obligatoire (non comprises).
+              Cotisation et licence obligatoires (non comprises).
               <br />
-              La monte libre exclus la pratique de l'obstacle.
+              La monte libre exclut la pratique de l&apos;obstacle.
             </p>
           </div>
+          {/* Tableau des tarifs de la demi et tiers pension */}
           <div className='rounded-lg overflow-hidden border-2 border-secondary-color'>
             <table className='bg-white text-sm mobile:text-base'>
               <thead className='bg-secondary-color text-white'>
@@ -270,6 +299,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 </tr>
               </thead>
               <tbody>
+                {/* Lignes du tableau des tarifs de la demi et tiers pension */}
                 <tr className='h-16 text-left'>
                   <th className='py-2 px-4 border-b border-r border-secondary-color'>
                     Tiers de pension
@@ -305,6 +335,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
+      {/* Modal pour l'édition des tarifs */}
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}
@@ -319,7 +350,10 @@ const EquestrianCenterPrices = ({ editable = false }) => {
     </div>
   );
 };
+
+// Définition des types des propriétés du composant
 EquestrianCenterPrices.propTypes = {
   editable: PropTypes.bool,
 };
+
 export default EquestrianCenterPrices;

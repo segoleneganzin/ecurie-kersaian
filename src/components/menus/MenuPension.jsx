@@ -1,11 +1,27 @@
 import { useState, useRef, useEffect } from 'react';
+
+/**
+ * Composant MenuPension pour afficher un menu de navigation réactif.
+ *
+ * @component
+ * @returns {JSX.Element} - L'élément JSX du composant MenuPension.
+ */
 const MenuPension = () => {
+  // États pour gérer l'ouverture/fermeture du menu hamburger et la classe CSS du menu
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [menuClassName, setMenuClassName] = useState('hidden');
   const menu = useRef();
+
+  /**
+   * Fonction pour ouvrir/fermer le menu hamburger.
+   */
   const openResponsiveMenu = () => {
     setHamburgerOpen(!hamburgerOpen);
   };
+
+  /**
+   * Effet useEffect pour mettre à jour la classe CSS du menu en fonction de l'état du hamburger.
+   */
   useEffect(() => {
     if (hamburgerOpen) {
       setMenuClassName(
@@ -15,13 +31,17 @@ const MenuPension = () => {
       setMenuClassName('hidden');
     }
   }, [hamburgerOpen]);
+
   return (
     <div>
+      {/* Icône du hamburger */}
       <div className='space-y-2 cursor-pointer' onClick={openResponsiveMenu}>
         <div className='w-14 h-2 bg-secondary-color'></div>
         <div className='w-14 h-2 bg-secondary-color'></div>
         <div className='w-14 h-2 bg-secondary-color'></div>
       </div>
+
+      {/* Menu de navigation */}
       <nav ref={menu} className={menuClassName}>
         <ul
           className='mr-14 mt-16 space-y-10 text-right text-white text-xl'

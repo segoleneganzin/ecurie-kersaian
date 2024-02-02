@@ -1,12 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
-
 //**********************************************************
 //Manage user's update email
 //**********************************************************
 import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 import ReauthenticateForm from './ReauthenticateForm';
 import { updateEmail } from 'firebase/auth';
 
@@ -89,7 +87,9 @@ const UpdateMail = () => {
       updateOkMessage ? (
         // Affichage du message de succès après la mise à jour
         <div>
-          <p className='text-green-700 text-center'>L'email a été modifié.</p>
+          <p className='text-green-700 text-center'>
+            L&apos;email a été modifié.
+          </p>
         </div>
       ) : (
         // Affichage du formulaire de mise à jour de l'adresse e-mail

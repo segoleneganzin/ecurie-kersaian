@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 const Contact = () => {
   return (
     <div className='p-2 pt-16  sm:p-8 lg:p-16' id='contact'>
@@ -43,7 +42,7 @@ const Contact = () => {
           </li>
           <li>
             <span className='color-secondary-color font-bold text-lg'>
-              Horaires d'ouverture :
+              Horaires d&apos;ouverture :
             </span>{' '}
           </li>
         </ul>

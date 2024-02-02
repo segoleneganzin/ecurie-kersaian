@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
-import SignInModule from '../apiAuthentication/SignInModule';
+import SignInModule from '../components/SignInModule';
 import Header from '../components/Header';
 import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
@@ -62,7 +62,9 @@ const Admin = () => {
         </div>
         {/* **************************************SCROLL UP */}
         {showScrollButton && <ScrollUp />}
+        {/* ************************************************************** ADMINISTRATION ACCUEIL */}
         {choice === null && defaultDisplay}
+        {/* ************************************************************** ADMINISTRATION CENTRE EQUESTRE */}
         {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
           <div>
@@ -87,6 +89,7 @@ const Admin = () => {
             <EquestrianCenterPrices editable />
           </div>
         )}
+        {/* ************************************************************** ADMINISTRATION PENSION */}
         {choice === 'pension' && (
           <div>
             {/* **************************************FORMULES */}
@@ -94,12 +97,14 @@ const Admin = () => {
               <h3 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
                 Nos formules
               </h3>
+              <p className='italic'>(Bientôt disponible)</p>
             </div>
             {/* ***************************************TARIFS */}
             <div className='p-2 pt-16 lg:p-16 sm:p-8' id='prices'>
               <h3 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
                 Les tarifs
               </h3>
+              <p className='italic'>(Bientôt disponible)</p>
             </div>
           </div>
         )}

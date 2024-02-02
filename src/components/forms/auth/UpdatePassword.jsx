@@ -1,12 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
-
 //**********************************************************
 //Gérer la mise à jour du mot de passe de l'utilisateur
 //**********************************************************
 import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 import ReauthenticateForm from './ReauthenticateForm';
 import { updatePassword } from 'firebase/auth';
 
@@ -53,7 +51,8 @@ const UpdatePassword = () => {
    * Fonction pour obtenir la classe d'erreur pour un champ donné.
    * @param {string} field - Nom du champ.
    * @returns {string} - Classe d'erreur du champ.
-   */ const inputErrorClass = (field) => {
+   */
+  const inputErrorClass = (field) => {
     return errors[field] ? inputErrorClassName : inputClassName;
   };
 
@@ -133,7 +132,7 @@ const UpdatePassword = () => {
               )}
               {errors.newPassword?.type === 'pattern' && (
                 <p className={errorMessageClassName}>
-                  Le mot de passe n'est pas valide
+                  Le mot de passe n&apos;est pas valide
                 </p>
               )}
             </div>
@@ -162,7 +161,7 @@ const UpdatePassword = () => {
               )}
               {errors.newPasswordConfirmation?.type === 'pattern' && (
                 <p className={errorMessageClassName}>
-                  Le mot de passe n'est pas valide
+                  Le mot de passe n&apos;est pas valide
                 </p>
               )}
             </div>
