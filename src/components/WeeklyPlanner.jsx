@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
-// import WeeklyPlannerModal from './WeeklyPlannerModal';
-// import HolidayWeeklyPlannerModal from './HolidayWeeklyPlannerForm';
 import Modal from './Modal';
+import { adminEditButtonClassname } from '../utils/GeneralClassNames';
 
 /**
  * Composant pour afficher un planning hebdomadaire.
@@ -93,10 +92,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     day,
     schedule: timeSlots.map((timeSlot) => ({ timeSlot, available: true })),
   }));
-
-  // CLASSNAME
-  const adminEditButtonClassname =
-    'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2';
 
   /**
    * État local pour le planning.

@@ -10,6 +10,15 @@ import { UserContext } from '../context/UserContext';
 import ForgotPassword from './forms/auth/ForgotPassword';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.webp';
+import {
+  formClassName,
+  labelClassName,
+  formDataContainerClassName,
+  inputClassName,
+  inputErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../utils/GeneralClassNames';
 
 /**
  * Composant React pour le module de connexion pour les administrateurs.
@@ -30,20 +39,6 @@ const SignInModule = () => {
   // État pour gérer l'affichage du composant ForgotPassword
   const [forgotPassword, setForgotPassword] = useState(false);
 
-  // ************************************************************** CLASSNAMES
-  const formClassName =
-    'bg-secondary-color mt-4 mx-6 border-2 border-principal-color p-4 rounded-lg max-w-sm mx-auto';
-  const formDataContainerClassName = 'mb-4';
-  const labelClassName = 'pr-2 text-lg font-bold text-white';
-  const inputClassName =
-    'border-b border-white w-full bg-secondary-color text-white';
-  const inputErrorClassName =
-    'border-b border-red-300 w-full bg-secondary-color  text-white';
-  const errorMessageClassName = 'text-red-200';
-  const buttonClassName =
-    'm-auto flex justify-center w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wider';
-  // ********************************************************************
-
   // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
@@ -58,7 +53,9 @@ const SignInModule = () => {
    * @returns {string} - Classe d'erreur du champ.
    */
   const inputErrorClass = (field) => {
-    return errors[field] ? inputErrorClassName : inputClassName;
+    return errors[field]
+      ? inputErrorClassName + ' min-w-52'
+      : inputClassName + ' min-w-52';
   };
 
   // Messages d'erreur pour les champs du formulaire
@@ -108,7 +105,10 @@ const SignInModule = () => {
           <div>
             <form
               onSubmit={handleSubmit(handleForm)}
-              className={formClassName}
+              className={
+                formClassName +
+                'bg-secondary-color border-2 border-principal-color p-4 rounded-lg max-w-sm mx-auto'
+              }
               noValidate
             >
               <div className={formDataContainerClassName}>
@@ -153,7 +153,10 @@ const SignInModule = () => {
               </div>
               <p>{validation}</p>
               <button
-                className={buttonClassName + ' bg-green-700 hover:bg-green-600'}
+                className={
+                  buttonClassName +
+                  ' bg-green-700 hover:bg-green-600 flex justify-center'
+                }
               >
                 Connexion
               </button>

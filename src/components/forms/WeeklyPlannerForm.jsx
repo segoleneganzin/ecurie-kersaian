@@ -2,7 +2,15 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { removeTimeSlot, updateTimeSlot } from '../../api/WeeklyPlannerApi';
-
+import {
+  formClassName,
+  labelClassName,
+  formDataContainerClassName,
+  inputClassName,
+  inputErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../../utils/GeneralClassNames';
 /**
  * Composant Modal pour ajouter ou modifier un créneau horaire dans le planning hebdomadaire.
  *
@@ -40,17 +48,6 @@ const WeeklyPlannerForm = ({
     endTime: null,
     cellBg: null,
   });
-
-  // ************************************************************** CLASSNAMES
-  const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
-  const formDataContainerClassName = 'mb-4';
-  const labelClassName = 'pr-2 text-lg font-bold';
-  const inputClassName = 'border-b border-black max-w-12';
-  const inputErrorClassName = 'border-b border-red-300';
-  const errorMessageClassName = 'text-red-800';
-  const buttonClassName =
-    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  // ********************************************************************
 
   const {
     register,

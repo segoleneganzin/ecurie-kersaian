@@ -12,6 +12,15 @@ import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
 import WeeklyPlanner from '../components/WeeklyPlanner';
 import Cavalry from '../components/Cavalry';
+import {
+  mainClassName,
+  presentationButtonClassName,
+  presentationButtonContainerClassName,
+  presentationImgClassName,
+  presentationParagraphClassName,
+  presentationSectionClassName,
+  sectionTitleClassName,
+} from '../utils/GeneralClassNames';
 
 const EquestrianCenter = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -29,18 +38,18 @@ const EquestrianCenter = () => {
   return (
     <div className='h-dvh'>
       <Header menu={'equestrianCenter'} />
-      <main className='min-h-full text-principal-color overflow-x-hidden font-inconsolata 2xl:max-w-screen-xl 2xl:m-auto'>
+      <main className={mainClassName}>
         {/* **************************************PRESENTATION */}
-        <div className='p-2 pt-16 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 xl:items-center xl:flex-row'>
+        <section className={presentationSectionClassName}>
           <img
             src={presentationImg}
             alt="Cheval en train d'être brossé"
-            className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px'
+            className={presentationImgClassName}
             width={650}
             height={650}
           />
           <div>
-            <p className='leading-8 text-center xl:text-left text-base'>
+            <p className={presentationParagraphClassName}>
               Située au cœur de la campagne de{' '}
               <span className='font-bold text-xl'>Languidic</span>,
               <br /> l'écurie Kersaian est{' '}
@@ -61,29 +70,21 @@ const EquestrianCenter = () => {
               </span>
               , loin du stress de la ville.
             </p>
-            <div className='items-center mt-8 flex flex-col gap-5 md:flex-row md:justify-center xl:justify-start'>
-              <a
-                href='#contact'
-                className='bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit transform transition duration-400 hover:bg-principal-color'
-              >
+            <div className={presentationButtonContainerClassName}>
+              <a href='#contact' className={presentationButtonClassName}>
                 Nous situer
               </a>
-              <a
-                href='#contact'
-                className='bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit transform transition duration-400 hover:bg-principal-color'
-              >
+              <a href='#contact' className={presentationButtonClassName}>
                 Nous contacter
               </a>
             </div>
           </div>
-        </div>
+        </section>
         {/* **************************************SCROLL UP */}
         {showScrollButton && <ScrollUp />}
         {/* **************************************ACTIVITEES */}
-        <div className='p-2 lg:p-16 pt-16 sm:p-8' id='activities'>
-          <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-            Nos activités
-          </h2>
+        <section className='p-2 lg:p-16 pt-16 sm:p-8' id='activities'>
+          <h2 className={sectionTitleClassName}>Nos activités</h2>
           <ul className='leading-10 mt-4 space-y-5 text-base text-center lg:text-left lg:space-y-0 lg:flex lg:flex-col lg:gap-6 lg:items-start'>
             <li className='flex flex-col lg:flex-row lg:items-center lg:gap-12'>
               <img
@@ -142,30 +143,25 @@ const EquestrianCenter = () => {
               </span>
             </li>
           </ul>
-        </div>
+        </section>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
         {/* ***************************************CAVALERIE */}
-        <div className='p-2 pt-16 lg:p-16 sm:p-8' id='cavalry'>
-          <h2 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-            Notre cavalerie
-          </h2>
+        <section className='p-2 pt-16 lg:p-16 sm:p-8' id='cavalry'>
+          <h2 className={sectionTitleClassName}>Notre cavalerie</h2>
           {/* <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base'>
             <li>Les shetlands</li>
             <li>Les poneys</li>
             <li>Les chevaux</li>
           </ul> */}
           <Cavalry />
-        </div>
+        </section>
         {/* ***************************************PLANNING */}
-        <div className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
-          {/* <div className='p-2 pt-16 lg:p-16 lg:pb-4 sm:p-8' id='planning'> */}
-          <h2 className='text-principal-color font-bold pl-2 pb-10 sm:pl-8 lg:pl-16 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-            Le planning
-          </h2>
+        <section className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
+          <h2 className={sectionTitleClassName + ' pl-2'}>Le planning</h2>
           <WeeklyPlanner period={'school'} />
           <WeeklyPlanner period={'holiday'} />
-        </div>
+        </section>
         {/* ***************************************TARIFS */}
         <EquestrianCenterPrices />
         {/* ***************************************CONTACT */}

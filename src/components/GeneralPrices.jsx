@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { fetchPricesByCategory } from '../api/PricesApi';
+import { adminEditButtonClassname } from '../utils/GeneralClassNames';
 
 /**
  * Composant GeneralPrices
@@ -10,10 +11,6 @@ import { fetchPricesByCategory } from '../api/PricesApi';
  * @returns {JSX.Element} - Élément JSX représentant le composant GeneralPrices.
  */
 const GeneralPrices = ({ editable = false }) => {
-  // CLASSNAME
-  const adminEditButtonClassname =
-    'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2';
-
   const [isModalOpen, setModalOpen] = useState(false);
   const [generalPrices, setGeneralPrices] = useState(null);
 
@@ -70,7 +67,7 @@ const GeneralPrices = ({ editable = false }) => {
         </li>
         <li className='text-base'>
           <span className='font-bold text-xl'>Licence annuelle FFE :</span>
-          <ul>
+          <ul className='text-center'>
             <li>
               - de 18 ans :{' '}
               {generalPrices && generalPrices['ffeLicense']['under18']}€

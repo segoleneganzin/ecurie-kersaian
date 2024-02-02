@@ -7,6 +7,15 @@ import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../context/UserContext';
 import ReauthenticateForm from './ReauthenticateForm';
 import { updatePassword } from 'firebase/auth';
+import {
+  formClassName,
+  labelClassName,
+  formDataContainerClassName,
+  inputClassName,
+  inputErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../../../utils/GeneralClassNames';
 
 /**
  * Composant React pour la gestion de la mise à jour du mot de passe de l'utilisateur.
@@ -27,18 +36,6 @@ const UpdatePassword = () => {
   // État pour gérer l'accès à la mise à jour
   const [openUpdate, setOpenUpdate] = useState(false);
 
-  // ************************************************************** CLASSNAMES
-  const formClassName =
-    'mt-4 mx-6 border-2 border-principal-color p-2 rounded-lg';
-  const formDataContainerClassName = 'mb-4 flex flex-col';
-  const labelClassName = 'pr-2 text-lg font-bold text-left';
-  const inputClassName = 'border-b border-principal-color w-full';
-  const inputErrorClassName = 'border-b border-red-300 w-full';
-  const errorMessageClassName = 'text-red-500';
-  const buttonClassName =
-    'm-auto flex justify-center w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wider';
-  // ********************************************************************
-
   // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
@@ -53,7 +50,9 @@ const UpdatePassword = () => {
    * @returns {string} - Classe d'erreur du champ.
    */
   const inputErrorClass = (field) => {
-    return errors[field] ? inputErrorClassName : inputClassName;
+    return errors[field]
+      ? inputErrorClassName + ' min-w-52'
+      : inputClassName + ' min-w-52';
   };
 
   // Messages d'erreur pour les champs du formulaire
@@ -189,7 +188,6 @@ const UpdatePassword = () => {
     ) : (
       // Réauthentification nécessaire pour mettre à jour les données de l'utilisateur
       <div className='update-form'>
-        <h2 className='title section__title'>Modifier votre mot de passe</h2>
         <p className='ps__form-subtitle'>
           Veuillez vous réauthentifier pour modifier votre mot de passe
         </p>

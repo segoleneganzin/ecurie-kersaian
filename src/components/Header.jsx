@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import MenuEquestrianCenter from './menus/MenuEquestrianCenter';
-import MenuPension from './menus/MenuPension';
+import Menu from './menus/Menu';
 import MenuAdmin from './menus/MenuAdmin';
 import logo from '../assets/images/logo.webp';
 
@@ -9,11 +8,11 @@ const Header = ({ menu }) => {
   let headerSubtitle;
   switch (menu) {
     case 'equestrianCenter':
-      headerMenu = <MenuEquestrianCenter />;
+      headerMenu = <Menu page='equestrianCenter' />;
       headerSubtitle = 'Centre équestre';
       break;
     case 'pension':
-      headerMenu = <MenuPension />;
+      headerMenu = <Menu page='pension' />;
       headerSubtitle = 'Pension';
       break;
     case 'admin':

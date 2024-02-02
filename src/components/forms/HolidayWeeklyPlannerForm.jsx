@@ -2,7 +2,15 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { updateHolidayDates } from '../../api/WeeklyPlannerApi';
-
+import {
+  formClassName,
+  labelClassName,
+  textareaContainerClassName,
+  textareaClassName,
+  textareaErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../../utils/GeneralClassNames';
 /**
  * Formulaire pour la gestion des dates de période de congé dans le planning hebdomadaire.
  * @param {Object} props - Les propriétés du composant.
@@ -16,16 +24,6 @@ const HolidayWeeklyPlannerForm = ({
   closeModal,
   fetchPlanning,
 }) => {
-  // ************************************************************** CLASSNAMES
-  const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
-  const labelClassName = 'pr-2 text-lg font-bold';
-  const textareaClassName = 'border border-black pl-2';
-  const textareaErrorClassName = 'border border-red-300';
-  const errorMessageClassName = 'text-red-800';
-  const buttonClassName =
-    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  // ********************************************************************
-
   const {
     register,
     handleSubmit,
@@ -87,7 +85,7 @@ const HolidayWeeklyPlannerForm = ({
       className={formClassName}
       noValidate
     >
-      <div className='flex flex-col'>
+      <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='holidayDates'>
           Dates de la période :
         </label>

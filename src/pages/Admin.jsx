@@ -7,6 +7,8 @@ import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import ScrollUp from '../components/ScrollUp';
 import Footer from '../components/Footer';
+import PensionPrices from '../components/PensionPrices';
+import { sectionTitleClassName } from '../utils/GeneralClassNames';
 
 const Admin = () => {
   const { currentUser } = useContext(UserContext);
@@ -68,10 +70,8 @@ const Admin = () => {
         {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
           <div>
-            <div className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
-              <h3 className='font-bold pl-2 pb-10 sm:pl-8 lg:pl-16 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-                Le planning
-              </h3>
+            <section className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
+              <h3 className={sectionTitleClassName + ' pl-2'}>Le planning</h3>
               <p className='italic pl-2 sm:pl-8 lg:pl-16 pt-0 pb-4'>
                 Sélectionner la case du créneau souhaité et remplir le
                 formulaire (attention le texte est blanc donc choisir une
@@ -84,7 +84,7 @@ const Admin = () => {
               </p>
               <WeeklyPlanner editable period={'school'} />
               <WeeklyPlanner editable period={'holiday'} />
-            </div>
+            </section>
             {/* ***************************************TARIFS */}
             <EquestrianCenterPrices editable />
           </div>
@@ -93,19 +93,12 @@ const Admin = () => {
         {choice === 'pension' && (
           <div>
             {/* **************************************FORMULES */}
-            <div className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
-              <h3 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-                Nos formules
-              </h3>
+            <section className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
+              <h3 className={sectionTitleClassName}>Nos formules</h3>
               <p className='italic'>(Bientôt disponible)</p>
-            </div>
+            </section>
             {/* ***************************************TARIFS */}
-            <div className='p-2 pt-16 lg:p-16 sm:p-8' id='prices'>
-              <h3 className='font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-                Les tarifs
-              </h3>
-              <p className='italic'>(Bientôt disponible)</p>
-            </div>
+            <PensionPrices editable />
           </div>
         )}
       </main>

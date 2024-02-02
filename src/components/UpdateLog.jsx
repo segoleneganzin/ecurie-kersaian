@@ -5,6 +5,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import UpdateMail from './forms/auth/UpdateMail';
 import UpdatePassword from './forms/auth/UpdatePassword';
+import { buttonClassName } from '../utils/GeneralClassNames';
 
 /**
  * Composant React pour la gestion des mises à jour du compte utilisateur.
@@ -20,11 +21,6 @@ const UpdateLog = () => {
   // États pour gérer l'ouverture des composants de mise à jour
   const [updateEmailOpen, setUpdateEmailOpen] = useState(false);
   const [updatePasswordOpen, setUpdatePasswordOpen] = useState(false);
-
-  // ************************************************************** CLASSNAMES
-  const buttonClassName =
-    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  // ********************************************************************
 
   /**
    * Fonction pour basculer l'état d'ouverture du composant de mise à jour de l'adresse e-mail.

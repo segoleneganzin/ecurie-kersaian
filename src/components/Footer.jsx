@@ -2,7 +2,7 @@ import FFE from '../assets/images/FFE-Logo.webp';
 import languidic from '../assets/images/languidic.webp';
 const Footer = () => {
   return (
-    <div className='bg-principal-color h-fit'>
+    <footer className='bg-principal-color h-fit'>
       <div className='flex gap-6 py-6 justify-center'>
         <img src={FFE} alt='' className='w-16 h-24' width={64} height={102} />
         <img
@@ -24,7 +24,7 @@ const Footer = () => {
           Ségolène GANZIN
         </a>
       </p>
-    </div>
+    </footer>
   );
 };
 

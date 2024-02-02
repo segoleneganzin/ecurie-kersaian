@@ -3,7 +3,15 @@ import { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../firebase-config';
 import { useForm } from 'react-hook-form';
-
+import {
+  formClassName,
+  labelClassName,
+  formDataContainerClassName,
+  inputClassName,
+  inputErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../../../utils/GeneralClassNames';
 /**
  * Composant React pour la réinitialisation du mot de passe.
  *
@@ -19,19 +27,6 @@ function ForgotPassword(props) {
   // État pour gérer le message de validation en cas d'erreur
   const [validation, setValidation] = useState('');
 
-  // *************************** CLASSNAMES ***************************
-  const formClassName =
-    'bg-secondary-color mt-4 mx-6 border-2 border-principal-color p-4 rounded-lg max-w-sm mx-auto';
-  const formDataContainerClassName = 'mb-4';
-  const labelClassName = 'pr-2 text-lg font-bold text-white';
-  const inputClassName =
-    'border-b border-white w-full bg-secondary-color text-white';
-  const inputErrorClassName =
-    'border-b border-red-300 w-full bg-secondary-color text-white';
-  const errorMessageClassName = 'text-red-200';
-  const buttonClassName =
-    'm-auto flex justify-center w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wider';
-  // ********************************************************************
   // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
@@ -47,7 +42,9 @@ function ForgotPassword(props) {
    * @returns {string} - Classe d'erreur du champ.
    */
   const inputErrorClass = (field) => {
-    return errors[field] ? inputErrorClassName : inputClassName;
+    return errors[field]
+      ? inputErrorClassName + ' min-w-52'
+      : inputClassName + ' min-w-52';
   };
 
   // Messages d'erreur pour les champs du formulaire
@@ -97,7 +94,10 @@ function ForgotPassword(props) {
     <div>
       <form
         onSubmit={handleSubmit(handleForm)}
-        className={formClassName}
+        className={
+          formClassName +
+          'bg-secondary-color border-2 border-principal-color p-4 rounded-lg max-w-sm mx-auto'
+        }
         noValidate
       >
         <h2 className='text-white text-xl text-center font-bold bg-red-900 rounded-t-sm mb-4'>
@@ -126,13 +126,16 @@ function ForgotPassword(props) {
         </div>
         <p className='validation error'>{validation}</p>
         <button
-          className={buttonClassName + ' bg-green-700 hover:bg-green-600'}
+          className={
+            buttonClassName +
+            ' bg-green-700 hover:bg-green-600 flex justify-center'
+          }
         >
           Réinitialiser le mot de passe
         </button>
       </form>
       <button
-        className={buttonClassName}
+        className={buttonClassName + ' flex justify-center'}
         onClick={() => props.setForgotPassword(false)}
       >
         {' '}

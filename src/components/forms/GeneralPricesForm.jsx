@@ -2,6 +2,17 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { updatePrices } from '../../api/PricesApi';
+import {
+  subtitleClassName,
+  separationClassName,
+  formClassName,
+  labelClassName,
+  formDataContainerClassName,
+  inputClassName,
+  inputErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../../utils/GeneralClassNames';
 
 /**
  * Formulaire pour la gestion des tarifs généraux.
@@ -12,16 +23,6 @@ import { updatePrices } from '../../api/PricesApi';
  * @returns {JSX.Element} - Élément de formulaire React.
  */
 const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
-  // ************************************************************** CLASSNAMES
-  const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
-  const formDataContainerClassName = 'mb-4';
-  const labelClassName = 'pr-2 text-lg font-bold';
-  const inputClassName = 'border-b border-black max-w-12';
-  const inputErrorClassName = 'border-b border-red-300';
-  const errorMessageClassName = 'text-red-800';
-  const buttonClassName =
-    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  // ********************************************************************
   const {
     register,
     handleSubmit,
@@ -119,10 +120,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
         </span>
       )}
       {/* ****************************GENERAL */}
-      <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
-        Tarifs généraux
-      </h2>
-      <div className='bg-principal-color h-2 mb-4 w-full'></div>
+      <h2 className={subtitleClassName}>Tarifs généraux</h2>
       {/*******  cotisation annuelle */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='annualSubscription'>
@@ -144,7 +142,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
       )}
       {/*******  Licence FFE */}
       <h3 className='font-bold text-lg mt-6'>Licence annuelle FFE</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='ffeLicenseUnder18'>
           - de 18ans :

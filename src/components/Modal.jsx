@@ -5,6 +5,8 @@ import GeneralPricesForm from './forms/GeneralPricesForm';
 import WeeklyPlannerForm from './forms/WeeklyPlannerForm';
 import HolidayWeeklyPlannerForm from './forms/HolidayWeeklyPlannerForm';
 import UpdateLog from './UpdateLog';
+import PensionPricesForm from './forms/PensionPricesForm';
+import { buttonClassName } from '../utils/GeneralClassNames';
 
 /**
  * Composant Modal
@@ -31,30 +33,21 @@ const Modal = (props) => {
   const [deleteButton, setDeleteButton] = useState(null);
   const [title, setTitle] = useState(null);
 
-  // ************** CLASSNAMES
-  const buttonClassName =
-    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-
   // ************** TITRE
   const displayTitle = () => {
-    switch (props.type) {
-      case 'equestrianCenter':
-        setTitle('Gestion des tarifs');
-        break;
-      case 'general':
-        setTitle('Gestion des tarifs');
-        break;
-      case 'weeklyPlanner':
-        setTitle('Gestion des plannings');
-        break;
-      case 'holidayWeeklyPlanner':
-        setTitle('Gestion des plannings'); // gestion des dates de vacances
-        break;
-      case 'updateLog':
-        setTitle('Gestion des paramètres de connexion'); // gestion des dates de vacances
-        break;
-      default:
-        break;
+    if (
+      props.type === 'equestrianCenter' ||
+      props.type === 'general' ||
+      props.type === 'pension'
+    ) {
+      setTitle('Gestion des tarifs');
+    } else if (
+      props.type === 'weeklyPlanner' ||
+      props.type === 'holidayWeeklyPlanner'
+    ) {
+      setTitle('Gestion des plannings');
+    } else if (props.type === 'updateLog') {
+      setTitle('Gestion des plannings');
     }
   };
 
@@ -107,13 +100,14 @@ const Modal = (props) => {
                 </svg>
               </button>
               <div className='mt-3 text-center sm:mt-0  sm:text-left  w-full'>
-                <h3
+                <h2
                   className='text-lg font-bold leading-6 text-gray-900'
                   id='modalTitle'
                 >
                   {title && title}
-                </h3>
+                </h2>
                 {/* Formulaires spécifiques à chaque type de modal */}
+                {/* ************************************************** FORMULAIRE TARIFS CENTRE EQUESTRE (forfaits + cartes + demi et tiers de pension) */}
                 {props.type === 'equestrianCenter' && (
                   <EquestrianCenterPricesForm
                     equestrianCenterPrices={props.equestrianCenterPrices}
@@ -122,6 +116,7 @@ const Modal = (props) => {
                     getPrices={props.getPrices}
                   />
                 )}
+                {/* ************************************************** FORMULAIRE TARIFS GENERAUX (côtisation + licence) */}
                 {props.type === 'general' && (
                   <GeneralPricesForm
                     generalPrices={props.generalPrices}
@@ -129,6 +124,16 @@ const Modal = (props) => {
                     getGeneralPrices={props.getPrices}
                   />
                 )}
+                {/* ************************************************** FORMULAIRE TARIFS PENSION (tiers, demi, complète) */}
+                {props.type === 'pension' && (
+                  <PensionPricesForm
+                    pensionPrices={props.pensionPrices}
+                    closeModal={closeModal}
+                    getPrices={props.getPrices}
+                  />
+                )}
+
+                {/* ************************************************** FORMULAIRE PLANNING */}
                 {props.type === 'weeklyPlanner' && (
                   <WeeklyPlannerForm
                     closeModal={closeModal}
@@ -142,6 +147,7 @@ const Modal = (props) => {
                     setDeleteButton={setDeleteButton}
                   />
                 )}
+                {/* ************************************************** FORMULAIRE DATE PERIODE VACANCES */}
                 {props.type === 'holidayWeeklyPlanner' && (
                   <HolidayWeeklyPlannerForm
                     closeModal={closeModal}
@@ -149,6 +155,7 @@ const Modal = (props) => {
                     fetchPlanning={props.fetchPlanning}
                   />
                 )}
+                {/* ************************************************** GESTION DES PARAMETRES ADMINISTRATEURS (mail/mdp/deconnexion) */}
                 {props.type === 'updateLog' && <UpdateLog />}
               </div>
             </div>

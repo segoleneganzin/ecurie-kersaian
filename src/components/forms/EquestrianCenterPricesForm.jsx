@@ -2,6 +2,20 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { updatePrices } from '../../api/PricesApi';
+import {
+  subtitleClassName,
+  separationClassName,
+  formClassName,
+  labelClassName,
+  formDataContainerClassName,
+  inputClassName,
+  inputErrorClassName,
+  textareaContainerClassName,
+  textareaClassName,
+  textareaErrorClassName,
+  errorMessageClassName,
+  buttonClassName,
+} from '../../utils/GeneralClassNames';
 
 /**
  * Composant React pour le formulaire de tarifs du centre équestre.
@@ -20,20 +34,6 @@ const EquestrianCenterPricesForm = ({
   closeModal,
   getPrices,
 }) => {
-  // ************************************************************** CLASSNAMES
-  const formClassName = 'mt-4 border-t-2 border-principal-color pt-2';
-  const formDataContainerClassName = 'mb-4';
-  const textareaContainerClassName = 'flex flex-col';
-  const labelClassName = 'pr-2 text-lg font-bold';
-  const inputClassName = 'border-b border-black max-w-12';
-  const inputErrorClassName = 'border-b border-red-300';
-  const textareaClassName = 'border border-black pl-2';
-  const textareaErrorClassName = 'border border-red-300';
-  const errorMessageClassName = 'text-red-800';
-  const buttonClassName =
-    'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
-  // ********************************************************************
-
   // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
@@ -230,14 +230,11 @@ const EquestrianCenterPricesForm = ({
       )}
 
       {/* ****************************FORFAITS */}
-      <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
-        Forfaits &lsquo;tout compris&rsquo;
-      </h2>
-      <div className='bg-principal-color h-2 mb-4 w-full'></div>
+      <h2 className={subtitleClassName}>Forfaits &lsquo;tout compris&rsquo;</h2>
 
       {/******* 1h/ semaine */}
       <h3 className='font-bold text-lg'>1h/ semaine</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='baby'>
           Baby :
@@ -295,7 +292,7 @@ const EquestrianCenterPricesForm = ({
 
       {/* ******* 2h/ semaine */}
       <h3 className='font-bold text-lg mt-6'>2h/ semaine</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='twoHoursUnder18'>
           - de 18ans :
@@ -334,14 +331,11 @@ const EquestrianCenterPricesForm = ({
       )}
 
       {/* ****************************CARTES */}
-      <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
-        Cartes
-      </h2>
-      <div className='bg-principal-color h-2 mb-4 w-full'></div>
+      <h2 className={subtitleClassName}>Cartes</h2>
 
       {/******* cours collectifs */}
       <h3 className='font-bold text-lg'>Cours collectifs</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='hours5'>
           5 heures :
@@ -381,7 +375,7 @@ const EquestrianCenterPricesForm = ({
 
       {/******* cours particuliers */}
       <h3 className='font-bold text-lg mt-6'>Cours particuliers</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='clubLesson5'>
           5 cours club :
@@ -420,14 +414,11 @@ const EquestrianCenterPricesForm = ({
       )}
 
       {/* ****************************DEMI ET TIERS DE PENSION */}
-      <h2 className='bg-principal-color text-center font-bold mt-8 text-white text-xl'>
-        Demi et tiers de pension
-      </h2>
-      <div className='bg-principal-color h-2 mb-4 w-full'></div>
+      <h2 className={subtitleClassName}>Demi et tiers de pension</h2>
 
       {/******* demi pension */}
       <h3 className='font-bold text-lg mt-6'>Demi pension</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='halfPensionDescription'>
           Description :
@@ -466,7 +457,7 @@ const EquestrianCenterPricesForm = ({
 
       {/******* tiers de pension */}
       <h3 className='font-bold text-lg mt-6'>Tiers de pension</h3>
-      <div className='bg-principal-color h-1 my-4 w-full'></div>
+      <div className={separationClassName}></div>
       <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='thirdPartPensionDescription'>
           Description :
