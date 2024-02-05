@@ -53,7 +53,7 @@ const GeneralPrices = ({ editable = false }) => {
       {/* Bouton d'édition des prix (visible uniquement en mode édition) */}
       {editable ? (
         <button onClick={openModal} className={adminEditButtonClassname}>
-          Modifier
+          Modifier les tarifs généraux
         </button>
       ) : (
         ''

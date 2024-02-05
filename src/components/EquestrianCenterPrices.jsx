@@ -71,21 +71,18 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       ) : (
         <h2 className={sectionTitleClassName}>Les tarifs</h2>
       )}
-
       {/* Affichage des tarifs généraux */}
       <GeneralPrices editable={editable} />
-
       {/* Forfaits */}
       <div className='py-4'>
         {editable ? (
           <button onClick={openModal} className={adminEditButtonClassname}>
-            Modifier
+            Modifier les tarifs du centre équestre
           </button>
         ) : (
           ''
         )}
       </div>
-
       {editable ? (
         <h5 className={pricesSectionSubtitlesClassName}>
           Forfaits &lsquo;tout compris&rsquo; (Adhésion + licence + cours)
@@ -95,7 +92,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           Forfaits &lsquo;tout compris&rsquo; (Adhésion + licence + cours)
         </h4>
       )}
-
       <div className='py-4 md:flex  md:justify-between'>
         {/* Informations sur les forfaits */}
         <div className='md:max-w-300px lg:max-w-full'>
@@ -250,7 +246,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
-      {/* Demi et tiers de pension */}
+      Demi et tiers de pension
       <div className='py-4'>
         {editable ? (
           <h5 className={pricesSectionSubtitlesClassName}>
@@ -316,6 +312,15 @@ const EquestrianCenterPrices = ({ editable = false }) => {
             </table>
           </div>
         </div>
+      </div>
+      <div className='py-4'>
+        {editable ? (
+          <button onClick={openModal} className={adminEditButtonClassname}>
+            Modifier les tarifs du centre équestre
+          </button>
+        ) : (
+          ''
+        )}
       </div>
       {/* Modal pour l'édition des tarifs */}
       {isModalOpen && (

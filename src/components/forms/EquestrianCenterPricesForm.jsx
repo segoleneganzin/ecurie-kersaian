@@ -146,8 +146,7 @@ const EquestrianCenterPricesForm = ({
   // Utiliser useEffect pour appeler la fonction de remplissage des données lors du chargement initial
   useEffect(() => {
     updateInputDatas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   // Fonction pour mettre à jour les tarifs dans le backend
   const updateFormPrices = async () => {

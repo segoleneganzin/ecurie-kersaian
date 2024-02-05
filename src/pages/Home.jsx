@@ -17,13 +17,13 @@ const Home = () => {
       <main className='font-inconsolata'>
         <div className='flex flex-col gap-16 items-center justify-center mt-32 text-grey text-3xl lg:flex-row lg:gap-32'>
           <a
-            className='transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer origin-bottom'
+            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
             onClick={() => goTo('/centre-equestre')}
           >
             <h2>Centre équestre</h2>
           </a>
           <a
-            className='transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer origin-bottom'
+            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
             onClick={() => goTo('/pension')}
           >
             <h2>Pension</h2>

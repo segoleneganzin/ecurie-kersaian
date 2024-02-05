@@ -34,4 +34,7 @@
   .right-125 {
     right: 125%;
   }
+  .button-neumorphism-shadow {
+    box-shadow: 18px 18px 36px #292625, -18px -18px 36px #413c3b;
+  }
 }

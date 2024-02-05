@@ -47,15 +47,15 @@ const Modal = (props) => {
     ) {
       setTitle('Gestion des plannings');
     } else if (props.type === 'updateLog') {
-      setTitle('Gestion des plannings');
+      setTitle('Gestion du compte administrateur');
     }
   };
 
   // Met à jour le titre lors du changement de type de la modal
+  // s'exécute seulement une fois après le rendu initial
   useEffect(() => {
     displayTitle();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Le tableau de dépendances vide signifie que cela s'exécute seulement une fois après le rendu initial
+  });
 
   // Fermeture de la modale
   const closeModal = () => {

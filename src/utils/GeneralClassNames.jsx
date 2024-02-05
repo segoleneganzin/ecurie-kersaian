@@ -17,7 +17,7 @@ export const buttonClassName =
   'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
 // *********************************************** CLASSNAMES ADMIN
 export const adminEditButtonClassname =
-  'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2';
+  'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2 self-end mr-2';
 // *********************************************** CLASSNAMES MENU
 export const menuListClassName =
   'mt-16 gap-10 text-center text-white text-xl lg:mr-14 lg:text-right flex flex-col items-center lg:items-end';
