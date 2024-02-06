@@ -10,6 +10,9 @@
   .h-300px {
     height: 300px;
   }
+  .h-500px {
+    height: 500px;
+  }
   .w-650px {
     width: 650px;
   }
@@ -25,6 +28,9 @@
   .min-w-650px {
     min-width: 650px;
   }
+  .max-w-500px {
+    max-width: 500px;
+  }
   .max-w-650px {
     max-width: 650px;
   }
@@ -35,6 +41,6 @@
     right: 125%;
   }
   .button-neumorphism-shadow {
-    box-shadow: 18px 18px 36px #292625, -18px -18px 36px #413c3b;
+    box-shadow: 5px 5px 10px #292625, -5px -5px 10px #292625;
   }
 }

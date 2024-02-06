@@ -10,12 +10,12 @@ const Home = () => {
   return (
     <div className='bg-principal-color h-dvh'>
       <header>
-        <h1 className='m-auto pt-16 w-fit'>
+        <h1 className='m-auto pt-6 w-fit lg:pt-16'>
           <img src={logo} alt='Logo du site' className='w-64 sm:w-auto' />
         </h1>
       </header>
       <main className='font-inconsolata'>
-        <div className='flex flex-col gap-16 items-center justify-center mt-32 text-grey text-3xl lg:flex-row lg:gap-32'>
+        <div className='flex flex-col gap-16 items-center justify-center mt-24 text-grey text-3xl lg:flex-row lg:gap-32'>
           <a
             className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
             onClick={() => goTo('/centre-equestre')}
