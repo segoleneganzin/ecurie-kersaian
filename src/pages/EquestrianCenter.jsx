@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import presentationImg from '../assets/images/cc.jpg';
+import presentationImg from '../assets/images/cc.webp';
 import lessonImg from '../assets/images/cours.webp';
 import walkImg from '../assets/images/balade.webp';
 import eventImg from '../assets/images/saian.webp';
