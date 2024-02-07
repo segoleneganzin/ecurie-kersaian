@@ -78,6 +78,27 @@ const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }, period) => {
 };
 
 /**
+ * Met à jour les dates de vacances dans la collection "holidayWeeklyPlanner".
+ *
+ * @async
+ * @function
+ * @param {Array<string>} dates - Les nouvelles dates de vacances à mettre à jour.
+ * @throws {Error} Une erreur si la mise à jour des dates échoue.
+ */
+const updateHolidayDates = async (dates) => {
+  try {
+    // Utilisation de la fonction updateDoc pour mettre à jour les dates de vacances
+    await updateDoc(doc(db, `holidayWeeklyPlanner`, 'schedule'), {
+      dates: dates,
+    });
+  } catch (error) {
+    // Gestion des erreurs en affichant l'erreur dans la console
+    console.log(error);
+    throw error;
+  }
+};
+
+/**
  * Fonction asynchrone pour supprimer un créneau horaire spécifique dans le planning.
  *
  * @async
@@ -118,4 +139,10 @@ const removeTimeSlot = async (dayIndex, timeSlotIndex, period) => {
   }
 };
 
-export { fetchWeeklyPlanner, updateTimeSlot, addDays, removeTimeSlot };
+export {
+  fetchWeeklyPlanner,
+  updateTimeSlot,
+  addDays,
+  removeTimeSlot,
+  updateHolidayDates,
+};

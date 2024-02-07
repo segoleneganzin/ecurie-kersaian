@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
-import WeeklyPlannerModal from './WeeklyPlannerModal';
+import Modal from './Modal';
 
 /**
  * Composant pour afficher un planning hebdomadaire.
@@ -9,6 +9,7 @@ import WeeklyPlannerModal from './WeeklyPlannerModal';
  * @component
  * @param {Object} props - Propriétés du composant.
  * @param {boolean} props.editable - Indique si le planning est éditable.
+ * @param {string} props.period - Période du planning (scolaire ou vacances).
  * @returns {JSX.Element} - Élément React représentant le composant.
  */
 const WeeklyPlanner = ({ editable = false, period }) => {
@@ -82,6 +83,10 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     '20h00',
   ];
 
+  /**
+   * Planning initial avec tous les créneaux horaires disponibles.
+   * @type {Array}
+   */
   const initialSchedule = daysOfWeek.map((day) => ({
     day,
     schedule: timeSlots.map((timeSlot) => ({ timeSlot, available: true })),
@@ -96,9 +101,11 @@ const WeeklyPlanner = ({ editable = false, period }) => {
    * @property {boolean} isModalOpen - Indique si la modale est ouverte.
    */
   const [schedule, setSchedule] = useState(initialSchedule);
+  const [schedulePeriod, setSchedulePeriod] = useState('');
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isHolidayModalOpen, setHolidayModalOpen] = useState(false);
 
   /**
    * Fonction pour récupérer le planning depuis l'API.
@@ -108,6 +115,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   const fetchPlanning = async () => {
     const datas = await fetchWeeklyPlanner(period);
     setSchedule(datas.days);
+    setSchedulePeriod(datas.dates);
   };
   useEffect(() => {
     fetchPlanning();
@@ -130,12 +138,47 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     setModalOpen(true);
   };
 
+  /**
+   * Fonction pour ouvrir la modale d'édition des vacances.
+   * @function
+   */
+  const openHolidayModal = () => {
+    if (!editable) return;
+    setHolidayModalOpen(true);
+  };
+
   return (
     <div>
-      <h3 className='text-principal-color font-bold text-2xl pl-2 sm:pl-8 lg:pl-16'>
-        {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
-      </h3>
-      <div className='overflow-x-auto my-2'>
+      {editable ? (
+        <h4 className='text-principal-color font-bold text-2xl pl-2 sm:pl-8 md:pl-0 md:text-center'>
+          {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
+        </h4>
+      ) : (
+        <h3 className='text-principal-color font-bold text-2xl pl-2 sm:pl-8 md:pl-0 md:text-center'>
+          {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
+        </h3>
+      )}
+
+      {period === 'holiday' ? (
+        <div className='flex gap-8 md:justify-center w-full pl-2 sm:pl-8 pt-0 md:pl-0 '>
+          <p className='italic'>{schedulePeriod}</p>
+          {editable ? (
+            <button onClick={openHolidayModal} className='h-6 w-6'>
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+                <path
+                  fill='#033e0c'
+                  d='M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z'
+                />
+              </svg>
+            </button>
+          ) : (
+            ''
+          )}
+        </div>
+      ) : (
+        ''
+      )}
+      <div className='overflow-x-auto m-2'>
         <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit'>
           <table>
             <thead className='h-8 bg-principal-color text-white sticky top-0 z-20'>
@@ -214,20 +257,28 @@ const WeeklyPlanner = ({ editable = false, period }) => {
         </div>
       </div>
       {/* Modale pour ajouter un nouveau créneau */}
-      {isModalOpen ? (
-        <WeeklyPlannerModal
+      {isModalOpen && (
+        <Modal
+          isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
+          type={'weeklyPlanner'}
           fetchPlanning={fetchPlanning}
           schedule={schedule}
-          editable={editable}
           daysOfWeek={daysOfWeek}
           timeSlots={timeSlots}
           selectedTimeSlot={selectedTimeSlot}
           selectedDay={selectedDay}
           period={period}
         />
-      ) : (
-        ''
+      )}
+      {isHolidayModalOpen && (
+        <Modal
+          isModalOpen={isModalOpen}
+          holidayDateWeeklyPlanner={schedulePeriod}
+          type={'holidayWeeklyPlanner'}
+          setModalOpen={setHolidayModalOpen}
+          fetchPlanning={fetchPlanning}
+        />
       )}
     </div>
   );

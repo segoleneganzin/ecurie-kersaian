@@ -1,8 +1,27 @@
-# React + Vite
+# Ecurie Kersaïan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Développement d'un site vitrine avec une page d'administration
 
-Currently, two official plugins are available:
+![Visuel du site](assets/screenshot-centre-equestre.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 📚 Contexte
+
+**L'écurie Kersaïan'** vient de commencer son activité et souhaite un site où les visiteurs pourront consulter les informations (installations, cavalerie, planning, tarifs, ...). <br>
+En tant que freelance j'ai été contactée par la gerante pour mettre en place la solution adéquate.<br>
+Le site comporte deux pages principales et une page d'administration :
+
+<ul>
+<li>une page pour le centre équestre</li>
+<li>une page pour la pension</li>
+<li>une page pour administrer le centre équestre (plannings et tarifs) et la pension (formules et tarifs)</li>
+</ul>
+
+### 💡 Technologies et modèles
+
+HTML5 <br>
+Tailwind <br>
+ReactJS <br>
+Vue.js <br>
+Firebase (firestore, hosting, authentication) <br>
+
+Voir le site : ( [écurie Kersaïan](https://ecurie-kersaian-languidic.web.app/) )

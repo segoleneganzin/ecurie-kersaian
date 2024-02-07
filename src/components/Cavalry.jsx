@@ -1,9 +1,10 @@
 import { useState, createRef } from 'react';
 // carousel img
-import bachataHector from '../assets/images/bachata-hector.jpg';
-import bachata from '../assets/images/bachata.jpg';
-import shetland from '../assets/images/shetland.jpg';
-import shetlands from '../assets/images/shetlands.jpg';
+import bachataHector from '../assets/images/bachata-hector.webp';
+import bachata from '../assets/images/bachata.webp';
+import shetland from '../assets/images/shetland.webp';
+import shetlands from '../assets/images/shetlands.webp';
+import intrepide from '../assets/images/intrepide.webp';
 
 const Cavalry = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -13,6 +14,7 @@ const Cavalry = () => {
   const images = [
     { src: bachataHector, alt: 'Hector et Bachata' },
     { src: bachata, alt: 'Bachata' },
+    { src: intrepide, alt: 'Intrépide' },
     { src: shetlands, alt: 'Les shetlands' },
     { src: shetland, alt: 'Un shetland' },
   ];
@@ -63,7 +65,6 @@ const Cavalry = () => {
   };
 
   const nextImage = () => {
-    console.log('next' + currentImage);
     if (currentImage >= totalImages - 1) {
       scrollToImage(0);
     } else {
@@ -72,7 +73,6 @@ const Cavalry = () => {
   };
 
   const previousImage = () => {
-    console.log('previous' + currentImage);
     if (currentImage === 0) {
       scrollToImage(totalImages - 1);
     } else {
@@ -94,30 +94,34 @@ const Cavalry = () => {
 
   return (
     <div
-      className='flex justify-center max-w-full m-auto items-center lg:w-2/3'
+      className='flex justify-center max-w-2/3 m-auto items-center w-1/2'
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       <div className='flex flex-row items-center'>
-        {sliderControl(true)}
         <div className='inline-flex overflow-x-hidden snap-mandatory snap-x'>
           {images.map((img, i) => (
             <figure
-              className='w-full flex-shrink-0'
+              className='w-full flex-shrink-0 '
               key={img.src}
               ref={refs[i]}
             >
               <img
                 src={img.src}
-                className='w-full object-contain sm:max-h-500px'
+                className='w-full object-contain max-h-400px'
                 alt={img.alt}
               />
-              <figcaption className='text-lg text-center'>{img.alt}</figcaption>
+              <div className='flex justify-center items-center'>
+                {sliderControl(true)}
+                <figcaption className='text-lg text-center'>
+                  {img.alt}
+                </figcaption>
+                {sliderControl()}
+              </div>
             </figure>
           ))}
         </div>
-        {sliderControl()}
       </div>
     </div>
   );

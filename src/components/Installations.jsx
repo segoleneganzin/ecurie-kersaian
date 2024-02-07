@@ -1,9 +1,8 @@
+import { sectionTitleClassName } from '../utils/GeneralClassNames';
 const Installations = () => {
   return (
-    <div className='p-2 pt-16 lg:p-16 sm:p-8' id='installations'>
-      <h2 className='text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-        Nos installations
-      </h2>
+    <section className='p-2 pt-16 lg:p-16 sm:p-8' id='installations'>
+      <h2 className={sectionTitleClassName}>Nos installations</h2>
       <ul className='leading-10 mt-4 space-y-5 text-base '>
         <li>
           Des{' '}
@@ -21,7 +20,7 @@ const Installations = () => {
           <span className='color-secondary-color font-bold text-lg'>
             manège
           </span>{' '}
-          (40x10m)
+          (40x16m)
         </li>
         <li>
           Une grande{' '}
@@ -37,7 +36,7 @@ const Installations = () => {
           accéssibles directement depuis les écuries
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 

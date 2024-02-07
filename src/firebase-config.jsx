@@ -1,6 +1,7 @@
 //****************************************************** firebase
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 //stock in other place for secured data
@@ -14,7 +15,8 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase Authentication and get a reference to the service
 const appFireBase = initializeApp(firebaseConfig);
+// Initialize Firebase Authentication and get a reference to the service
+export const auth = getAuth(appFireBase);
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(appFireBase);
