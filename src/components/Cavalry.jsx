@@ -65,7 +65,6 @@ const Cavalry = () => {
   };
 
   const nextImage = () => {
-    console.log('next' + currentImage);
     if (currentImage >= totalImages - 1) {
       scrollToImage(0);
     } else {
@@ -74,7 +73,6 @@ const Cavalry = () => {
   };
 
   const previousImage = () => {
-    console.log('previous' + currentImage);
     if (currentImage === 0) {
       scrollToImage(totalImages - 1);
     } else {
