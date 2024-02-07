@@ -1245,7 +1245,7 @@ video {
 }
 
 .font-inconsolata {
-  font-family: "Inconsolata";
+  font-family: Inconsolata, sans-serif;
 }
 
 .text-2xl {
