@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import Admin from './pages/Admin';
 import EquestrianCenter from './pages/EquestrianCenter';
 import Pension from './pages/Pension';
-import Breeding from './pages/Breeding';
 
 const Router = () => {
   return (
@@ -14,8 +13,6 @@ const Router = () => {
       <Route path='/centre-equestre' element={<EquestrianCenter />} />
       {/* Pension */}
       <Route path='/pension' element={<Pension />} />
-      {/* Breeding */}
-      <Route path='/elevage-de-freol' element={<Breeding />} />
       {/* Administration */}
       <Route path='/admin' element={<Admin />} />
       {/* NotFound */}

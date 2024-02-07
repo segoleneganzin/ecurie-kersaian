@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/images/logo.jpg';
+import logo from '../assets/images/logo.webp';
 
 const Home = () => {
-  //redirection alias
   const navigate = useNavigate();
   const goTo = (page) => {
     navigate(page);
@@ -11,31 +10,23 @@ const Home = () => {
   return (
     <div className='bg-principal-color h-dvh'>
       <header>
-        <a href='/' aria-label="Aller à la page d'accueil">
-          <h1 className='m-auto pt-16 w-fit'>
-            <img src={logo} alt='Logo du site' />
-          </h1>
-        </a>
+        <h1 className='m-auto pt-6 w-fit lg:pt-16'>
+          <img src={logo} alt='Logo du site' className='w-64 sm:w-auto' />
+        </h1>
       </header>
-      <main>
-        <div className='flex flex-col gap-16 items-center justify-center mt-32 text-grey text-3xl lg:flex-row lg:gap-32'>
+      <main className='font-inconsolata'>
+        <div className='flex flex-col gap-16 items-center justify-center mt-24 text-grey text-3xl lg:flex-row lg:gap-32'>
           <a
-            className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
+            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
             onClick={() => goTo('/centre-equestre')}
           >
             <h2>Centre équestre</h2>
           </a>
           <a
-            className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
+            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
             onClick={() => goTo('/pension')}
           >
             <h2>Pension</h2>
-          </a>
-          <a
-            className='flex transform transition duration-500 hover:scale-125 hover:text-white cursor-pointer'
-            onClick={() => goTo('/elevage-de-freol')}
-          >
-            <h2>Élevage de Fréol</h2>
           </a>
         </div>
       </main>

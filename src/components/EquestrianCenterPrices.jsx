@@ -1,168 +1,346 @@
-/* eslint-disable react/no-unescaped-entities */
-// import prices from '../assets/images/prices.jpg';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { fetchPricesByCategory } from '../api/PricesApi';
+import Modal from './Modal';
+import { useEffect } from 'react';
+import GeneralPrices from './GeneralPrices';
+import {
+  adminEditButtonClassname,
+  tableDataClassName,
+  tableDataLastRowClassName,
+  tableHeadDataClassName,
+  tableRowClassName,
+  tableHeadClassName,
+  pricesSectionSubtitlesClassName,
+  tableClassName,
+  tableContainerClassName,
+  sectionTitleClassName,
+} from '../utils/GeneralClassNames';
+/**
+ * Composant EquestrianCenterPrices pour afficher les tarifs du centre équestre.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {boolean} props.editable - Indique si le mode édition est activé.
+ * @returns {JSX.Element} - L'élément JSX du composant EquestrianCenterPrices.
+ */
+const EquestrianCenterPrices = ({ editable = false }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [state, setState] = useState({
+    equestrianCenterPrices: null,
+    pensionPrices: null,
+  });
 
-const Prices = () => {
+  /**
+   * Fonction pour récupérer les tarifs depuis l'API.
+   *
+   * @async
+   * @function
+   */
+  const getPrices = async () => {
+    const equestrianCenterPricesDb = await fetchPricesByCategory(
+      'equestrianCenter'
+    );
+    const pensionPricesDb = await fetchPricesByCategory('pension');
+    setState({
+      equestrianCenterPrices: equestrianCenterPricesDb,
+      pensionPrices: pensionPricesDb,
+    });
+  };
+
+  // Utilisation de useEffect pour récupérer les tarifs lors du rendu initial
+  useEffect(() => {
+    getPrices();
+  }, []);
+
+  /**
+   * Fonction pour ouvrir la modal d'édition.
+   *
+   * @function
+   */
+  const openModal = () => {
+    if (!editable) return;
+    setModalOpen(true);
+  };
+
+  // Rendu du composant EquestrianCenterPrices
   return (
-    <div className='p-2 pt-16 lg:p-16 sm:p-8' id='prices'>
-      <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-        Les tarifs
-      </h2>
-      <h3 className='font-bold text-3xl'>Saison 2023/2024</h3>
-
-      <ul className='py-4'>
-        <li>
-          <span className='font-bold text-xl'>Cotisation annuelle :</span> 40€
-        </li>
-        <li>
-          <span className='font-bold text-xl'>Licence annuelle FFE :</span>
-          <ul>
-            <li>- de 18 ans : 25€</li>
-            <li>+ de 18 ans : 36€</li>
-          </ul>
-        </li>
-      </ul>
-      {/* Packages */}
+    <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
+      {editable ? (
+        <h3 className={sectionTitleClassName}>Les tarifs</h3>
+      ) : (
+        <h2 className={sectionTitleClassName}>Les tarifs</h2>
+      )}
+      {/* Affichage des tarifs généraux */}
+      <GeneralPrices editable={editable} />
+      {/* Forfaits */}
       <div className='py-4'>
-        <h4 className='font-bold text-2xl'>
-          Forfaits "tout compris" (Adhésion + licence + cours)
+        {editable ? (
+          <button onClick={openModal} className={adminEditButtonClassname}>
+            Modifier les tarifs du centre équestre
+          </button>
+        ) : (
+          ''
+        )}
+      </div>
+      {editable ? (
+        <h5 className={pricesSectionSubtitlesClassName}>
+          Forfaits &lsquo;tout compris&rsquo; (Adhésion + licence + cours)
+        </h5>
+      ) : (
+        <h4 className={pricesSectionSubtitlesClassName}>
+          Forfaits &lsquo;tout compris&rsquo; (Adhésion + licence + cours)
         </h4>
-        <div className='py-4'>
-          <h5 className='font-bold'>Du 1er septembre au 6 juillet</h5>
-          <p className='italic '>
-            Cette année, exceptionnellement, les cours auront lieu du 9 octobre
-            au 6 juillet. <br />
+      )}
+      <div className='py-4 md:flex  md:justify-between'>
+        {/* Informations sur les forfaits */}
+        <div className='md:max-w-300px lg:max-w-full'>
+          <p className='font-bold'>
+            {state.equestrianCenterPrices &&
+              state.equestrianCenterPrices['period']}
+          </p>
+          <p className='italic text-base mr-2 '>
+            {state.equestrianCenterPrices &&
+              state.equestrianCenterPrices['infos']}{' '}
+            <br />
             Pas de cours durant les vacances scolaires.
           </p>
         </div>
-        <table className='bg-white border-2 border-principal-color text-xs mobile:text-base'>
-          <thead className='bg-principal-color border border-principal-color text-white'>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-white'>Formules</th>
-              <th className='py-2 px-4 border border-white'>Baby</th>
-              <th className='py-2 px-4 border border-white'>- de 18ans</th>
-              <th className='py-2 px-4 border border-white'>+ de 18ans</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                1h/semaine
-              </th>
-              <td className='py-2 px-4 border border-principal-color'>455€</td>
-              <td className='py-2 px-4 border border-principal-color'>525€</td>
-              <td className='py-2 px-4 border border-principal-color'>543€</td>
-            </tr>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                2h/semaine
-              </th>
-              <td className='py-2 px-4 bg-principal-color border border-principal-color'></td>
-              <td className='py-2 px-4 border border-principal-color'>980€</td>
-              <td className='py-2 px-4 border border-principal-color'>1015€</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      {/* cards */}
-      <div className='py-4'>
-        <h4 className='font-bold text-2xl'>Cartes</h4>
-        <p className='italic py-4'>
-          Cotisation et licence obligatoire (non comprises)
-        </p>
-        <table className='bg-white border-2 border-principal-color text-xs mobile:text-base'>
-          <thead className='bg-principal-color text-white'>
-            <tr className='h-16  text-left'>
-              <th className='py-2 px-4 border border-white'>Cartes</th>
-              <th className='py-2 px-4 border border-white'>Tarifs</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className='h-16 text-left'>
-              <th
-                className='py-2 px-4 border-2 border-principal-color'
-                colSpan='2'
-              >
-                Cours collectifs
-              </th>
-            </tr>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                5 heures
-              </th>
-              <td className='py-2 px-4  border border-principal-color'>85€</td>
-            </tr>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                10 heures
-              </th>
-              <td className='py-2 px-4  border border-principal-color'>160€</td>
-            </tr>
-            <tr className='h-16 text-left'>
-              <th
-                className='py-2 px-4 border-2 border-principal-color'
-                colSpan='2'
-              >
-                Cours particuliers
-              </th>
-            </tr>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                5 cours club
-              </th>
-              <td className='py-2 px-4  border border-principal-color'>145€</td>
-            </tr>
-            <tr className='h-16'>
-              <th className='py-2 px-4 border border-principal-color'>
-                5 cours propriétaire
-              </th>
-              <td className='py-2 px-4  border border-principal-color'>135€</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      {/* Half and third party pension */}
-      <div className='py-4'>
-        <h4 className='font-bold text-2xl'>Demi pension et tiers de pension</h4>
-        <div className='py-4'>
-          <h5 className='font-bold'>(En fonction des chevaux disponibles)</h5>
-          <p className='italic py-4'>
-            Cotisation et licence obligatoire (non comprises).
-            <br />
-            La monte libre exclus la pratique de l'obstacle.
-          </p>
+        {/* Tableau des tarifs des forfaits */}
+        <div className={tableContainerClassName + ' mt-2'}>
+          <table className={tableClassName}>
+            <thead className={tableHeadClassName}>
+              <tr className={tableRowClassName}>
+                <th className={tableHeadDataClassName + ' text-left'}>
+                  Formules
+                </th>
+                <th className={tableHeadDataClassName}>Baby</th>
+                <th className={tableHeadDataClassName}>- de 18ans</th>
+                <th className={tableHeadDataClassName + ' border-r-0'}>
+                  + de 18ans
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Lignes du tableau des tarifs des forfaits */}
+              <tr className={tableRowClassName}>
+                <th className={tableDataClassName}>1h/semaine</th>
+                <td className={tableDataClassName}>
+                  {state.equestrianCenterPrices &&
+                    state.equestrianCenterPrices['oneHourWeekly']['baby']}
+                  €
+                </td>
+                <td className={tableDataClassName}>
+                  {state.equestrianCenterPrices &&
+                    state.equestrianCenterPrices['oneHourWeekly']['under18']}
+                  €
+                </td>
+                <td className={tableDataLastRowClassName}>
+                  {state.equestrianCenterPrices &&
+                    state.equestrianCenterPrices['oneHourWeekly']['over18']}
+                  €
+                </td>
+              </tr>
+              <tr className={tableRowClassName + ' border-b-0'}>
+                <th className={tableDataClassName}>2h/semaine</th>
+                <td className={tableDataClassName + ' bg-secondary-color'}></td>
+                <td className={tableDataClassName}>
+                  {state.equestrianCenterPrices &&
+                    state.equestrianCenterPrices['twoHoursWeekly']['under18']}
+                  €
+                </td>
+                <td className={tableDataLastRowClassName}>
+                  {state.equestrianCenterPrices &&
+                    state.equestrianCenterPrices['twoHoursWeekly']['over18']}
+                  €
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <table className='bg-white border-2 border-principal-color text-xs mobile:text-base'>
-          <thead className='bg-principal-color border border-principal-color text-white'>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-white'>Formules</th>
-              <th className='py-2 px-4 border border-white'>Descriptions</th>
-              <th className='py-2 px-4 border border-white'>Tarif mensuel</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                Tiers de pension
-              </th>
-              <td className='py-2 px-4 border border-principal-color'>
-                1 cours par semaine + 1 monte libre
-              </td>
-              <td className='py-2 px-4 border border-principal-color'>100€</td>
-            </tr>
-            <tr className='h-16 text-left'>
-              <th className='py-2 px-4 border border-principal-color'>
-                Demi pension
-              </th>
-              <td className='py-2 px-4 border border-principal-color'>
-                1 cours par semaine + 2 montes libres
-              </td>
-              <td className='py-2 px-4 border border-principal-color'>150€</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
-    </div>
+      {/* Cartes */}
+      <div className='py-4'>
+        {editable ? (
+          <h5 className={pricesSectionSubtitlesClassName}>Cartes</h5>
+        ) : (
+          <h4 className={pricesSectionSubtitlesClassName}>Cartes</h4>
+        )}
+
+        <div className='py-4 md:flex  md:justify-between'>
+          {/* Informations sur les cartes */}
+          <p className='italic py-4 font-sm'>
+            Cotisation et licence obligatoires (non comprises).
+          </p>
+          {/* Tableau des tarifs des cartes */}
+          <div className={tableContainerClassName}>
+            <table className={tableClassName}>
+              <thead className={tableHeadClassName}>
+                <tr className={tableRowClassName}>
+                  <th className={tableHeadDataClassName}>Cartes</th>
+                  <th className={tableHeadDataClassName + ' border-r-0'}>
+                    Tarifs
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Lignes du tableau des tarifs des cartes */}
+                <tr className={tableRowClassName}>
+                  <th
+                    className='py-2 px-4 border-b-2 border-secondary-color'
+                    colSpan='2'
+                  >
+                    Cours collectifs
+                  </th>
+                </tr>
+                <tr className={tableRowClassName}>
+                  <th className={tableDataClassName}>5 heures</th>
+                  <td className={tableDataLastRowClassName}>
+                    {state.equestrianCenterPrices &&
+                      state.equestrianCenterPrices['cardGroupLessons'][
+                        'fiveHours'
+                      ]}
+                    €
+                  </td>
+                </tr>
+                <tr className={tableRowClassName}>
+                  <th className={tableDataClassName}>10 heures</th>
+                  <td className={tableDataLastRowClassName}>
+                    {state.equestrianCenterPrices &&
+                      state.equestrianCenterPrices['cardGroupLessons'][
+                        'tenHours'
+                      ]}
+                    €
+                  </td>
+                </tr>
+                <tr className={tableRowClassName}>
+                  <th
+                    className='py-2 px-4 border-t-2 border-b-2 border-secondary-color'
+                    colSpan='2'
+                  >
+                    Cours particuliers
+                  </th>
+                </tr>
+                <tr className={tableRowClassName}>
+                  <th className={tableDataClassName}> 5 cours club</th>
+                  <td className={tableDataLastRowClassName}>
+                    {state.equestrianCenterPrices &&
+                      state.equestrianCenterPrices['cardPrivatesLessons'][
+                        'fiveClubLessons'
+                      ]}
+                    €
+                  </td>
+                </tr>
+                <tr className={tableRowClassName + ' border-b-0'}>
+                  <th className={tableDataClassName}>5 cours propriétaire</th>
+                  <td className={tableDataLastRowClassName}>
+                    {state.equestrianCenterPrices &&
+                      state.equestrianCenterPrices['cardPrivatesLessons'][
+                        'fiveOwnerLessons'
+                      ]}
+                    €
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      Demi et tiers de pension
+      <div className='py-4'>
+        {editable ? (
+          <h5 className={pricesSectionSubtitlesClassName}>
+            Demi pension et tiers de pension
+          </h5>
+        ) : (
+          <h4 className={pricesSectionSubtitlesClassName}>
+            Demi pension et tiers de pension
+          </h4>
+        )}
+
+        <div className='py-4 lg:flex lg:justify-between w-fit m-auto lg:m-0 lg:w-full'>
+          {/* Informations sur la demi et tiers pension */}
+          <div>
+            <p className='font-bold text-base'>
+              (En fonction des chevaux disponibles)
+            </p>
+            <p className='italic py-4 text-base'>
+              Cotisation et licence obligatoires (non comprises).
+              <br />
+              La monte libre exclut la pratique de l&apos;obstacle.
+            </p>
+          </div>
+          {/* Tableau des tarifs de la demi et tiers pension */}
+          <div className={tableContainerClassName}>
+            <table className={tableClassName}>
+              <thead className={tableHeadClassName}>
+                <tr className={tableRowClassName}>
+                  <th className={tableHeadDataClassName}>Formules</th>
+                  <th className={tableHeadDataClassName}>Descriptions</th>
+                  <th className={tableDataLastRowClassName}>Tarif mensuel</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Lignes du tableau des tarifs de la demi et tiers pension */}
+                <tr className={tableRowClassName}>
+                  <th className={tableDataClassName}>Tiers de pension</th>
+                  <td className={tableDataClassName}>
+                    {state.pensionPrices &&
+                      state.pensionPrices['thirdPartPension']['description']}
+                  </td>
+                  <td className={tableDataLastRowClassName}>
+                    {' '}
+                    {state.pensionPrices &&
+                      state.pensionPrices['thirdPartPension']['price']}
+                    €
+                  </td>
+                </tr>
+                <tr className={tableRowClassName + ' border-b-0'}>
+                  <th className={tableDataClassName}>Demi pension</th>
+                  <td className={tableDataClassName}>
+                    {state.pensionPrices &&
+                      state.pensionPrices['halfPension']['description']}
+                  </td>
+                  <td className={tableDataLastRowClassName}>
+                    {' '}
+                    {state.pensionPrices &&
+                      state.pensionPrices['halfPension']['price']}
+                    €
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div className='py-4'>
+        {editable ? (
+          <button onClick={openModal} className={adminEditButtonClassname}>
+            Modifier les tarifs du centre équestre
+          </button>
+        ) : (
+          ''
+        )}
+      </div>
+      {/* Modal pour l'édition des tarifs */}
+      {isModalOpen && (
+        <Modal
+          isModalOpen={isModalOpen}
+          setModalOpen={setModalOpen}
+          type={'equestrianCenter'}
+          generalPrices={state.generalPrices}
+          equestrianCenterPrices={state.equestrianCenterPrices}
+          pensionPrices={state.pensionPrices}
+          getPrices={getPrices}
+        />
+      )}
+    </section>
   );
 };
 
-export default Prices;
+// Définition des types des propriétés du composant
+EquestrianCenterPrices.propTypes = {
+  editable: PropTypes.bool,
+};
+
+export default EquestrianCenterPrices;

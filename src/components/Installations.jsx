@@ -1,20 +1,42 @@
+import { sectionTitleClassName } from '../utils/GeneralClassNames';
 const Installations = () => {
   return (
-    <div className='p-4 pt-16 lg:p-16 sm:p-8' id='installations'>
-      <h2 className='font-bold pb-10 text-5xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56'>
-        Nos installations
-      </h2>
-      <ul className='leading-10 mt-4 space-y-5 text-principal-color  lg:text-xl'>
-        <li>- Des boxs pour préparer les chevaux</li>
-        <li>- Une sellerie</li>
-        <li>- Un manège dans une ancienne porcherie réabilitée</li>
-        <li>- Une grande carrière</li>
+    <section className='p-2 pt-16 lg:p-16 sm:p-8' id='installations'>
+      <h2 className={sectionTitleClassName}>Nos installations</h2>
+      <ul className='leading-10 mt-4 space-y-5 text-base '>
         <li>
-          - De nombreux chemins de balades accéssibles directement depuis les
-          écuries
+          Des{' '}
+          <span className='color-secondary-color font-bold text-lg'>boxs</span>{' '}
+          pour préparer les chevaux
+        </li>
+        <li>
+          Une{' '}
+          <span className='color-secondary-color font-bold text-lg'>
+            sellerie
+          </span>
+        </li>
+        <li>
+          Un{' '}
+          <span className='color-secondary-color font-bold text-lg'>
+            manège
+          </span>{' '}
+          (40x16m)
+        </li>
+        <li>
+          Une grande{' '}
+          <span className='color-secondary-color font-bold text-lg'>
+            carrière
+          </span>
+        </li>
+        <li>
+          De{' '}
+          <span className='color-secondary-color font-bold text-lg'>
+            nombreux chemins de balades
+          </span>{' '}
+          accéssibles directement depuis les écuries
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 

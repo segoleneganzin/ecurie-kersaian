@@ -11,11 +11,7 @@ export default {
         grey: '#7A7577',
       },
       fontFamily: {
-        playfair: ['"Playfair"'],
-        inconsolata: ['"Inconsolata"'],
-      },
-      backgroundImage: {
-        'main-pattern': "url('./assets/wave-haikei.svg')",
+        inconsolata: ['Inconsolata', 'sans-serif'],
       },
     },
     letterSpacing: {
