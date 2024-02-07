@@ -119,7 +119,8 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   };
   useEffect(() => {
     fetchPlanning();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Fonction pour ouvrir la modale d'édition.

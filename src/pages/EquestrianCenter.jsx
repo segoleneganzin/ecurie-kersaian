@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -52,7 +51,7 @@ const EquestrianCenter = () => {
             <p className={presentationParagraphClassName}>
               Située au cœur de la campagne de{' '}
               <span className='font-bold text-xl'>Languidic</span>,
-              <br /> l'écurie Kersaian est{' '}
+              <br /> l&apos;écurie Kersaian est{' '}
               <span className='font-bold text-xl'>
                 dirigée par Alexia Lemoine
               </span>
@@ -60,7 +59,7 @@ const EquestrianCenter = () => {
               <br />
               Depuis 2023, notre écurie est le point de rendez-vous idéal pour
               tous les passionnés de chevaux. <br />
-              <br />À l'écurie Kersaian, on mise sur le{' '}
+              <br />À l&apos;écurie Kersaian, on mise sur le{' '}
               <span className='font-bold text-xl'>respect des chevaux</span>, la
               <span className='font-bold text-xl'> sécurité des cavaliers</span>
               , et une vraie connexion avec nos copains à quatre pattes. <br />
@@ -149,16 +148,13 @@ const EquestrianCenter = () => {
         {/* ***************************************CAVALERIE */}
         <section className='p-2 pt-16 lg:p-16 sm:p-8' id='cavalry'>
           <h2 className={sectionTitleClassName}>Notre cavalerie</h2>
-          {/* <ul className='leading-10 mt-4 space-y-5 text-principal-color text-base'>
-            <li>Les shetlands</li>
-            <li>Les poneys</li>
-            <li>Les chevaux</li>
-          </ul> */}
           <Cavalry />
         </section>
         {/* ***************************************PLANNING */}
         <section className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
-          <h2 className={sectionTitleClassName + ' pl-2'}>Le planning</h2>
+          <h2 className={sectionTitleClassName + ' pl-2 sm:pl-6 lg:pl-16'}>
+            Le planning
+          </h2>
           <WeeklyPlanner period={'school'} />
           <WeeklyPlanner period={'holiday'} />
         </section>

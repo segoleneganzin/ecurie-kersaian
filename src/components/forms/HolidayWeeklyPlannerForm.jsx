@@ -64,7 +64,8 @@ const HolidayWeeklyPlannerForm = ({
 
   useEffect(() => {
     updateInputDatas();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Mettre à jour l'affichage des dates de congé.

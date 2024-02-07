@@ -75,7 +75,8 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
 
   useEffect(() => {
     updateInputDatas();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Fonction pour mettre à jour les tarifs généraux.

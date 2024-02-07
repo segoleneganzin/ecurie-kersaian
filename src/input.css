@@ -34,6 +34,9 @@
   .max-w-650px {
     max-width: 650px;
   }
+  .max-h-400px {
+    max-height: 400px;
+  }
   .max-h-500px {
     max-height: 500px;
   }

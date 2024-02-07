@@ -55,7 +55,8 @@ const Modal = (props) => {
   // s'exécute seulement une fois après le rendu initial
   useEffect(() => {
     displayTitle();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Fermeture de la modale
   const closeModal = () => {
