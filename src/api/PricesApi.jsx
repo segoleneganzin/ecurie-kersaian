@@ -14,12 +14,20 @@ import { db } from '../firebase-config';
  * @throws {Error} Une erreur si la récupération des données échoue.
  */
 const fetchPricesByCategory = async (category) => {
+  // sessionStorage.clear();
   try {
-    // Utilisation de la fonction getDoc pour obtenir un snapshot d'un document spécifique
-    const querySnapshot = await getDoc(doc(db, `prices`, category));
-
-    // Retourne les données du document spécifique
-    return querySnapshot.data();
+    if (window.sessionStorage.getItem(`${category}Prices`) === null) {
+      // console.log(`${category} prices not cached`);
+      const querySnapshot = await getDoc(doc(db, `prices`, category));
+      sessionStorage.setItem(
+        `${category}Prices`,
+        JSON.stringify(querySnapshot.data())
+      );
+      return querySnapshot.data();
+    } else {
+      // console.log(`${category} prices already cached`);
+      return JSON.parse(window.sessionStorage.getItem(`${category}Prices`));
+    }
   } catch (error) {
     // Gestion des erreurs en affichant l'erreur dans la console
     console.log(error);
@@ -40,6 +48,7 @@ const updatePrices = async (category, datas) => {
   try {
     // Utilisation de la fonction updateDoc pour mettre à jour un document spécifique
     await updateDoc(doc(db, 'prices', category), datas);
+    sessionStorage.removeItem(`${category}Prices`);
   } catch (error) {
     // Gestion des erreurs en affichant l'erreur dans la console
     console.log(error);

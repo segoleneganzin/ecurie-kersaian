@@ -10,10 +10,22 @@ import { db } from '../firebase-config';
  */
 const fetchWeeklyPlanner = async (period) => {
   try {
-    const querySnapshot = await getDoc(
-      doc(db, `${period}WeeklyPlanner`, 'schedule')
-    );
-    return querySnapshot.data();
+    if (window.sessionStorage.getItem(`${period}WeeklyPlanner`) === null) {
+      // console.log(`${period} weekly planner not cached`);
+      const querySnapshot = await getDoc(
+        doc(db, `${period}WeeklyPlanner`, 'schedule')
+      );
+      sessionStorage.setItem(
+        `${period}WeeklyPlanner`,
+        JSON.stringify(querySnapshot.data())
+      );
+      return querySnapshot.data();
+    } else {
+      // console.log(`${period} weekly planner already cached`);
+      return JSON.parse(
+        window.sessionStorage.getItem(`${period}WeeklyPlanner`)
+      );
+    }
   } catch (error) {
     console.log(error);
   }
@@ -29,6 +41,7 @@ const fetchWeeklyPlanner = async (period) => {
 const addDays = async (datas, period) => {
   try {
     await setDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), datas);
+    sessionStorage.removeItem(`${period}WeeklyPlanner`);
   } catch (error) {
     console.log(error);
   }
@@ -72,6 +85,7 @@ const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }, period) => {
     // Mise à jour du créneau horaire spécifique dans le tableau des jours
     docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
     await updateDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), docDatas);
+    sessionStorage.removeItem(`${period}WeeklyPlanner`);
   } catch (error) {
     console.log(error);
   }
@@ -91,6 +105,7 @@ const updateHolidayDates = async (dates) => {
     await updateDoc(doc(db, `holidayWeeklyPlanner`, 'schedule'), {
       dates: dates,
     });
+    sessionStorage.removeItem(`holidayWeeklyPlanner`);
   } catch (error) {
     // Gestion des erreurs en affichant l'erreur dans la console
     console.log(error);
@@ -134,6 +149,7 @@ const removeTimeSlot = async (dayIndex, timeSlotIndex, period) => {
     // Mise à jour du créneau horaire spécifique dans le tableau des jours
     docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
     await updateDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), docDatas);
+    sessionStorage.removeItem(`${period}WeeklyPlanner`);
   } catch (error) {
     console.log(error);
   }
