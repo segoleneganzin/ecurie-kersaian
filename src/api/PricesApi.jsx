@@ -1,42 +1,8 @@
 // Importation des fonctions Firestore nécessaires depuis la bibliothèque firebase
-import {
-  getDocs,
-  getDoc,
-  collection,
-  doc,
-  updateDoc,
-} from 'firebase/firestore';
+import { getDoc, doc, updateDoc } from 'firebase/firestore';
 
 // Importation de l'instance de la base de données Firestore depuis un fichier de configuration
 import { db } from '../firebase-config';
-
-/**
- * Récupère tous les documents de la collection "prices".
- *
- * @async
- * @function
- * @returns {Promise<Array<Object>>} Les données formatées de la collection "prices".
- * @throws {Error} Une erreur si la récupération des données échoue.
- */
-const fetchPrices = async () => {
-  try {
-    // Utilisation de la fonction getDocs pour obtenir un snapshot de la collection
-    const querySnapshot = await getDocs(collection(db, `prices`));
-
-    // Mapping des documents du snapshot pour formater les données
-    const formattedDatas = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    // Retourne les données formatées
-    return formattedDatas;
-  } catch (error) {
-    // Gestion des erreurs en affichant l'erreur dans la console
-    console.log(error);
-    throw error;
-  }
-};
 
 /**
  * Récupère les données d'un document dans la collection "prices" en fonction de la catégorie.
@@ -82,4 +48,4 @@ const updatePrices = async (category, datas) => {
 };
 
 // Exportation des fonctions pour les utiliser dans d'autres fichiers/modules
-export { fetchPrices, updatePrices, fetchPricesByCategory };
+export { updatePrices, fetchPricesByCategory };
