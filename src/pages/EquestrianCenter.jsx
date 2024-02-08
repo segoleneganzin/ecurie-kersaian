@@ -42,7 +42,7 @@ const EquestrianCenter = () => {
         <section className={presentationSectionClassName}>
           <img
             src={presentationImg}
-            alt="Cheval en train d'être brossé"
+            alt='Couleur café qui tire la langue'
             className={presentationImgClassName}
             width={650}
             height={650}
