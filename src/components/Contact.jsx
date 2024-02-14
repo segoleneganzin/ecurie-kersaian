@@ -3,7 +3,7 @@ const Contact = () => {
   return (
     <section className='p-2 pt-16  sm:p-8 lg:p-16' id='contact'>
       <h2 className={sectionTitleClassName}>Contactez-nous</h2>
-      <div className='flex flex-col gap-10 md:flex-row lg:gap-6'>
+      <div className='flex flex-col gap-2 lg:flex-row lg:gap-10 justify-center'>
         <ul className='leading-10 p-2 text-base md:p-0'>
           <li>
             <span className='color-secondary-color font-bold text-lg'>
@@ -41,12 +41,21 @@ const Contact = () => {
               Page Facebook
             </a>
           </li>
-          <li>
-            <span className='color-secondary-color font-bold text-lg'>
-              Horaires d&apos;ouverture :
-            </span>
-          </li>
         </ul>
+        <div className='space-y-2'>
+          <p className='color-secondary-color font-bold text-lg'>
+            Horaires d&apos;ouverture :
+          </p>
+          <ul className='ml-6'>
+            <li>Lundi : 9h00 - 18h00</li>
+            <li>Mardi : 9h00 - 18h30</li>
+            <li>Mercredi : 9h00 - 18h00</li>
+            <li>Jeudi : 9h00 - 19h30</li>
+            <li>Vendredi : 9h00 - 18h30</li>
+            <li>Samedi : 9h00 - 16h00</li>
+            <li>Dimanche : fermé</li>
+          </ul>
+        </div>
       </div>
     </section>
   );

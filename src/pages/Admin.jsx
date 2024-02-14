@@ -76,8 +76,8 @@ const Admin = () => {
                 Sélectionner la case du créneau souhaité et remplir le
                 formulaire (attention le texte est blanc donc choisir une
                 couleur de fond compatible) <br />
-                Le créneau apparaîtra sur la page publique (penser à recharger
-                la page)
+                Le créneau apparaîtra sur la page publique (penser à fermer la
+                page du centre équestre et à la réouvrir)
                 <br />
                 Il est également possible de modifier la date des vacances
                 scolaires.

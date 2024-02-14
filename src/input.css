@@ -46,3 +46,4 @@
     box-shadow: 5px 5px 10px #292625, -5px -5px 10px #292625;
   }
 }
+/* npx tailwindcss -i ./src/input.css -o ./src/output.css --watch */

@@ -9,6 +9,7 @@ import { db } from '../firebase-config';
  * @returns {Promise<Object>} - Les données du planning hebdomadaire.
  */
 const fetchWeeklyPlanner = async (period) => {
+  // sessionStorage.removeItem(`${period}WeeklyPlanner`);
   try {
     if (window.sessionStorage.getItem(`${period}WeeklyPlanner`) === null) {
       // console.log(`${period} weekly planner not cached`);

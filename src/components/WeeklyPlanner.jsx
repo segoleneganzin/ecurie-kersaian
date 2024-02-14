@@ -32,10 +32,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
    * @type {string[]}
    */
   const timeSlots = [
-    '8h00',
-    '8h15',
-    '8h30',
-    '8h45',
     '9h00',
     '9h15',
     '9h30',
