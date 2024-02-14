@@ -1,4 +1,4 @@
-import FFE from '../assets/images/FFE-Logo.webp';
+import FFE from '../assets/images/FFE-logo.webp';
 import languidic from '../assets/images/languidic.webp';
 const Footer = () => {
   return (

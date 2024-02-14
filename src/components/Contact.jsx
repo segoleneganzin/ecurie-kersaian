@@ -3,8 +3,8 @@ const Contact = () => {
   return (
     <section className='p-2 pt-16  sm:p-8 lg:p-16' id='contact'>
       <h2 className={sectionTitleClassName}>Contactez-nous</h2>
-      <div className='flex flex-col gap-2 lg:flex-row lg:gap-10 justify-center'>
-        <ul className='leading-10 p-2 text-base md:p-0'>
+      <div className='flex flex-col gap-2 lg:flex-row lg:gap-10 justify-center p-2 md:p-0  text-base '>
+        <ul className='leading-10'>
           <li>
             <span className='color-secondary-color font-bold text-lg'>
               Adresse :
@@ -43,7 +43,7 @@ const Contact = () => {
           </li>
         </ul>
         <div className='space-y-2'>
-          <p className='color-secondary-color font-bold text-lg'>
+          <p className='color-secondary-color font-bold text-lg py-1'>
             Horaires d&apos;ouverture :
           </p>
           <ul className='ml-6'>
