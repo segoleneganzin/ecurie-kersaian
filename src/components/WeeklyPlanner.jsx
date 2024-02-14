@@ -179,7 +179,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
           <table>
             <thead className='h-8 bg-principal-color text-white sticky top-0 z-20'>
               <tr>
-                {/* <th className={editable ? 'min-w-16' : ''}></th> */}
                 {daysOfWeek.map((day) => (
                   <th key={day} className='min-w-24 px-2'>
                     {day}
@@ -190,15 +189,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
             <tbody>
               {timeSlots.map((timeSlot) => (
                 <tr key={timeSlot} className='h-6'>
-                  {/* <td
-                    className={
-                      editable
-                        ? 'align-top bg-principal-color text-white px-2 text-right left-0 sticky min-w-16 z-10'
-                        : 'bg-principal-color'
-                    }
-                  >
-                    {editable ? timeSlot : ''}
-                  </td> */}
                   {daysOfWeek.map((day) => {
                     const scheduleItem = schedule
                       .find((item) => item.day === day)
