@@ -107,7 +107,7 @@ const EquestrianCenter = () => {
                 alt='Shetlands dans la forêt'
                 className='h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg'
                 width={300}
-                height={300}
+                height={324}
               />
               <span>
                 Des{' '}

@@ -111,6 +111,8 @@ const Cavalry = () => {
                 src={img.src}
                 className='w-full object-contain max-h-400px'
                 alt={img.alt}
+                height={400}
+                width={300}
               />
               <div className='flex justify-center items-center'>
                 {sliderControl(true)}
