@@ -86,7 +86,7 @@ const Cavalry = () => {
       onClick={isLeft ? previousImage : nextImage}
       className={
         isLeft
-          ? 'left-0 text-principal-color text-xl  relative '
+          ? 'left-0 text-principal-color text-xl relative '
           : 'right-0' +
             ' text-principal-color text-xl z-10   rounded-full flex items-center justify-center relative'
       }
@@ -119,9 +119,9 @@ const Cavalry = () => {
                 height={400}
                 width={300}
               />
-              <div className='flex justify-between items-center w-80'>
+              <div className='flex justify-center md:justify-between items-center md:w-80'>
                 {sliderControl(true)}
-                <figcaption className='text-lg text-center'>
+                <figcaption className='text-lg text-center px-6'>
                   {img.alt}
                 </figcaption>
                 {sliderControl()}
