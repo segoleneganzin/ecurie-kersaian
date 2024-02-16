@@ -8,6 +8,9 @@ import {
   formDataContainerClassName,
   inputClassName,
   inputErrorClassName,
+  textareaContainerClassName,
+  textareaClassName,
+  textareaErrorClassName,
   errorMessageClassName,
   buttonClassName,
 } from '../../utils/GeneralClassNames';
@@ -71,6 +74,7 @@ const WeeklyPlannerForm = ({
    */
   const inputErrorClass = (field) => {
     const errorClasses = {
+      title: errors[field] ? textareaErrorClassName : textareaClassName,
       cellBg: errors[field] ? inputErrorClassName : '',
       default: errors[field] ? inputErrorClassName : inputClassName,
     };
@@ -102,18 +106,19 @@ const WeeklyPlannerForm = ({
   //******************************* Gestion des données du formulaire
   const updateState = () => {
     if (!selectedTimeSlot.available) {
+      const formattedTitle = selectedTimeSlot.title.join('\n');
       setState({
         day: selectedDay.day,
         timeSlot: selectedTimeSlot.startTime,
         available: false,
         duration: selectedTimeSlot.duration,
-        title: selectedTimeSlot.title,
+        title: formattedTitle,
         startTime: selectedTimeSlot.startTime,
         endTime: selectedTimeSlot.endTime,
         cellBg: selectedTimeSlot.cellBg,
       });
       setValue('duration', selectedTimeSlot.duration);
-      setValue('title', selectedTimeSlot.title);
+      setValue('title', formattedTitle);
       setValue('cellBg', selectedTimeSlot.cellBg);
       setDeleteButton(
         <button
@@ -134,7 +139,7 @@ const WeeklyPlannerForm = ({
       setDeleteButton('');
       reset({
         duration: 60,
-        title: 'test',
+        title: 'Cours',
         cellBg: '#000000',
       });
       setState({
@@ -174,6 +179,7 @@ const WeeklyPlannerForm = ({
       const numberOfSlots = inputDuration / 15; // 15 minutes par case
       const TimeSlotsLength = timeSlotIndex + numberOfSlots;
       const startTime = timeSlot.timeSlot;
+      const titleLines = inputTitle.split('\n');
       const endTime =
         timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
       if (!timeSlot.available) {
@@ -185,7 +191,7 @@ const WeeklyPlannerForm = ({
           timeSlot: timeSlots[i],
           available: false,
           duration: inputDuration,
-          title: inputTitle,
+          title: titleLines,
           cellBg: inputCellBg,
           startTime: startTime,
           endTime: endTime,
@@ -249,15 +255,16 @@ const WeeklyPlannerForm = ({
       {/* separation */}
       <div className='border-t-2 border-principal-color w-full mb-4'></div>
       {/* titre */}
-      <div className={formDataContainerClassName}>
+      <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='title'>
           Intitulé :
         </label>
-        <input
+        <textarea
           id='title'
           name='title'
           type='text'
-          className={inputErrorClass('title') + 'w-full'}
+          rows='5'
+          className={inputErrorClass('title') + ' w-full'}
           {...register('title', { required: true })}
         />
       </div>

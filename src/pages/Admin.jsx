@@ -74,8 +74,8 @@ const Admin = () => {
               <h3 className={sectionTitleClassName + ' pl-2'}>Le planning</h3>
               <p className='italic pl-2 sm:pl-8 lg:pl-16 pt-0 pb-4'>
                 Sélectionner la case du créneau souhaité et remplir le
-                formulaire (attention le texte est blanc donc choisir une
-                couleur de fond compatible) <br />
+                formulaire (attention le texte est noir donc choisir une couleur
+                de fond compatible) <br />
                 Le créneau apparaîtra sur la page publique (penser à fermer la
                 page du centre équestre et à la réouvrir)
                 <br />

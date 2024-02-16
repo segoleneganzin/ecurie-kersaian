@@ -15,8 +15,8 @@ const Cavalry = () => {
     { src: bachataHector, alt: 'Hector et Bachata' },
     { src: bachata, alt: 'Bachata' },
     { src: intrepide, alt: 'Intrépide' },
-    { src: shetlands, alt: 'Les shetlands' },
-    { src: shetland, alt: 'Un shetland' },
+    { src: shetlands, alt: 'Jazzy, Crunch et Deborah' },
+    { src: shetland, alt: 'Crunch' },
   ];
   const refs = images.map(() => createRef());
 
@@ -84,9 +84,14 @@ const Cavalry = () => {
     <button
       type='button'
       onClick={isLeft ? previousImage : nextImage}
-      className='text-principal-color text-xl z-10 lg:mx-6 h-10 w-10 rounded-full opacity-75 flex items-center justify-center'
+      className={
+        isLeft
+          ? 'left-0 text-principal-color text-xl  relative '
+          : 'right-0' +
+            ' text-principal-color text-xl z-10   rounded-full flex items-center justify-center relative'
+      }
     >
-      <span role='img' aria-label={`Arrow ${isLeft ? 'left' : 'right'}`}>
+      <span role='img' aria-label={`Flèche ${isLeft ? 'gauche' : 'droite'}`}>
         {isLeft ? '◀' : '▶'}
       </span>
     </button>
@@ -114,7 +119,7 @@ const Cavalry = () => {
                 height={400}
                 width={300}
               />
-              <div className='flex justify-center items-center'>
+              <div className='flex justify-between items-center w-80'>
                 {sliderControl(true)}
                 <figcaption className='text-lg text-center'>
                   {img.alt}
