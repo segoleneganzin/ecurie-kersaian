@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from 'react';
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  // signOut,
+  signOut,
 } from 'firebase/auth';
 
 import { auth } from '../firebase-config';
@@ -28,7 +28,7 @@ export const UserContextProvider = (props) => {
   // État local pour indiquer le chargement des données.
   const [loadingData, setLoadingData] = useState(true);
   // État local pour indiquer l'activité de l'utilisateur.
-  // const [inactiveTimeout, setInactiveTimeout] = useState(null);
+  const [inactiveTimeout, setInactiveTimeout] = useState(null);
 
   /**
    * Effet secondaire pour écouter les changements d'état de l'authentification.
@@ -43,44 +43,44 @@ export const UserContextProvider = (props) => {
       setCurrentUser(currentUser);
       setLoadingData(false);
       // Réinitialiser le délai d'inactivité à chaque changement d'utilisateur
-      // setInactiveTimeout(null);
-      // startInactiveTimeout();
-      // startUserActivityListener();
+      setInactiveTimeout(null);
+      startInactiveTimeout();
+      startUserActivityListener();
     });
     return () => {
       unsubscribe();
-      // window.removeEventListener('mousemove', handleUserActivity);
-      // window.removeEventListener('keydown', handleUserActivity);
+      window.removeEventListener('mousemove', handleUserActivity);
+      window.removeEventListener('keydown', handleUserActivity);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const startInactiveTimeout = () => {
-  //   // Définir le délai d'inactivité à 15 minutes (en millisecondes)
-  //   const inactiveDelay = 15 * 60 * 1000;
-  //   // Effacer le délai d'inactivité existant s'il y en a un
-  //   if (inactiveTimeout) {
-  //     clearTimeout(inactiveTimeout);
-  //   }
+  const startInactiveTimeout = () => {
+    // Définir le délai d'inactivité à 30 minutes (en millisecondes)
+    const inactiveDelay = 30 * 60 * 1000;
+    // Effacer le délai d'inactivité existant s'il y en a un
+    if (inactiveTimeout) {
+      clearTimeout(inactiveTimeout);
+    }
 
-  //   // Définir un nouveau délai d'inactivité
-  //   const newInactiveTimeout = setTimeout(() => {
-  //     // Fonction de déconnexion après le délai d'inactivité
-  //     signOut(auth);
-  //   }, inactiveDelay);
+    // Définir un nouveau délai d'inactivité
+    const newInactiveTimeout = setTimeout(() => {
+      // Fonction de déconnexion après le délai d'inactivité
+      signOut(auth);
+    }, inactiveDelay);
 
-  //   setInactiveTimeout(newInactiveTimeout);
-  // };
+    setInactiveTimeout(newInactiveTimeout);
+  };
 
-  // const startUserActivityListener = () => {
-  //   window.addEventListener('mousemove', handleUserActivity);
-  //   window.addEventListener('keydown', handleUserActivity);
-  // };
+  const startUserActivityListener = () => {
+    window.addEventListener('mousemove', handleUserActivity);
+    window.addEventListener('keydown', handleUserActivity);
+  };
 
-  // const handleUserActivity = () => {
-  //   // L'utilisateur a effectué une action, réinitialiser le délai d'inactivité
-  //   startInactiveTimeout();
-  // };
+  const handleUserActivity = () => {
+    // L'utilisateur a effectué une action, réinitialiser le délai d'inactivité
+    startInactiveTimeout();
+  };
 
   /**
    * Fonction pour effectuer une connexion avec l'adresse e-mail et le mot de passe.

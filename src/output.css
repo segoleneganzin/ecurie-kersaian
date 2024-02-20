@@ -740,6 +740,10 @@ video {
   height: fit-content;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
 .max-h-6 {
   max-height: 1.5rem;
 }
@@ -801,6 +805,10 @@ video {
   width: 100%;
 }
 
+.w-4 {
+  width: 1rem;
+}
+
 .min-w-24 {
   min-width: 6rem;
 }
@@ -847,6 +855,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -1240,6 +1252,18 @@ video {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
+}
+
+.pl-8 {
+  padding-left: 2rem;
+}
+
+.pl-12 {
+  padding-left: 3rem;
 }
 
 .text-left {
