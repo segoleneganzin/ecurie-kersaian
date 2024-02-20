@@ -4,19 +4,15 @@ import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
 import Modal from './Modal';
 
 /**
- * Composant pour afficher un planning hebdomadaire.
+ * Component for display weekly planner
  *
  * @component
- * @param {Object} props - Propriétés du composant.
- * @param {boolean} props.editable - Indique si le planning est éditable.
- * @param {string} props.period - Période du planning (scolaire ou vacances).
- * @returns {JSX.Element} - Élément React représentant le composant.
+ * @param {Object} props
+ * @param {boolean} props.editable
+ * @param {string} props.period
+ * @returns {JSX.Element}
  */
 const WeeklyPlanner = ({ editable = false, period }) => {
-  /**
-   * Liste des jours de la semaine.
-   * @type {string[]}
-   */
   const daysOfWeek = [
     'Lundi',
     'Mardi',
@@ -26,11 +22,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     'Samedi',
     'Dimanche',
   ];
-
-  /**
-   * Liste des créneaux horaires.
-   * @type {string[]}
-   */
   const timeSlots = [
     '9h00',
     '9h15',
@@ -80,7 +71,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   ];
 
   /**
-   * Planning initial avec tous les créneaux horaires disponibles.
+   * Initial schedule with all available time slots.
    * @type {Array}
    */
   const initialSchedule = daysOfWeek.map((day) => ({
@@ -88,14 +79,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     schedule: timeSlots.map((timeSlot) => ({ timeSlot, available: true })),
   }));
 
-  /**
-   * État local pour le planning.
-   * @type {Object}
-   * @property {Array} schedule - Planning hebdomadaire.
-   * @property {Object} selectedDay - Jour sélectionné.
-   * @property {Object} selectedTimeSlot - Créneau horaire sélectionné.
-   * @property {boolean} isModalOpen - Indique si la modale est ouverte.
-   */
   const [schedule, setSchedule] = useState(initialSchedule);
   const [schedulePeriod, setSchedulePeriod] = useState('');
   const [selectedDay, setSelectedDay] = useState(null);
@@ -104,7 +87,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   const [isHolidayModalOpen, setHolidayModalOpen] = useState(false);
 
   /**
-   * Fonction pour récupérer le planning depuis l'API.
+   * Function to retrieve the schedule from the API.
    * @async
    * @function
    */
@@ -119,10 +102,10 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   }, []);
 
   /**
-   * Fonction pour ouvrir la modale d'édition.
+   * Open schedule editing modal
    * @function
-   * @param {string} day - Jour sélectionné.
-   * @param {string} timeSlot - Créneau horaire sélectionné.
+   * @param {string} day
+   * @param {string} timeSlot
    */
   const openModal = (day, timeSlot) => {
     if (!editable) return;
@@ -135,7 +118,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   };
 
   /**
-   * Fonction pour ouvrir la modale d'édition des vacances.
+   * Function to open the holiday editing mode for date management
    * @function
    */
   const openHolidayModal = () => {
@@ -248,7 +231,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
           </table>
         </div>
       </div>
-      {/* Modale pour ajouter un nouveau créneau */}
+      {/* Modal to add a new slot */}
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}
@@ -263,6 +246,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
           period={period}
         />
       )}
+      {/* Modal to manage holiday dates */}
       {isHolidayModalOpen && (
         <Modal
           isModalOpen={isHolidayModalOpen}

@@ -1,5 +1,3 @@
-// import arrowUp from '../assets/images/arrow-up-solid.svg';
-
 const ScrollUp = () => {
   return (
     <div className='fixed bottom-0 right-0 mb-4 mr-2 z-50'>

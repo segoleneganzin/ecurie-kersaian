@@ -9,31 +9,32 @@ import PensionPricesForm from './forms/PensionPricesForm';
 import { buttonClassName } from '../utils/GeneralClassNames';
 
 /**
- * Composant Modal
- * @param {Object} props - Les propriétés du composant.
- * @param {boolean} props.isModalOpen - Indique si la modal est ouverte.
- * @param {function} props.setModalOpen - Fonction pour définir l'état de la modal.
- * @param {string} props.type - Type de la modal (e.g., 'equestrianCenter', 'general', 'weeklyPlanner', 'holidayWeeklyPlanner', 'updateLog').
- * @param {Object} props.generalPrices - Prix généraux à éditer (pour le type 'general').
- * @param {Object} props.equestrianCenterPrices - Prix du centre équestre à éditer (pour le type 'equestrianCenter').
- * @param {Object} props.pensionPrices - Prix de la pension à éditer (pour le type 'equestrianCenter').
- * @param {function} props.getPrices - Fonction pour récupérer les prix après édition.
- * @param {function} props.fetchPlanning - Fonction pour récupérer le planning après édition (pour le type 'weeklyPlanner' et 'holidayWeeklyPlanner').
- * @param {Array} props.schedule - Planning hebdomadaire (pour le type 'weeklyPlanner').
- * @param {Array} props.daysOfWeek - Jours de la semaine (pour le type 'weeklyPlanner').
- * @param {Array} props.timeSlots - Plages horaires (pour le type 'weeklyPlanner').
- * @param {Object} props.selectedTimeSlot - Plage horaire sélectionnée (pour le type 'weeklyPlanner').
- * @param {Object} props.selectedDay - Jour sélectionné (pour le type 'weeklyPlanner').
- * @param {string} props.period - Période sélectionnée (pour le type 'weeklyPlanner').
- * @param {string} props.holidayDateWeeklyPlanner - Date des vacances (pour le type 'holidayWeeklyPlanner').
- * @param {function} props.setHolidayModalOpen - Fonction pour définir l'état de la modal des vacances (pour le type 'holidayWeeklyPlanner').
- * @returns {JSX.Element} - Élément JSX représentant le composant Modal.
+ * Modal component
+ * use for all forms
+ * @param {Object} props
+ * @param {boolean} props.isModalOpen
+ * @param {function} props.setModalOpen
+ * @param {string} props.type - ('equestrianCenter', 'general', 'weeklyPlanner', 'holidayWeeklyPlanner', 'updateLog')
+ * @param {Object} props.generalPrices necessary for 'general' type
+ * @param {Object} props.equestrianCenterPrices - necessary for 'equestrianCenter' type
+ * @param {Object} props.pensionPrices - necessary for 'equestrianCenter'
+ * @param {function} props.getPrices - necessary for 'equestrianCenter' and 'general' types
+ * @param {function} props.fetchPlanning - necessary for 'weeklyPlanner' and 'holidayWeeklyPlanner' types
+ * @param {Array} props.schedule - necessary for 'weeklyPlanner' type
+ * @param {Array} props.daysOfWeek - necessary for 'weeklyPlanner' type
+ * @param {Array} props.timeSlots - necessary for 'weeklyPlanner' type
+ * @param {Object} props.selectedTimeSlot - necessary for 'weeklyPlanner' type
+ * @param {Object} props.selectedDay - necessary for 'weeklyPlanner' type
+ * @param {string} props.period - necessary for 'weeklyPlanner' type
+ * @param {string} props.holidayDateWeeklyPlanner - necessary for 'holidayWeeklyPlanner' type.
+ * @param {function} props.setHolidayModalOpen - necessary for 'holidayWeeklyPlanner' type.
+ * @returns {JSX.Element}
  */
 const Modal = (props) => {
   const [deleteButton, setDeleteButton] = useState(null);
   const [title, setTitle] = useState(null);
 
-  // ************** TITRE
+  // ************** TITLE
   const displayTitle = () => {
     if (
       props.type === 'equestrianCenter' ||
@@ -51,14 +52,13 @@ const Modal = (props) => {
     }
   };
 
-  // Met à jour le titre lors du changement de type de la modal
-  // s'exécute seulement une fois après le rendu initial
+  // Updates title when modal type is changed
+  // runs only once after initial rendering
   useEffect(() => {
     displayTitle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Fermeture de la modale
   const closeModal = () => {
     props.setModalOpen(false);
   };
@@ -83,7 +83,6 @@ const Modal = (props) => {
                 onClick={closeModal}
                 autoFocus
               >
-                {/* Icone du modal */}
                 <svg
                   className='h-6 w-6 text-green-600'
                   fill='none'
@@ -91,7 +90,7 @@ const Modal = (props) => {
                   viewBox='0 0 24 24'
                   xmlns='http://www.w3.org/2000/svg'
                 >
-                  {/* Icône de fermeture */}
+                  {/* close icon */}
                   <path
                     strokeLinecap='round'
                     strokeLinejoin='round'
@@ -107,8 +106,8 @@ const Modal = (props) => {
                 >
                   {title && title}
                 </h2>
-                {/* Formulaires spécifiques à chaque type de modal */}
-                {/* ************************************************** FORMULAIRE TARIFS CENTRE EQUESTRE (forfaits + cartes + demi et tiers de pension) */}
+                {/* Specific forms for each type of modal */}
+                {/* ************************ RIDING CENTER RATE FORM (packages + cards + half and third pension) */}
                 {props.type === 'equestrianCenter' && (
                   <EquestrianCenterPricesForm
                     equestrianCenterPrices={props.equestrianCenterPrices}
@@ -117,7 +116,7 @@ const Modal = (props) => {
                     getPrices={props.getPrices}
                   />
                 )}
-                {/* ************************************************** FORMULAIRE TARIFS GENERAUX (côtisation + licence) */}
+                {/* ************************ GENERAL RATES FORM (annual subscription + license) */}
                 {props.type === 'general' && (
                   <GeneralPricesForm
                     generalPrices={props.generalPrices}
@@ -125,7 +124,7 @@ const Modal = (props) => {
                     getGeneralPrices={props.getPrices}
                   />
                 )}
-                {/* ************************************************** FORMULAIRE TARIFS PENSION (tiers, demi, complète) */}
+                {/* ************************ PENSION RATE FORM (third, half, full) */}
                 {props.type === 'pension' && (
                   <PensionPricesForm
                     pensionPrices={props.pensionPrices}
@@ -134,7 +133,7 @@ const Modal = (props) => {
                   />
                 )}
 
-                {/* ************************************************** FORMULAIRE PLANNING */}
+                {/* ************************ PLANNING FORM */}
                 {props.type === 'weeklyPlanner' && (
                   <WeeklyPlannerForm
                     closeModal={closeModal}
@@ -148,7 +147,7 @@ const Modal = (props) => {
                     setDeleteButton={setDeleteButton}
                   />
                 )}
-                {/* ************************************************** FORMULAIRE DATE PERIODE VACANCES */}
+                {/* ************************ VACATION PERIOD DATE FORM */}
                 {props.type === 'holidayWeeklyPlanner' && (
                   <HolidayWeeklyPlannerForm
                     closeModal={closeModal}
@@ -156,12 +155,12 @@ const Modal = (props) => {
                     fetchPlanning={props.fetchPlanning}
                   />
                 )}
-                {/* ************************************************** GESTION DES PARAMETRES ADMINISTRATEURS (mail/mdp/deconnexion) */}
+                {/* ************************ ADMINISTRATOR PARAMETERS MANAGEMENT (mail/mdp/logout) */}
                 {props.type === 'updateLog' && <UpdateLog />}
               </div>
             </div>
           </div>
-          {/* Section de boutons (e.g., Fermer, Annuler) */}
+          {/* Button section (e.g., Close, Cancel) */}
           <div className='bg-gray-50 px-4 py-3 sm:px-6 flex flex-col gap-2 justify-center'>
             {deleteButton}
             <button
@@ -180,7 +179,6 @@ const Modal = (props) => {
   );
 };
 
-// Propriétés attendues par le composant
 Modal.propTypes = {
   isModalOpen: PropTypes.bool,
   setModalOpen: PropTypes.func,

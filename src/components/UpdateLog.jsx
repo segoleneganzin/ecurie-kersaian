@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-
 import { useState, useRef } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
@@ -8,53 +6,34 @@ import UpdatePassword from './forms/auth/UpdatePassword';
 import { buttonClassName } from '../utils/GeneralClassNames';
 
 /**
- * Composant React pour la gestion des mises à jour du compte utilisateur.
+ * React component for managing user account updates.
  *
  * @component
- * @returns {JSX.Element} Le composant de gestion des mises à jour du compte utilisateur.
+ * @returns {JSX.Element}
  */
 const UpdateLog = () => {
-  // Références pour les composants de mise à jour
   const updatePasswordRef = useRef();
   const updateMailRef = useRef();
-
-  // États pour gérer l'ouverture des composants de mise à jour
   const [updateEmailOpen, setUpdateEmailOpen] = useState(false);
   const [updatePasswordOpen, setUpdatePasswordOpen] = useState(false);
 
-  /**
-   * Fonction pour basculer l'état d'ouverture du composant de mise à jour de l'adresse e-mail.
-   *
-   * @function
-   */
   const toggleUpdateEmail = () => {
     setUpdateEmailOpen(!updateEmailOpen);
     updatePasswordOpen && setUpdatePasswordOpen(false);
   };
 
-  /**
-   * Fonction pour basculer l'état d'ouverture du composant de mise à jour du mot de passe.
-   *
-   * @function
-   */
   const toggleUpdatePassword = () => {
     setUpdatePasswordOpen(!updatePasswordOpen);
     updateEmailOpen && setUpdateEmailOpen(false);
   };
 
-  /**
-   * Fonction pour déconnecter l'utilisateur.
-   *
-   * @function
-   */
   const signOutUser = () => {
     signOut(auth);
   };
 
-  // Rendu du composant
   return (
     <div className='flex flex-col gap-6 mt-8'>
-      {/* Bouton pour ouvrir/fermer le composant de mise à jour de l'adresse e-mail */}
+      {/* Button to open/close e-mail address update component */}
       <button
         onClick={toggleUpdateEmail}
         ref={updateMailRef}
@@ -64,11 +43,9 @@ const UpdateLog = () => {
       >
         Modifier votre adresse email
       </button>
-
-      {/* Affichage du composant de mise à jour de l'adresse e-mail si l'état est vrai */}
+      {/* Display e-mail address update component if status is true */}
       {updateEmailOpen && <UpdateMail />}
-
-      {/* Bouton pour ouvrir/fermer le composant de mise à jour du mot de passe */}
+      {/* Button to open/close password update component */}
       <button
         onClick={toggleUpdatePassword}
         ref={updatePasswordRef}
@@ -78,10 +55,8 @@ const UpdateLog = () => {
       >
         Modifier votre mot de passe
       </button>
-
-      {/* Affichage du composant de mise à jour du mot de passe si l'état est vrai */}
+      {/* Display password update component if status is true */}
       {updatePasswordOpen && <UpdatePassword />}
-
       {/* Bouton pour déconnecter l'utilisateur */}
       <button
         onClick={signOutUser}

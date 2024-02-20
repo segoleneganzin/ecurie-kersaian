@@ -14,21 +14,20 @@ import {
 } from '../../../utils/GeneralClassNames';
 
 /**
- * Composant React pour le formulaire de réauthentification.
+ * React component for the re-authentication form.
  *
  * @component
- * @param {Object} props - Les propriétés du composant.
- * @param {Function} props.setOpenUpdate - La fonction pour gérer l'état de l'ouverture de la mise à jour.
- * @returns {JSX.Element} Le formulaire de réauthentification.
+ * @param {Object} props
+ * @param {Function} props.setOpenUpdate
+ * @returns {JSX.Element}
  */
 const ReauthenticateForm = (props) => {
-  // Utilisation du contexte utilisateur pour la fonction de connexion
+  // Using the user context for the login function
   const { currentUser } = useContext(UserContext);
 
-  // État pour gérer le message de validation en cas d'erreur
+  // Status to manage validation message in case of error  const [validation, setValidation] = useState('');
   const [validation, setValidation] = useState('');
 
-  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -37,9 +36,9 @@ const ReauthenticateForm = (props) => {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     return errors[field]
@@ -47,22 +46,21 @@ const ReauthenticateForm = (props) => {
       : inputClassName + ' min-w-52';
   };
 
-  // Messages d'erreur pour les champs du formulaire
+  // Error messages for form fields
   const inputErrorMessage = {
     email: errors.email ? 'Veuillez rentrer votre email' : '',
     password: errors.password ? 'Veuillez rentrer votre mot de passe' : '',
   };
 
   /**
-   * Fonction pour la réauthentification et ouverture de la mise à jour.
+   * Function for re-authentication and opening the update.
    *
    * @async
    * @function
-   * @throws {Error} Une erreur si la réauthentification échoue.
+   * @throws {Error} An error if re-authentication fails.
    */
   const reauthenticate = async () => {
     try {
-      // Vérification si l'email saisi correspond à l'utilisateur actuel
       if (getValues('email') === currentUser.email) {
         const credential = EmailAuthProvider.credential(
           currentUser.email,
@@ -70,23 +68,19 @@ const ReauthenticateForm = (props) => {
         );
         reauthenticateWithCredential(currentUser, credential)
           .then(() => {
-            // Si la connexion est réussie, ouvrir la mise à jour
             props.setOpenUpdate(true);
           })
           .catch((error) => {
             console.error('Erreur lors de la réauthentification', error);
           });
       } else {
-        // Si l'email ne correspond pas à l'utilisateur actuel, afficher un message d'erreur
         setValidation('Votre email est erroné');
       }
     } catch (error) {
-      // Gestion des erreurs
       console.error(error);
     }
   };
 
-  // Rendu du formulaire de réauthentification
   return (
     <div>
       <form
@@ -143,7 +137,6 @@ const ReauthenticateForm = (props) => {
   );
 };
 
-// Propriétés attendues par le composant
 ReauthenticateForm.propTypes = {
   setOpenUpdate: PropTypes.func,
 };

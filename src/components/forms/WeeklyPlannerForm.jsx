@@ -15,20 +15,19 @@ import {
   buttonClassName,
 } from '../../utils/GeneralClassNames';
 /**
- * Composant Modal pour ajouter ou modifier un créneau horaire dans le planning hebdomadaire.
- *
+ * Modal component to add or modify a time slot in the weekly schedule.
  * @component
- * @param {Object} props - Les propriétés du composant.
- * @param {function} props.closeModal - Fonction pour fermer la modal.
- * @param {function} props.fetchPlanning - Fonction pour recharger le planning.
- * @param {Object[]} props.schedule - Le tableau des jours avec les créneaux horaires.
- * @param {string[]} props.daysOfWeek - Le tableau des jours de la semaine.
- * @param {string[]} props.timeSlots - Le tableau des créneaux horaires de la journée.
- * @param {Object} props.selectedTimeSlot - Le créneau horaire sélectionné.
- * @param {Object} props.selectedDay - Le jour sélectionné.
- * @param {string} props.period - La période du planning (peut être "scolaire" ou "vacances").
- * @param {function} props.setDeleteButton - Fonction pour mettre à jour le bouton de suppression.
- * @returns {JSX.Element} - L'élément JSX du composant Modal.
+ * @param {Object} props
+ * @param {function} props.closeModal
+ * @param {function} props.fetchPlanning
+ * @param {Object[]} props.schedule
+ * @param {string[]} props.daysOfWeek
+ * @param {string[]} props.timeSlots
+ * @param {Object} props.selectedTimeSlot
+ * @param {Object} props.selectedDay
+ * @param {string} props.period - school or holiday
+ * @param {function} props.setDeleteButton
+ * @returns {JSX.Element}
  */
 const WeeklyPlannerForm = ({
   closeModal,
@@ -68,9 +67,9 @@ const WeeklyPlannerForm = ({
   });
 
   /**
-   * Obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Le nom du champ.
-   * @returns {string} - La classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     const errorClasses = {
@@ -82,7 +81,7 @@ const WeeklyPlannerForm = ({
   };
 
   /**
-   * Obtenir le message d'erreur pour un champ donné.
+   * Obtain the error message for a given field.
    */
   const inputErrorMessage = {
     duration: errors.duration ? 'Veuillez renseigner une durée valide' : '',
@@ -91,9 +90,9 @@ const WeeklyPlannerForm = ({
   };
 
   /**
-   * Vérifier si la durée est valide (multiple de 15 minutes et supérieure à 15 minutes).
-   * @param {number} value - La valeur de la durée.
-   * @returns {boolean} - true si la durée est valide, sinon false.
+   * Check if the duration is valid (multiple of 15 minutes and greater than 15 minutes).
+   * @param {number} value
+   * @returns {boolean}
    */
   const isDurationValid = (value) => {
     let res = true;
@@ -103,7 +102,7 @@ const WeeklyPlannerForm = ({
     return res;
   };
 
-  //******************************* Gestion des données du formulaire
+  // Fill in the data in the form fields (with existing datas if timeslot isn't available, or default if it is)
   const updateState = () => {
     if (!selectedTimeSlot.available) {
       const formattedTitle = selectedTimeSlot.title.join('\n');
@@ -153,10 +152,10 @@ const WeeklyPlannerForm = ({
   useEffect(() => {
     updateState();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Le tableau de dépendances vide signifie que cela s'exécute seulement une fois après le rendu initial
+  }, []);
 
   /**
-   * Ajoute ou modifie le créneau horaire dans le planning.
+   * Adds or modifies the time slot in the schedule.
    */
   const addTimeSlot = async () => {
     try {
@@ -183,7 +182,7 @@ const WeeklyPlannerForm = ({
       const endTime =
         timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
       if (!timeSlot.available) {
-        // gestion de la réduction du temps
+        // time reduction management
         await deleteTimeSlot(state.day, timeSlot.startTime);
       }
       for (let i = timeSlotIndex; i < TimeSlotsLength; i++) {
@@ -198,9 +197,7 @@ const WeeklyPlannerForm = ({
         };
         await updateTimeSlot(dayIndex, i, { datas }, period);
       }
-      // Recharger le planning
       fetchPlanning();
-      // Fermer la modale
       closeModal();
     } catch (error) {
       console.log('Error getting cached document:', error);
@@ -208,10 +205,10 @@ const WeeklyPlannerForm = ({
   };
 
   /**
-   * Supprime le créneau horaire du planning.
+   * Deletes the time slot from the schedule.
    *
-   * @param {string} day - Le jour du créneau horaire.
-   * @param {string} startTime - L'heure de début du créneau horaire.
+   * @param {string} day
+   * @param {string} startTime
    */
   const deleteTimeSlot = async (day, startTime) => {
     try {
@@ -223,14 +220,12 @@ const WeeklyPlannerForm = ({
       const timeSlot = selectedDay['schedule'].find(
         (item) => item.startTime === startTime
       );
-      const numberOfSlots = timeSlot.duration / 15; // 15 minutes par case
+      const numberOfSlots = timeSlot.duration / 15; // 15 minutes per slot
       const TimeSlotsLength = startTimeSlotIndex + numberOfSlots;
       for (let i = startTimeSlotIndex; i < TimeSlotsLength; i++) {
         await removeTimeSlot(dayIndex, i, period);
       }
-      // Recharger le planning
       fetchPlanning();
-      // Fermer la modale
       closeModal();
     } catch (error) {
       console.log('Error getting cached document:', error);
@@ -243,18 +238,18 @@ const WeeklyPlannerForm = ({
       className={formClassName}
       noValidate
     >
-      {/* jour */}
+      {/* day */}
       <p className={formDataContainerClassName}>
         <span className={labelClassName}>Jour :</span> {state.day}
       </p>
-      {/* heure de début */}
+      {/* start time */}
       <p className={formDataContainerClassName}>
         <span className={labelClassName}>Heure de début :</span>{' '}
         {state.timeSlot}
       </p>
       {/* separation */}
       <div className='border-t-2 border-principal-color w-full mb-4'></div>
-      {/* titre */}
+      {/* title */}
       <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='title'>
           Intitulé :
@@ -271,7 +266,7 @@ const WeeklyPlannerForm = ({
       {errors.title && (
         <span className={errorMessageClassName}>{inputErrorMessage.title}</span>
       )}
-      {/* durée */}
+      {/* duration */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='duration'>
           Durée (tranche de 15 minutes) :
@@ -293,7 +288,7 @@ const WeeklyPlannerForm = ({
         </span>
       )}
 
-      {/* Couleur de fond du créneau */}
+      {/* background color of timeslot */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='cellBg'>
           Couleur de fond :

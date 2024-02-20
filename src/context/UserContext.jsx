@@ -9,40 +9,40 @@ import {
 import { auth } from '../firebase-config';
 
 /**
- * Contexte utilisateur pour gérer l'état de l'utilisateur.
+ * User context for managing user state.
  * @type {React.Context}
  */
 export const UserContext = createContext();
 
 /**
- * Composant fournisseur de contexte utilisateur.
+ * Provider component for the user context.
  *
  * @component
- * @param {Object} props - Propriétés du composant.
- * @param {React.ReactNode} props.children - Les éléments enfants à inclure dans le contexte utilisateur.
- * @returns {JSX.Element} - Élément React représentant le composant.
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - The child elements to include in the user context.
+ * @returns {JSX.Element}
  */
 export const UserContextProvider = (props) => {
-  // État local pour l'utilisateur actuel.
+  // Local state for the current user.
   const [currentUser, setCurrentUser] = useState();
-  // État local pour indiquer le chargement des données.
+  // Local state to indicate data loading.
   const [loadingData, setLoadingData] = useState(true);
-  // État local pour indiquer l'activité de l'utilisateur.
+  // Local state to indicate user activity timeout.
   const [inactiveTimeout, setInactiveTimeout] = useState(null);
 
   /**
-   * Effet secondaire pour écouter les changements d'état de l'authentification.
+   * Side effect to listen for authentication state changes.
    * @function
    */
   useEffect(() => {
     /**
-     * Fonction de désinscription pour arrêter l'écoute des changements d'état.
+     * Unsubscribe function to stop listening for state changes.
      * @function
      */
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setCurrentUser(currentUser);
       setLoadingData(false);
-      // Réinitialiser le délai d'inactivité à chaque changement d'utilisateur
+      // Reset the inactive timeout on every user change
       setInactiveTimeout(null);
       startInactiveTimeout();
       startUserActivityListener();
@@ -56,16 +56,16 @@ export const UserContextProvider = (props) => {
   }, []);
 
   const startInactiveTimeout = () => {
-    // Définir le délai d'inactivité à 30 minutes (en millisecondes)
+    // Set the inactive timeout to 30 minutes (in milliseconds)
     const inactiveDelay = 30 * 60 * 1000;
-    // Effacer le délai d'inactivité existant s'il y en a un
+    // Clear existing inactive timeout if any
     if (inactiveTimeout) {
       clearTimeout(inactiveTimeout);
     }
 
-    // Définir un nouveau délai d'inactivité
+    // Set a new inactive timeout
     const newInactiveTimeout = setTimeout(() => {
-      // Fonction de déconnexion après le délai d'inactivité
+      // Logout function after inactive timeout
       signOut(auth);
     }, inactiveDelay);
 
@@ -78,18 +78,18 @@ export const UserContextProvider = (props) => {
   };
 
   const handleUserActivity = () => {
-    // L'utilisateur a effectué une action, réinitialiser le délai d'inactivité
+    // User performed an action, reset the inactive timeout
     startInactiveTimeout();
   };
 
   /**
-   * Fonction pour effectuer une connexion avec l'adresse e-mail et le mot de passe.
+   * Function to sign in with email and password.
    *
    * @async
    * @function
-   * @param {string} email - L'adresse e-mail de l'utilisateur.
-   * @param {string} password - Le mot de passe de l'utilisateur.
-   * @param {function} setValidation - Fonction pour définir les messages de validation.
+   * @param {string} email - User's email address.
+   * @param {string} password - User's password.
+   * @param {function} setValidation - Function to set validation messages.
    */
   const signIn = async (email, password, setValidation) => {
     try {
@@ -98,16 +98,16 @@ export const UserContextProvider = (props) => {
       console.log(error.code);
       if (error.code === 'auth/too-many-requests') {
         setValidation(
-          'Trop de tentatives de connexion, veuillez patienter et réessayer dans quelques secondes.'
+          'Too many login attempts, please wait and try again in a few seconds.'
         );
       } else {
-        setValidation('Mail et/ou mot de passe invalide');
+        setValidation('Invalid email and/or password');
       }
     }
   };
 
   /**
-   * Rendu conditionnel des enfants après le chargement des données.
+   * Conditional rendering of children after data loading.
    */
   return (
     <UserContext.Provider value={{ currentUser, signIn }}>
@@ -117,9 +117,9 @@ export const UserContextProvider = (props) => {
 };
 
 /**
- * Propriétés attendues pour le composant UserContextProvider.
+ * Expected properties for the UserContextProvider component.
  * @type {Object}
- * @property {React.ReactNode} children - Les éléments enfants à inclure dans le contexte utilisateur.
+ * @property {React.ReactNode} children - The child elements to include in the user context.
  */
 UserContextProvider.propTypes = {
   children: PropTypes.node,

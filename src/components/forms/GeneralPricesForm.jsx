@@ -15,12 +15,12 @@ import {
 } from '../../utils/GeneralClassNames';
 
 /**
- * Formulaire pour la gestion des tarifs généraux.
- * @param {Object} props - Les propriétés du composant.
- * @param {Object} props.generalPrices - Les tarifs généraux existants.
- * @param {Function} props.closeModal - Fonction pour fermer le modal.
- * @param {Function} props.getGeneralPrices - Fonction pour récupérer les tarifs généraux mis à jour.
- * @returns {JSX.Element} - Élément de formulaire React.
+ * Form to manage general rates.
+ * @param {Object} props
+ * @param {Object} props.generalPrices
+ * @param {Function} props.closeModal
+ * @param {Function} props.getGeneralPrices
+ * @returns {JSX.Element}
  */
 const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   const {
@@ -32,18 +32,18 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     return errors[field] ? inputErrorClassName : inputClassName;
   };
 
   /**
-   * Fonction pour obtenir le message d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Message d'erreur du champ.
+   * Function to obtain the error message for a given field.
+   * @param {string} field
+   * @returns {string} - Field error message
    */
   const inputErrorMessage = (field) => {
     const errorMessages = {
@@ -54,9 +54,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   };
 
   /**
-   * Gestion des données du formulaire.
-   * Met à jour les données du formulaire avec les tarifs généraux existants.
-   */
+   * Updates form data with existing general rates.   */
   const updateInputDatas = async () => {
     try {
       if (generalPrices) {
@@ -79,8 +77,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   }, []);
 
   /**
-   * Fonction pour mettre à jour les tarifs généraux.
-   * Soumet les données du formulaire pour mise à jour et ferme le modal.
+   * Update general prices backend
    */
   const updateFormPrices = async () => {
     const generalDatas = {
@@ -121,7 +118,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
       )}
       {/* ****************************GENERAL */}
       <h2 className={subtitleClassName}>Tarifs généraux</h2>
-      {/*******  cotisation annuelle */}
+      {/*******  annual subscription */}
       <div className={formDataContainerClassName}>
         <label className={labelClassName} htmlFor='annualSubscription'>
           Cotisation annuelle :
@@ -140,7 +137,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
           {inputErrorMessage('annualSubscription')}
         </span>
       )}
-      {/*******  Licence FFE */}
+      {/*******  FFE license */}
       <h3 className='font-bold text-lg mt-6'>Licence annuelle FFE</h3>
       <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>

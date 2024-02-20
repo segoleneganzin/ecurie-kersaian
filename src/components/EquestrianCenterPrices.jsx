@@ -16,13 +16,14 @@ import {
   tableContainerClassName,
   sectionTitleClassName,
 } from '../utils/GeneralClassNames';
+
 /**
- * Composant EquestrianCenterPrices pour afficher les tarifs du centre équestre.
+ * EquestrianCenterPrices component to display equestrian center rates.
  *
  * @component
- * @param {Object} props - Les propriétés du composant.
- * @param {boolean} props.editable - Indique si le mode édition est activé.
- * @returns {JSX.Element} - L'élément JSX du composant EquestrianCenterPrices.
+ * @param {Object} props
+ * @param {boolean} props.editable
+ * @returns {JSX.Element}
  */
 const EquestrianCenterPrices = ({ editable = false }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -32,8 +33,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   });
 
   /**
-   * Fonction pour récupérer les tarifs depuis l'API.
-   *
+   * Function to retrieve rates from the API.
    * @async
    * @function
    */
@@ -48,22 +48,15 @@ const EquestrianCenterPrices = ({ editable = false }) => {
     });
   };
 
-  // Utilisation de useEffect pour récupérer les tarifs lors du rendu initial
   useEffect(() => {
     getPrices();
   }, []);
 
-  /**
-   * Fonction pour ouvrir la modal d'édition.
-   *
-   * @function
-   */
   const openModal = () => {
     if (!editable) return;
     setModalOpen(true);
   };
 
-  // Rendu du composant EquestrianCenterPrices
   return (
     <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
       {editable ? (
@@ -71,10 +64,11 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       ) : (
         <h2 className={sectionTitleClassName}>Les tarifs</h2>
       )}
-      {/* Affichage des tarifs généraux */}
+      {/* general prices */}
       <GeneralPrices editable={editable} />
-      {/* Forfaits */}
+      {/* Packages */}
       <div className='py-4'>
+        {/* Price edit button (visible only in edit mode) */}
         {editable ? (
           <button onClick={openModal} className={adminEditButtonClassname}>
             Modifier les tarifs du centre équestre
@@ -93,7 +87,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         </h4>
       )}
       <div className='py-4 md:flex  md:justify-between'>
-        {/* Informations sur les forfaits */}
+        {/* packages infos */}
         <div className='md:max-w-300px lg:max-w-full'>
           <p className='font-bold'>
             {state.equestrianCenterPrices &&
@@ -106,7 +100,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
             Pas de cours durant les vacances scolaires.
           </p>
         </div>
-        {/* Tableau des tarifs des forfaits */}
+        {/* package table prices */}
         <div className={tableContainerClassName + ' mt-2'}>
           <table className={tableClassName}>
             <thead className={tableHeadClassName}>
@@ -122,7 +116,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               </tr>
             </thead>
             <tbody>
-              {/* Lignes du tableau des tarifs des forfaits */}
               <tr className={tableRowClassName}>
                 <th className={tableDataClassName}>1h/semaine</th>
                 <td className={tableDataClassName}>
@@ -159,7 +152,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </table>
         </div>
       </div>
-      {/* Cartes */}
+      {/* Cards */}
       <div className='py-4'>
         {editable ? (
           <h5 className={pricesSectionSubtitlesClassName}>Cartes</h5>
@@ -168,11 +161,11 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         )}
 
         <div className='py-4 md:flex  md:justify-between'>
-          {/* Informations sur les cartes */}
+          {/* cards infos */}
           <p className='italic py-4 font-sm'>
             Cotisation et licence obligatoires (non comprises).
           </p>
-          {/* Tableau des tarifs des cartes */}
+          {/* cards table prices */}
           <div className={tableContainerClassName}>
             <table className={tableClassName}>
               <thead className={tableHeadClassName}>
@@ -184,7 +177,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 </tr>
               </thead>
               <tbody>
-                {/* Lignes du tableau des tarifs des cartes */}
                 <tr className={tableRowClassName}>
                   <th
                     className='py-2 px-4 border-b-2 border-secondary-color'
@@ -246,7 +238,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
-      {/* Demi et tiers de pension */}
+      {/* half and third part pension */}
       <div className='py-4'>
         {editable ? (
           <h5 className={pricesSectionSubtitlesClassName}>
@@ -259,7 +251,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         )}
 
         <div className='py-4 lg:flex lg:justify-between w-fit m-auto lg:m-0 lg:w-full'>
-          {/* Informations sur la demi et tiers pension */}
+          {/* Infos */}
           <div>
             <p className='font-bold text-base'>
               (En fonction des chevaux disponibles)
@@ -270,7 +262,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               La monte libre exclut la pratique de l&apos;obstacle.
             </p>
           </div>
-          {/* Tableau des tarifs de la demi et tiers pension */}
+          {/* Table prices */}
           <div className={tableContainerClassName}>
             <table className={tableClassName}>
               <thead className={tableHeadClassName}>
@@ -281,7 +273,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
                 </tr>
               </thead>
               <tbody>
-                {/* Lignes du tableau des tarifs de la demi et tiers pension */}
                 <tr className={tableRowClassName}>
                   <th className={tableDataClassName}>Tiers de pension</th>
                   <td className={tableDataClassName}>
@@ -314,6 +305,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         </div>
       </div>
       <div className='py-4'>
+        {/* Price edit button (visible only in edit mode) */}
         {editable ? (
           <button onClick={openModal} className={adminEditButtonClassname}>
             Modifier les tarifs du centre équestre
@@ -322,7 +314,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           ''
         )}
       </div>
-      {/* Modal pour l'édition des tarifs */}
+      {/* edit prices modal */}
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}
@@ -338,7 +330,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   );
 };
 
-// Définition des types des propriétés du composant
 EquestrianCenterPrices.propTypes = {
   editable: PropTypes.bool,
 };

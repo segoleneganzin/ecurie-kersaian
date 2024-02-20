@@ -1,5 +1,5 @@
 //**********************************************************
-//Gérer la mise à jour du mot de passe de l'utilisateur
+//Manage user's update password
 //**********************************************************
 import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
@@ -18,25 +18,18 @@ import {
 } from '../../../utils/GeneralClassNames';
 
 /**
- * Composant React pour la gestion de la mise à jour du mot de passe de l'utilisateur.
+ * React component for managing user password updates.
  *
  * @component
  * @returns {JSX.Element} Le composant de gestion de la mise à jour du mot de passe.
  */
 const UpdatePassword = () => {
-  // Utilisation du contexte utilisateur pour récupérer les informations actuelles de l'utilisateur
+  // Use user context to retrieve current user information
   const { currentUser } = useContext(UserContext);
-
-  // État pour afficher un message à l'utilisateur
   const [pwValidation, setPwValidation] = useState('');
-
-  // État pour afficher un message de succès après la mise à jour
   const [updateOkMessage, setUpdateOkMessage] = useState(false);
-
-  // État pour gérer l'accès à la mise à jour
   const [openUpdate, setOpenUpdate] = useState(false);
 
-  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -45,9 +38,9 @@ const UpdatePassword = () => {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     return errors[field]
@@ -55,7 +48,7 @@ const UpdatePassword = () => {
       : inputClassName + ' min-w-52';
   };
 
-  // Messages d'erreur pour les champs du formulaire
+  // Error messages for form fields
   const inputErrorMessage = {
     newPassword: errors.newPassword ? 'Veuillez rentrer un mot de passe' : '',
     newPasswordConfirmation: errors.newPasswordConfirmation
@@ -64,7 +57,7 @@ const UpdatePassword = () => {
   };
 
   /**
-   * Fonction pour mettre à jour le mot de passe de l'utilisateur.
+   * Function to update the user's password.
    *
    * @function
    */
@@ -78,7 +71,6 @@ const UpdatePassword = () => {
         setPwValidation('Les mots de passe ne correspondent pas');
       }
     } catch (error) {
-      // Gestion des erreurs
       if (error.code === 'auth/weak-password') {
         setPwValidation(
           'Votre mot de passe doit contenir plus de 5 caractères'
@@ -91,18 +83,17 @@ const UpdatePassword = () => {
     }
   };
 
-  // Rendu du composant
   return currentUser ? (
     openUpdate ? (
       updateOkMessage ? (
-        // Affichage du message de succès après la mise à jour
+        // Display success message after update
         <div>
           <p className='text-green-700 text-center'>
             Le mot de passe a été modifié.
           </p>
         </div>
       ) : (
-        // Lorsque l'utilisateur est fraîchement réauthentifié :
+        // Display password update form
         <div>
           <form
             onSubmit={handleSubmit(updateUserPassword)}
@@ -186,7 +177,7 @@ const UpdatePassword = () => {
         </div>
       )
     ) : (
-      // Réauthentification nécessaire pour mettre à jour les données de l'utilisateur
+      // Reauthentication required to update user data
       <div className='update-form'>
         <p className='ps__form-subtitle'>
           Veuillez vous réauthentifier pour modifier votre mot de passe
@@ -195,14 +186,13 @@ const UpdatePassword = () => {
       </div>
     )
   ) : (
+    // If the user is not logged in, display nothing
     ''
   );
 };
 
-// Spécification des types pour les propriétés du composant
 UpdatePassword.propTypes = {
   setUpdatePasswordOpen: PropTypes.func,
 };
 
-// Exportation du composant
 export default UpdatePassword;

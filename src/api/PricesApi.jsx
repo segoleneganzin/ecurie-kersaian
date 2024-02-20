@@ -1,17 +1,17 @@
-// Importation des fonctions Firestore nécessaires depuis la bibliothèque firebase
+// Importing necessary Firestore functions from the firebase library
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 
-// Importation de l'instance de la base de données Firestore depuis un fichier de configuration
+// Importing the Firestore database instance from a configuration file
 import { db } from '../firebase-config';
 
 /**
- * Récupère les données d'un document dans la collection "prices" en fonction de la catégorie.
+ * Retrieves data from a document in the "prices" collection based on the category.
  *
  * @async
  * @function
- * @param {string} category - La catégorie du prix à récupérer.
- * @returns {Promise<Object>} Les données du document spécifié.
- * @throws {Error} Une erreur si la récupération des données échoue.
+ * @param {string} category - The category of the price to retrieve.
+ * @returns {Promise<Object>} The data of the specified document.
+ * @throws {Error} An error if data retrieval fails.
  */
 const fetchPricesByCategory = async (category) => {
   // sessionStorage.clear();
@@ -29,32 +29,32 @@ const fetchPricesByCategory = async (category) => {
       return JSON.parse(window.sessionStorage.getItem(`${category}Prices`));
     }
   } catch (error) {
-    // Gestion des erreurs en affichant l'erreur dans la console
+    // Error handling by logging the error to the console
     console.log(error);
     throw error;
   }
 };
 
 /**
- * Met à jour les données d'un document dans la collection "prices" en fonction de la catégorie.
+ * Updates data of a document in the "prices" collection based on the category.
  *
  * @async
  * @function
- * @param {string} category - La catégorie du prix à mettre à jour.
- * @param {Object} datas - Les nouvelles données à mettre à jour dans le document.
- * @throws {Error} Une erreur si la mise à jour des données échoue.
+ * @param {string} category - The category of the price to update.
+ * @param {Object} datas - The new data to update in the document.
+ * @throws {Error} An error if data update fails.
  */
 const updatePrices = async (category, datas) => {
   try {
-    // Utilisation de la fonction updateDoc pour mettre à jour un document spécifique
+    // Using the updateDoc function to update a specific document
     await updateDoc(doc(db, 'prices', category), datas);
     sessionStorage.removeItem(`${category}Prices`);
   } catch (error) {
-    // Gestion des erreurs en affichant l'erreur dans la console
+    // Error handling by logging the error to the console
     console.log(error);
     throw error;
   }
 };
 
-// Exportation des fonctions pour les utiliser dans d'autres fichiers/modules
+// Exporting functions for use in other files/modules
 export { updatePrices, fetchPricesByCategory };

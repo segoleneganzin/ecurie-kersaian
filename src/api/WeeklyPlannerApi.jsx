@@ -2,11 +2,11 @@ import { getDoc, doc, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
 /**
- * Fonction asynchrone pour récupérer les données du planning hebdomadaire depuis Firebase.
+ * Asynchronous function to retrieve weekly planner data from Firebase.
  *
  * @async
  * @function
- * @returns {Promise<Object>} - Les données du planning hebdomadaire.
+ * @returns {Promise<Object>} - The weekly planner data.
  */
 const fetchWeeklyPlanner = async (period) => {
   // sessionStorage.removeItem(`${period}WeeklyPlanner`);
@@ -33,11 +33,11 @@ const fetchWeeklyPlanner = async (period) => {
 };
 
 /**
- * Fonction asynchrone pour ajouter des jours au planning hebdomadaire dans Firebase.
+ * Asynchronous function to add days to the weekly planner in Firebase.
  *
  * @async
  * @function
- * @param {Object} datas - Les données des jours à ajouter.
+ * @param {Object} datas - The day data to add.
  */
 const addDays = async (datas, period) => {
   try {
@@ -47,7 +47,7 @@ const addDays = async (datas, period) => {
     console.log(error);
   }
 };
-// ****** code pour créer automatiquement les données par défaut (à utiliser dans le fichier WeeklyPlanner)
+// ****** code to automatically create default data (to be used in the WeeklyPlanner file)
 // const createDatas = () => {
 //   const days = [];
 //   daysOfWeek.forEach((day) => {
@@ -64,26 +64,26 @@ const addDays = async (datas, period) => {
 // ***************************************************************
 
 /**
- * Fonction asynchrone pour mettre à jour un créneau horaire spécifique dans le planning.
+ * Asynchronous function to update a specific time slot in the planner.
  *
  * @async
  * @function
- * @param {number} dayIndex - L'index du jour dans le tableau des jours.
- * @param {number} timeSlotIndex - L'index du créneau horaire dans le tableau des créneaux horaires.
- * @param {Object} datas - Les nouvelles données du créneau horaire.
+ * @param {number} dayIndex - The index of the day in the days array.
+ * @param {number} timeSlotIndex - The index of the time slot in the time slots array.
+ * @param {Object} datas - The new data of the time slot.
  */
 const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }, period) => {
   try {
-    // Récupération des données existantes depuis Firebase
+    // Fetching existing data from Firebase
     const docDatas = await fetchWeeklyPlanner(period);
-    // Récupération du créneau horaire spécifique que vous souhaitez mettre à jour
+    // Retrieving the specific time slot you want to update
     const targetTimeSlot = docDatas.days[dayIndex]['schedule'][timeSlotIndex];
-    // Mise à jour du créneau horaire avec les nouvelles données
+    // Updating the time slot with the new data
     const updatedTimeSlot = {
       ...targetTimeSlot,
       ...datas,
     };
-    // Mise à jour du créneau horaire spécifique dans le tableau des jours
+    // Updating the specific time slot in the days array
     docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
     await updateDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), docDatas);
     sessionStorage.removeItem(`${period}WeeklyPlanner`);
@@ -93,42 +93,42 @@ const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }, period) => {
 };
 
 /**
- * Met à jour les dates de vacances dans la collection "holidayWeeklyPlanner".
+ * Updates holiday dates in the "holidayWeeklyPlanner" collection.
  *
  * @async
  * @function
- * @param {Array<string>} dates - Les nouvelles dates de vacances à mettre à jour.
- * @throws {Error} Une erreur si la mise à jour des dates échoue.
+ * @param {Array<string>} dates - The new holiday dates to update.
+ * @throws {Error} An error if updating dates fails.
  */
 const updateHolidayDates = async (dates) => {
   try {
-    // Utilisation de la fonction updateDoc pour mettre à jour les dates de vacances
+    // Using the updateDoc function to update holiday dates
     await updateDoc(doc(db, `holidayWeeklyPlanner`, 'schedule'), {
       dates: dates,
     });
     sessionStorage.removeItem(`holidayWeeklyPlanner`);
   } catch (error) {
-    // Gestion des erreurs en affichant l'erreur dans la console
+    // Error handling by logging the error to the console
     console.log(error);
     throw error;
   }
 };
 
 /**
- * Fonction asynchrone pour supprimer un créneau horaire spécifique dans le planning.
+ * Asynchronous function to remove a specific time slot from the planner.
  *
  * @async
  * @function
- * @param {number} dayIndex - L'index du jour dans le tableau des jours.
- * @param {number} timeSlotIndex - L'index du créneau horaire dans le tableau des créneaux horaires.
+ * @param {number} dayIndex - The index of the day in the days array.
+ * @param {number} timeSlotIndex - The index of the time slot in the time slots array.
  */
 const removeTimeSlot = async (dayIndex, timeSlotIndex, period) => {
   try {
-    // Récupération des données existantes depuis Firebase
+    // Fetching existing data from Firebase
     const docDatas = await fetchWeeklyPlanner(period);
-    // Récupération du créneau horaire spécifique que vous souhaitez supprimer
+    // Retrieving the specific time slot you want to remove
     const targetTimeSlot = docDatas.days[dayIndex]['schedule'][timeSlotIndex];
-    // Utilisation de la déconstruction pour extraire les propriétés à conserver
+    // Using destructuring to extract properties to keep
     const { ...remainingProperties } = targetTimeSlot;
     const propertiesToRemove = [
       'cellBg',
@@ -137,17 +137,17 @@ const removeTimeSlot = async (dayIndex, timeSlotIndex, period) => {
       'startTime',
       'title',
     ];
-    // Suppression des propriétés spécifiées des propriétés restantes
+    // Removing specified properties from remaining properties
     for (const propToRemove of propertiesToRemove) {
       delete remainingProperties[propToRemove];
     }
-    // Mise à jour du créneau horaire avec les nouvelles données
+    // Updating the time slot with the new data
     const updatedTimeSlot = {
       ...remainingProperties,
       timeSlot: targetTimeSlot.timeSlot,
       available: true,
     };
-    // Mise à jour du créneau horaire spécifique dans le tableau des jours
+    // Updating the specific time slot in the days array
     docDatas.days[dayIndex]['schedule'][timeSlotIndex] = updatedTimeSlot;
     await updateDoc(doc(db, `${period}WeeklyPlanner`, 'schedule'), docDatas);
     sessionStorage.removeItem(`${period}WeeklyPlanner`);

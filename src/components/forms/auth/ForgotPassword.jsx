@@ -13,21 +13,20 @@ import {
   buttonClassName,
 } from '../../../utils/GeneralClassNames';
 /**
- * Composant React pour la réinitialisation du mot de passe.
+ * React component for password reset.
  *
  * @component
- * @param {Object} props - Les propriétés du composant.
- * @param {Function} props.setForgotPassword - La fonction pour gérer l'état du composant parent.
- * @returns {JSX.Element} Le composant de réinitialisation du mot de passe.
+ * @param {Object} props
+ * @param {Function} props.setForgotPassword
+ * @returns {JSX.Element}
  */
 function ForgotPassword(props) {
-  // État pour gérer l'affichage du message de succès après envoi de l'email de réinitialisation
-  const [emailMessage, setEmailMessage] = useState(false);
+  // Status to manage the display of the success message after sending the reset email
+  const [emailResetOk, setEmailResetOk] = useState(false);
 
-  // État pour gérer le message de validation en cas d'erreur
+  // Status to manage validation message in case of error
   const [validation, setValidation] = useState('');
 
-  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -37,9 +36,9 @@ function ForgotPassword(props) {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     return errors[field]
@@ -47,36 +46,32 @@ function ForgotPassword(props) {
       : inputClassName + ' min-w-52';
   };
 
-  // Messages d'erreur pour les champs du formulaire
+  // Error messages for form fields
   const inputErrorMessage = {
     email: errors.email ? 'Veuillez rentrer votre email' : '',
   };
 
-  // Fonction pour envoyer une demande de réinitialisation de mot de passe via Firebase
+  // Function to send a password reset request via Firebase
   const passwordReset = async (email) => {
     return await sendPasswordResetEmail(auth, email);
   };
 
-  // Fonction pour gérer la soumission du formulaire
+  // Form submit
   const handleForm = async () => {
     try {
-      // Appel à la fonction passwordReset pour envoyer l'email de réinitialisation
       await passwordReset(getValues('email'));
 
-      // Affichage du message de succès
-      setEmailMessage(true);
+      // Display success message
+      setEmailResetOk(true);
     } catch (error) {
-      // Gestion des erreurs
       if (error.code === 'auth/user-not-found') {
         setValidation('Utilisateur inconnu');
-        setValue('email', ''); // Réinitialisation du champ email
+        setValue('email', '');
       }
     }
   };
 
-  // Rendu conditionnel en fonction de l'état emailMessage
-  return emailMessage ? (
-    // Affichage du message de succès après l'envoi de l'email
+  return emailResetOk ? (
     <div className='forgot-password update-form'>
       <p className='text-green-800 text-center mb-4'>
         L&apos;email a été envoyé.
@@ -90,7 +85,6 @@ function ForgotPassword(props) {
       </button>
     </div>
   ) : (
-    // Affichage du formulaire de réinitialisation du mot de passe
     <div>
       <form
         onSubmit={handleSubmit(handleForm)}
@@ -145,7 +139,6 @@ function ForgotPassword(props) {
   );
 }
 
-// Propriétés attendues par le composant
 ForgotPassword.propTypes = {
   setForgotPassword: PropTypes.func,
 };

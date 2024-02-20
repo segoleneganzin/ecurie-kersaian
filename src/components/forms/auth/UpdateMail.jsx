@@ -18,25 +18,19 @@ import {
 } from '../../../utils/GeneralClassNames';
 
 /**
- * Composant React pour la gestion de la mise à jour de l'adresse e-mail de l'utilisateur.
+ * React component for managing user e-mail address updates.
  *
  * @component
- * @returns {JSX.Element} Le composant de gestion de la mise à jour de l'adresse e-mail.
+ * @returns {JSX.Element}
  */
 const UpdateMail = () => {
-  // Utilisation du contexte utilisateur pour récupérer les informations actuelles de l'utilisateur
+  // Use user context to retrieve current user information
   const { currentUser } = useContext(UserContext);
 
-  // État pour afficher un message à l'utilisateur
   const [emailValidation, setEmailValidation] = useState('');
-
-  // État pour afficher un message de succès après la mise à jour
   const [updateOkMessage, setUpdateOkMessage] = useState(false);
-
-  // État pour gérer l'accès à la mise à jour
   const [openUpdate, setOpenUpdate] = useState(false);
 
-  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -45,9 +39,9 @@ const UpdateMail = () => {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     return errors[field]
@@ -55,13 +49,13 @@ const UpdateMail = () => {
       : inputClassName + ' min-w-52';
   };
 
-  // Messages d'erreur pour les champs du formulaire
+  // Error messages for form fields
   const inputErrorMessage = {
     newEmail: errors.newEmail ? 'Veuillez rentrer un email' : '',
   };
 
   /**
-   * Fonction pour mettre à jour l'adresse e-mail de l'utilisateur.
+   * Function to update the user's e-mail address.
    *
    * @function
    */
@@ -72,7 +66,6 @@ const UpdateMail = () => {
       setEmailValidation('');
       setUpdateOkMessage(true);
     } catch (error) {
-      // Gestion des erreurs
       if (error.code === 'auth/email-already-in-use') {
         setEmailValidation('Cet email est déjà utilisé');
       }
@@ -80,18 +73,17 @@ const UpdateMail = () => {
     }
   };
 
-  // Rendu du composant
   return currentUser ? (
     openUpdate ? (
       updateOkMessage ? (
-        // Affichage du message de succès après la mise à jour
+        // Display success message after update
         <div>
           <p className='text-green-700 text-center'>
             L&apos;email a été modifié.
           </p>
         </div>
       ) : (
-        // Affichage du formulaire de mise à jour de l'adresse e-mail
+        // Display e-mail address update form
         <div>
           <form
             onSubmit={handleSubmit(updateUserEmail)}
@@ -135,7 +127,7 @@ const UpdateMail = () => {
         </div>
       )
     ) : (
-      // Reauthentication nécessaire pour mettre à jour les données de l'utilisateur
+      // Reauthentication required to update user data
       <div className='update-form'>
         <p className='ps__form-subtitle'>
           Veuillez vous réauthentifier pour modifier votre email
@@ -144,12 +136,11 @@ const UpdateMail = () => {
       </div>
     )
   ) : (
-    // Si l'utilisateur n'est pas connecté, ne rien afficher
+    // If the user is not logged in, display nothing
     ''
   );
 };
 
-// Validation des types pour les propriétés du composant
 UpdateMail.propTypes = {
   setUpdateEmailOpen: PropTypes.func,
 };

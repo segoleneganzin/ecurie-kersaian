@@ -5,34 +5,30 @@ import { fetchPricesByCategory } from '../api/PricesApi';
 import { adminEditButtonClassname } from '../utils/GeneralClassNames';
 
 /**
- * Composant GeneralPrices
- * @param {Object} props - Les propriétés du composant.
- * @param {boolean} props.editable - Indique si le composant est en mode édition.
- * @returns {JSX.Element} - Élément JSX représentant le composant GeneralPrices.
+ * GeneralPrices component
+ * @param {Object} props
+ * @param {boolean} props.editable
+ * @returns {JSX.Element}
  */
 const GeneralPrices = ({ editable = false }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [generalPrices, setGeneralPrices] = useState(null);
 
   /**
-   * Fonction qui récupère les prix généraux depuis la base de données.
+   * Function to retrieve rates from the API.
    * @async
    * @function
-   * @returns {Promise<void>} - Promesse résolue une fois que les prix généraux sont récupérés.
    */
   const getGeneralPrices = async () => {
     const generalPricesDb = await fetchPricesByCategory('general');
     setGeneralPrices(generalPricesDb);
   };
 
-  // Effectuer la récupération des prix généraux au montage du composant
+  // Recover general prices on component mount
   useEffect(() => {
     getGeneralPrices();
   }, []);
 
-  /**
-   * Fonction pour ouvrir la modal d'édition des prix.
-   */
   const openModal = () => {
     if (!editable) return;
     setModalOpen(true);
@@ -50,7 +46,7 @@ const GeneralPrices = ({ editable = false }) => {
         </h3>
       )}
 
-      {/* Bouton d'édition des prix (visible uniquement en mode édition) */}
+      {/* Price edit button (visible only in edit mode) */}
       {editable ? (
         <button onClick={openModal} className={adminEditButtonClassname}>
           Modifier les tarifs généraux
@@ -59,7 +55,6 @@ const GeneralPrices = ({ editable = false }) => {
         ''
       )}
 
-      {/* Liste des prix généraux */}
       <ul className='py-4 md:flex md:gap-16 md:justify-center md:border-2 border-green-800 rounded-lg md:mt-2'>
         <li className='text-base'>
           <span className='font-bold text-xl'>Cotisation annuelle :</span>{' '}
@@ -80,7 +75,6 @@ const GeneralPrices = ({ editable = false }) => {
         </li>
       </ul>
 
-      {/* Modal d'édition des prix (visible lorsqu'il est ouvert) */}
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}
@@ -94,7 +88,6 @@ const GeneralPrices = ({ editable = false }) => {
   );
 };
 
-// Propriétés attendues par le composant
 GeneralPrices.propTypes = {
   editable: PropTypes.bool,
 };

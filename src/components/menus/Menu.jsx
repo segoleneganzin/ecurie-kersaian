@@ -4,26 +4,22 @@ import ListItemsEquestrianCenter from './ListItemsEquestrianCenter';
 import ListItemsPension from './ListItemsPension';
 
 /**
- * Composant MenuPension pour afficher un menu de navigation réactif.
+ * React component to display a responsive navigation menu.
  *
  * @component
- * @returns {JSX.Element} - L'élément JSX du composant MenuPension.
+ * @returns {JSX.Element}
  */
 const Menu = ({ page }) => {
-  // États pour gérer l'ouverture/fermeture du menu hamburger et la classe CSS du menu
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [menuClassName, setMenuClassName] = useState('hidden');
   const menu = useRef();
 
-  /**
-   * Fonction pour ouvrir/fermer le menu hamburger.
-   */
   const toggleResponsiveMenu = () => {
     setHamburgerOpen(!hamburgerOpen);
   };
 
   /**
-   * Effet useEffect pour mettre à jour la classe CSS du menu en fonction de l'état du hamburger.
+   * UseEffect to update the menu's CSS class according to the hamburger's state.
    */
   useEffect(() => {
     if (hamburgerOpen) {
@@ -37,13 +33,13 @@ const Menu = ({ page }) => {
 
   return (
     <div>
-      {/* Icône du hamburger */}
+      {/* hamburger icon */}
       <div className='space-y-2 cursor-pointer' onClick={toggleResponsiveMenu}>
         <div className='w-14 h-2 bg-secondary-color'></div>
         <div className='w-14 h-2 bg-secondary-color'></div>
         <div className='w-14 h-2 bg-secondary-color'></div>
       </div>
-      {/* Menu de navigation */}
+      {/* Navigation menu */}
       <nav ref={menu} className={menuClassName}>
         {page === 'equestrianCenter' && (
           <ListItemsEquestrianCenter
@@ -57,7 +53,7 @@ const Menu = ({ page }) => {
     </div>
   );
 };
-// Définition des types des propriétés du composant
+
 Menu.propTypes = {
   page: PropTypes.string,
 };

@@ -4,7 +4,7 @@ import {
   menuListItemClassName,
 } from '../../utils/GeneralClassNames';
 /**
- * Composant ListItemsPension pour afficher le contenu du menu de navigation réactif.
+ * Composant for pension items menu
  *
  * @component
  * @returns {JSX.Element} - L'élément JSX du composant ListItemsPension.
@@ -35,7 +35,7 @@ const ListItemsPension = ({ toggleResponsiveMenu }) => {
     </ul>
   );
 };
-// Définition des types des propriétés du composant
+
 ListItemsPension.propTypes = {
   toggleResponsiveMenu: PropTypes.func,
 };

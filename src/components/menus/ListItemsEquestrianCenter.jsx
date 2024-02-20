@@ -4,10 +4,9 @@ import {
   menuListItemClassName,
 } from '../../utils/GeneralClassNames';
 /**
- * Composant MenuEquestrianCenter pour afficher un menu de navigation réactif.
- *
+ * Composant for equestrian center items menu
  * @component
- * @returns {JSX.Element} - L'élément JSX du composant MenuEquestrianCenter.
+ * @returns {JSX.Element}
  */
 const ListItemsEquestrianCenter = ({ toggleResponsiveMenu }) => {
   return (
@@ -45,7 +44,7 @@ const ListItemsEquestrianCenter = ({ toggleResponsiveMenu }) => {
     </ul>
   );
 };
-// Définition des types des propriétés du composant
+
 ListItemsEquestrianCenter.propTypes = {
   toggleResponsiveMenu: PropTypes.func,
 };

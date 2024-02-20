@@ -6,20 +6,19 @@ import { useEffect } from 'react';
 import { adminEditButtonClassname } from '../utils/GeneralClassNames';
 import { sectionTitleClassName } from '../utils/GeneralClassNames';
 /**
- * Composant PensionPrices pour afficher les tarifs du centre équestre.
+ * PensionPrices component
  *
  * @component
- * @param {Object} props - Les propriétés du composant.
- * @param {boolean} props.editable - Indique si le mode édition est activé.
- * @returns {JSX.Element} - L'élément JSX du composant PensionPrices.
+ * @param {Object} props
+ * @param {boolean} props.editable
+ * @returns {JSX.Element}
  */
 const PensionPrices = ({ editable = false }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [pensionPrices, setPensionPrices] = useState(null);
 
   /**
-   * Fonction pour récupérer les tarifs depuis l'API.
-   *
+   * Function to retrieve rates from the API.
    * @async
    * @function
    */
@@ -28,22 +27,16 @@ const PensionPrices = ({ editable = false }) => {
     setPensionPrices(pensionPricesDb);
   };
 
-  // Utilisation de useEffect pour récupérer les tarifs lors du rendu initial
+  // Recover general prices on component mount
   useEffect(() => {
     getPrices();
   }, []);
 
-  /**
-   * Fonction pour ouvrir la modal d'édition.
-   *
-   * @function
-   */
   const openModal = () => {
     if (!editable) return;
     setModalOpen(true);
   };
 
-  // Rendu du composant PensionPrices
   return (
     <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
       {editable ? (
@@ -53,6 +46,7 @@ const PensionPrices = ({ editable = false }) => {
       )}
       <p className='italic'>(Bientôt disponible)</p>
       <div className='py-4'>
+        {/* Price edit button (visible only in edit mode) */}
         {editable ? (
           <button onClick={openModal} className={adminEditButtonClassname}>
             Modifier
@@ -61,7 +55,6 @@ const PensionPrices = ({ editable = false }) => {
           ''
         )}
       </div>
-      {/* Modal pour l'édition des tarifs */}
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}
@@ -75,7 +68,6 @@ const PensionPrices = ({ editable = false }) => {
   );
 };
 
-// Définition des types des propriétés du composant
 PensionPrices.propTypes = {
   editable: PropTypes.bool,
 };

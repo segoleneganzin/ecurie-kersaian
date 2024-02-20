@@ -12,12 +12,12 @@ import {
   buttonClassName,
 } from '../../utils/GeneralClassNames';
 /**
- * Formulaire pour la gestion des dates de période de congé dans le planning hebdomadaire.
- * @param {Object} props - Les propriétés du composant.
- * @param {string} props.holidayDateWeeklyPlanner - Les dates de congé existantes.
- * @param {Function} props.closeModal - Fonction pour fermer le modal.
- * @param {Function} props.fetchPlanning - Fonction pour recharger le planning.
- * @returns {JSX.Element} - Élément de formulaire React.
+ * Form for managing vacation dates in the weekly schedule.
+ * @param {Object} props
+ * @param {string} props.holidayDateWeeklyPlanner
+ * @param {Function} props.closeModal
+ * @param {Function} props.fetchPlanning
+ * @returns {JSX.Element}
  */
 const HolidayWeeklyPlannerForm = ({
   holidayDateWeeklyPlanner,
@@ -33,7 +33,7 @@ const HolidayWeeklyPlannerForm = ({
   } = useForm();
 
   /**
-   * Obtenir la classe d'erreur pour le champ des dates de congé.
+   * Manage the error class for the vacation dates field.
    */
   const inputErrorClass = {
     holidayDates: errors.holidayDates
@@ -42,13 +42,13 @@ const HolidayWeeklyPlannerForm = ({
   };
 
   /**
-   * Obtenir le message d'erreur pour le champ des dates de congé.
+   * Manage error message for vacation dates field.
    */
   const inputErrorMessage = {
     holidayDates: errors.holidayDates ? 'Veuillez renseigner les dates' : '',
   };
 
-  //********************************************** Mettre les données dans la valeur du champ
+  // Fill fields with datas
   const updateInputDatas = async () => {
     try {
       if (holidayDateWeeklyPlanner) {
@@ -68,14 +68,11 @@ const HolidayWeeklyPlannerForm = ({
   }, []);
 
   /**
-   * Mettre à jour l'affichage des dates de congé.
-   * Soumet les dates de congé pour mise à jour, recharge le planning, et ferme le modal.
+   * Submits vacation dates for updating, reload the schedule, and close the modal.
    */
   const updateHolidayDatesDisplay = async () => {
     await updateHolidayDates(getValues('holidayDates'));
-    // Recharger le planning
     fetchPlanning();
-    // Fermer la modale
     closeModal();
   };
 

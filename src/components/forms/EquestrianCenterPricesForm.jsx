@@ -18,15 +18,15 @@ import {
 } from '../../utils/GeneralClassNames';
 
 /**
- * Composant React pour le formulaire de tarifs du centre équestre.
+ * React component for the equestrian center's rates form.
  *
  * @component
- * @param {Object} props - Les propriétés du composant.
- * @param {Object} props.equestrianCenterPrices - Les tarifs du centre équestre.
- * @param {Object} props.pensionPrices - Les tarifs de pension.
- * @param {Function} props.closeModal - Fonction pour fermer la modal.
- * @param {Function} props.getPrices - Fonction pour récupérer les tarifs.
- * @returns {JSX.Element} Le formulaire de tarifs du centre équestre.
+ * @param {Object} props
+ * @param {Object} props.equestrianCenterPrices
+ * @param {Object} props.pensionPrices
+ * @param {Function} props.closeModal
+ * @param {Function} props.getPrices
+ * @returns {JSX.Element}
  */
 const EquestrianCenterPricesForm = ({
   equestrianCenterPrices,
@@ -34,7 +34,6 @@ const EquestrianCenterPricesForm = ({
   closeModal,
   getPrices,
 }) => {
-  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -44,9 +43,9 @@ const EquestrianCenterPricesForm = ({
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     const errorClasses = {
@@ -65,9 +64,9 @@ const EquestrianCenterPricesForm = ({
   };
 
   /**
-   * Fonction pour obtenir le message d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Message d'erreur du champ.
+   * Function to obtain the error message for a given field.
+   * @param {string} field
+   * @returns {string} - Field error message
    */
   const inputErrorMessage = (field) => {
     const errorMessages = {
@@ -85,7 +84,7 @@ const EquestrianCenterPricesForm = ({
     return errorMessages[field] || errorMessages.default;
   };
 
-  // *********** Remplir les données dans les champs du formulaire
+  // Fill in the data in the form fields
   const updateInputDatas = async () => {
     try {
       if (equestrianCenterPrices && pensionPrices) {
@@ -143,13 +142,13 @@ const EquestrianCenterPricesForm = ({
     }
   };
 
-  // Utiliser useEffect pour appeler la fonction de remplissage des données lors du chargement initial
+  // UseEffect to call the data fill function on initial loading
   useEffect(() => {
     updateInputDatas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Fonction pour mettre à jour les tarifs dans le backend
+  // Function for updating tariffs in the backend
   const updateFormPrices = async () => {
     const equestrianCenterDatas = {
       period: getValues('period'),
@@ -195,7 +194,7 @@ const EquestrianCenterPricesForm = ({
       className={formClassName}
       noValidate
     >
-      {/* ****************************PERIODE ET INFOS */}
+      {/* ****************************PERIOD AND INFOS */}
       <div className={textareaContainerClassName}>
         <label className={labelClassName} htmlFor='period'>
           Période :
@@ -229,10 +228,10 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
-      {/* ****************************FORFAITS */}
+      {/* ****************************PACKAGE */}
       <h2 className={subtitleClassName}>Forfaits &lsquo;tout compris&rsquo;</h2>
 
-      {/******* 1h/ semaine */}
+      {/******* 1h/ week */}
       <h3 className='font-bold text-lg'>1h/ semaine</h3>
       <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
@@ -290,7 +289,7 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
-      {/* ******* 2h/ semaine */}
+      {/* ******* 2h/ week */}
       <h3 className='font-bold text-lg mt-6'>2h/ semaine</h3>
       <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
@@ -330,10 +329,10 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
-      {/* ****************************CARTES */}
+      {/* ****************************CARDS */}
       <h2 className={subtitleClassName}>Cartes</h2>
 
-      {/******* cours collectifs */}
+      {/******* group lessons */}
       <h3 className='font-bold text-lg'>Cours collectifs</h3>
       <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
@@ -373,7 +372,7 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
-      {/******* cours particuliers */}
+      {/******* private lessons */}
       <h3 className='font-bold text-lg mt-6'>Cours particuliers</h3>
       <div className={separationClassName}></div>
       <div className={formDataContainerClassName}>
@@ -413,10 +412,10 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
-      {/* ****************************DEMI ET TIERS DE PENSION */}
+      {/* ****************************HALF AND ONE-THIRD pension */}
       <h2 className={subtitleClassName}>Demi et tiers de pension</h2>
 
-      {/******* demi pension */}
+      {/******* HALF pension */}
       <h3 className='font-bold text-lg mt-6'>Demi pension</h3>
       <div className={separationClassName}></div>
       <div className={textareaContainerClassName}>
@@ -455,7 +454,7 @@ const EquestrianCenterPricesForm = ({
         </span>
       )}
 
-      {/******* tiers de pension */}
+      {/******* one-third pension */}
       <h3 className='font-bold text-lg mt-6'>Tiers de pension</h3>
       <div className={separationClassName}></div>
       <div className={textareaContainerClassName}>
@@ -493,8 +492,6 @@ const EquestrianCenterPricesForm = ({
           {inputErrorMessage('thirdPartPensionTarif')}
         </span>
       )}
-
-      {/* Bouton de validation */}
       <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
         <button
           className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
@@ -506,7 +503,6 @@ const EquestrianCenterPricesForm = ({
   );
 };
 
-// Déclaration des types des propriétés du composant
 EquestrianCenterPricesForm.propTypes = {
   generalPrices: PropTypes.object,
   equestrianCenterPrices: PropTypes.object,

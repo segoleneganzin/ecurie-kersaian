@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-undef */
-
 //****************************************************************************
 //For admin's logged in
 //****************************************************************************
@@ -21,25 +18,18 @@ import {
 } from '../utils/GeneralClassNames';
 
 /**
- * Composant React pour le module de connexion pour les administrateurs.
+ * React component for the administrator login module.
  *
  * @component
- * @returns {JSX.Element} Le formulaire de connexion pour les administrateurs.
+ * @returns {JSX.Element}
  */
 const SignInModule = () => {
-  // Utilisation de useNavigate pour la navigation
   const navigate = useNavigate();
-
-  // Utilisation du contexte utilisateur pour la fonction de connexion
   const { signIn } = useContext(UserContext);
-
-  // État pour gérer le message de validation en cas d'erreur
   const [validation, setValidation] = useState('');
-
-  // État pour gérer l'affichage du composant ForgotPassword
+  // Status to manage display of ForgotPassword component
   const [forgotPassword, setForgotPassword] = useState(false);
 
-  // Utilisation de react-hook-form pour gérer le formulaire
   const {
     register,
     handleSubmit,
@@ -48,9 +38,9 @@ const SignInModule = () => {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     return errors[field]
@@ -58,29 +48,26 @@ const SignInModule = () => {
       : inputClassName + ' min-w-52';
   };
 
-  // Messages d'erreur pour les champs du formulaire
+  // Error messages for form fields
   const inputErrorMessage = {
     email: errors.email ? 'Veuillez rentrer votre email' : '',
     password: errors.password ? 'Veuillez rentrer votre mot de passe' : '',
   };
 
   /**
-   * Fonction pour gérer la soumission du formulaire de connexion.
+   * Function to manage the submission of the connection form.
    *
    * @function
-   * @throws {Error} Une erreur si la connexion échoue.
+   * @throws {Error}
    */
   const handleForm = () => {
     try {
-      // Appel à la fonction signIn pour tenter la connexion
       signIn(getValues('email'), getValues('password'), setValidation);
     } catch (error) {
-      // Gestion des erreurs
       console.error(error);
     }
   };
 
-  // Rendu du composant
   return (
     <div className='font-inconsolata min-h-screen bg-principal-color '>
       <header className='flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
@@ -93,13 +80,13 @@ const SignInModule = () => {
             height={188}
           />
           <h1 className='text-xl text-white tracking-widest text-center lg:text-left lg:text-3xl w-fit'>
-            Connexion à la page d'administration
+            Connexion à la page d&apos;administration
           </h1>
         </div>
       </header>
       <main className='min-h-dvh text-principal-color overflow-x-hidden font-inconsolata 2xl:max-w-screen-xl 2xl:m-auto'>
         {forgotPassword ? (
-          // Affichage du composant ForgotPassword si l'état forgotPassword est vrai
+          // ForgotPassword component displayed if forgotPassword status is true
           <ForgotPassword setForgotPassword={setForgotPassword} />
         ) : (
           <div>

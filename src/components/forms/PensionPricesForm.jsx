@@ -17,12 +17,12 @@ import {
   buttonClassName,
 } from '../../utils/GeneralClassNames';
 /**
- * Formulaire pour la gestion des tarifs généraux.
- * @param {Object} props - Les propriétés du composant.
- * @param {Object} props.generalPrices - Les tarifs généraux existants.
- * @param {Function} props.closeModal - Fonction pour fermer le modal.
- * @param {Function} props.getGeneralPrices - Fonction pour récupérer les tarifs généraux mis à jour.
- * @returns {JSX.Element} - Élément de formulaire React.
+ * Form for managing pension rates.
+ * @param {Object} props
+ * @param {Object} props.generalPrices
+ * @param {Function} props.closeModal
+ * @param {Function} props.getGeneralPrices
+ * @returns {JSX.Element}
  */
 const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
   const {
@@ -34,9 +34,9 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
   } = useForm();
 
   /**
-   * Fonction pour obtenir la classe d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Classe d'erreur du champ.
+   * Function to obtain the error class for a given field.
+   * @param {string} field
+   * @returns {string} - Field error class.
    */
   const inputErrorClass = (field) => {
     const errorClasses = {
@@ -53,9 +53,9 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
   };
 
   /**
-   * Fonction pour obtenir le message d'erreur pour un champ donné.
-   * @param {string} field - Nom du champ.
-   * @returns {string} - Message d'erreur du champ.
+   * Function to obtain the error message for a given field.
+   * @param {string} field
+   * @returns {string} - Field error message
    */
   const inputErrorMessage = (field) => {
     const errorMessages = {
@@ -72,8 +72,7 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
   };
 
   /**
-   * Gestion des données du formulaire.
-   * Met à jour les données du formulaire avec les tarifs généraux existants.
+   * Updates form data with existing rates.
    */
   const updateInputDatas = async () => {
     try {
@@ -106,8 +105,7 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
   }, []);
 
   /**
-   * Fonction pour mettre à jour les tarifs généraux.
-   * Soumet les données du formulaire pour mise à jour et ferme le modal.
+   * Submits form data for update and closes the modal.
    */
   const updateFormPrices = async () => {
     const pensionDatas = {
@@ -131,10 +129,10 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
       className={formClassName}
       noValidate
     >
-      {/* ****************************DEMI ET TIERS DE PENSION */}
+      {/* ****************************HALF AND ONE-THIRD pension */}
       <h2 className={subtitleClassName}>Demi et tiers de pension</h2>
 
-      {/******* demi pension */}
+      {/******* HALF pension */}
       <h3 className='font-bold text-lg mt-6'>Demi pension</h3>
       <div className={separationClassName}></div>
       <div className={textareaContainerClassName}>
@@ -173,7 +171,7 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
         </span>
       )}
 
-      {/******* tiers de pension */}
+      {/******* one-third pension */}
       <h3 className='font-bold text-lg mt-6'>Tiers de pension</h3>
       <div className={separationClassName}></div>
       <div className={textareaContainerClassName}>
