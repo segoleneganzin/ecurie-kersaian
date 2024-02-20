@@ -246,7 +246,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
-      Demi et tiers de pension
+      {/* Demi et tiers de pension */}
       <div className='py-4'>
         {editable ? (
           <h5 className={pricesSectionSubtitlesClassName}>

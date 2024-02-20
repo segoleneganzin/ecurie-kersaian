@@ -150,16 +150,17 @@ const EquestrianCenter = () => {
           <h2 className={sectionTitleClassName}>Notre cavalerie</h2>
           <Cavalry />
         </section>
+
+        {/* ***************************************TARIFS */}
+        <EquestrianCenterPrices />
         {/* ***************************************PLANNING */}
-        <section className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
+        <section className='pb-2 pt-8 lg:pb-4 sm:py-8' id='planning'>
           <h2 className={sectionTitleClassName + ' pl-2 sm:pl-6 lg:pl-16'}>
             Le planning
           </h2>
           <WeeklyPlanner period={'school'} />
           <WeeklyPlanner period={'holiday'} />
         </section>
-        {/* ***************************************TARIFS */}
-        <EquestrianCenterPrices />
         {/* ***************************************CONTACT */}
         <Contact />
       </main>

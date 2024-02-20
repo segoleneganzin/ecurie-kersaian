@@ -171,9 +171,9 @@ const WeeklyPlanner = ({ editable = false, period }) => {
         </div>
       )}
       <div className='overflow-x-auto m-2'>
-        <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit border-2 border-black'>
+        <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit border-2 border-secondary-color'>
           <table>
-            <thead className='h-8 bg-principal-color text-white sticky top-0 z-20'>
+            <thead className='h-8 bg-secondary-color text-white sticky top-0 z-20'>
               <tr>
                 {daysOfWeek.map((day) => (
                   <th key={day} className='min-w-24 px-2'>

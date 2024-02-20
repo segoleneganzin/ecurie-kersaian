@@ -28,13 +28,13 @@ const ListItemsEquestrianCenter = ({ toggleResponsiveMenu }) => {
         </a>
       </li>
       <li role='menuitem' className={menuListItemClassName}>
-        <a href='#planning' rel='ugc' onClick={toggleResponsiveMenu}>
-          Planning
+        <a href='#prices' rel='ugc' onClick={toggleResponsiveMenu}>
+          Tarifs
         </a>
       </li>
       <li role='menuitem' className={menuListItemClassName}>
-        <a href='#prices' rel='ugc' onClick={toggleResponsiveMenu}>
-          Tarifs
+        <a href='#planning' rel='ugc' onClick={toggleResponsiveMenu}>
+          Planning
         </a>
       </li>
       <li role='menuitem' className={menuListItemClassName}>
