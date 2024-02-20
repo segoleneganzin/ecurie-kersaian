@@ -15,6 +15,7 @@ import {
   tableClassName,
   tableContainerClassName,
   sectionTitleClassName,
+  sectionClassName,
 } from '../utils/GeneralClassNames';
 
 /**
@@ -58,7 +59,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   };
 
   return (
-    <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
+    <section className={sectionClassName} id='prices'>
       {editable ? (
         <h3 className={sectionTitleClassName}>Les tarifs</h3>
       ) : (
@@ -304,16 +305,16 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
-      <div className='py-4'>
-        {/* Price edit button (visible only in edit mode) */}
-        {editable ? (
+      {editable ? (
+        <div className='py-4'>
+          {/* Price edit button (visible only in edit mode) */}
           <button onClick={openModal} className={adminEditButtonClassname}>
             Modifier les tarifs du centre équestre
           </button>
-        ) : (
-          ''
-        )}
-      </div>
+        </div>
+      ) : (
+        ''
+      )}
       {/* edit prices modal */}
       {isModalOpen && (
         <Modal

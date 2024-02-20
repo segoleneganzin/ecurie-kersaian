@@ -1,7 +1,10 @@
-import { sectionTitleClassName } from '../utils/GeneralClassNames';
+import {
+  sectionTitleClassName,
+  sectionClassName,
+} from '../utils/GeneralClassNames';
 const Installations = () => {
   return (
-    <section className='p-2 pt-16 lg:p-16 sm:p-8' id='installations'>
+    <section className={sectionClassName} id='installations'>
       <h2 className={sectionTitleClassName}>Nos installations</h2>
       <ul className='leading-10 mt-4 space-y-5 text-base '>
         <li>

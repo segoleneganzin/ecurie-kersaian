@@ -28,6 +28,7 @@ export const mainClassName =
   'min-h-full text-principal-color overflow-x-hidden font-inconsolata 2xl:max-w-screen-xl 2xl:m-auto';
 export const sectionTitleClassName =
   'text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56';
+export const sectionClassName = 'p-2 pt-16 lg:p-16 sm:p-8';
 // TARIFS
 export const pricesSectionSubtitlesClassName =
   'font-bold text-xl bg-secondary-color text-white  rounded-lg text-center';

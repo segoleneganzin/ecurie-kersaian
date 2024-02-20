@@ -1,7 +1,10 @@
-import { sectionTitleClassName } from '../utils/GeneralClassNames';
+import {
+  sectionTitleClassName,
+  sectionClassName,
+} from '../utils/GeneralClassNames';
 const Contact = () => {
   return (
-    <section className='p-2 pt-16  sm:p-8 lg:p-16' id='contact'>
+    <section className={sectionClassName} id='contact'>
       <h2 className={sectionTitleClassName}>Contactez-nous</h2>
       <div className='flex flex-col gap-2 lg:flex-row lg:gap-10 justify-center p-2 md:p-0  text-base '>
         <ul className='leading-10'>
