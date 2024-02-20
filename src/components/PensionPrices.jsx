@@ -18,7 +18,7 @@ const PensionPrices = ({ editable = false }) => {
   const [pensionPrices, setPensionPrices] = useState(null);
 
   /**
-   * Function to retrieve rates from the API.
+   * Function to retrieve prices from the API.
    * @async
    * @function
    */

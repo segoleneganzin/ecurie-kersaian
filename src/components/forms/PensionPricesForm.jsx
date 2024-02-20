@@ -17,7 +17,7 @@ import {
   buttonClassName,
 } from '../../utils/GeneralClassNames';
 /**
- * Form for managing pension rates.
+ * Form for managing pension prices.
  * @param {Object} props
  * @param {Object} props.generalPrices
  * @param {Function} props.closeModal
@@ -72,7 +72,7 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
   };
 
   /**
-   * Updates form data with existing rates.
+   * Updates form data with existing prices.
    */
   const updateInputDatas = async () => {
     try {

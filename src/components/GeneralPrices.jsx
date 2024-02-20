@@ -15,7 +15,7 @@ const GeneralPrices = ({ editable = false }) => {
   const [generalPrices, setGeneralPrices] = useState(null);
 
   /**
-   * Function to retrieve rates from the API.
+   * Function to retrieve prices from the API.
    * @async
    * @function
    */

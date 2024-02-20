@@ -15,7 +15,7 @@ import {
 } from '../../utils/GeneralClassNames';
 
 /**
- * Form to manage general rates.
+ * Form to manage general prices.
  * @param {Object} props
  * @param {Object} props.generalPrices
  * @param {Function} props.closeModal
@@ -54,7 +54,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   };
 
   /**
-   * Updates form data with existing general rates.   */
+   * Updates form data with existing general prices.   */
   const updateInputDatas = async () => {
     try {
       if (generalPrices) {

@@ -18,7 +18,7 @@ import {
 } from '../utils/GeneralClassNames';
 
 /**
- * EquestrianCenterPrices component to display equestrian center rates.
+ * EquestrianCenterPrices component to display equestrian center prices.
  *
  * @component
  * @param {Object} props
@@ -33,7 +33,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   });
 
   /**
-   * Function to retrieve rates from the API.
+   * Function to retrieve prices from the API.
    * @async
    * @function
    */

@@ -18,7 +18,7 @@ import {
 } from '../../utils/GeneralClassNames';
 
 /**
- * React component for the equestrian center's rates form.
+ * React component for the equestrian center's prices form.
  *
  * @component
  * @param {Object} props

@@ -28,21 +28,10 @@ export const mainClassName =
   'min-h-full text-principal-color overflow-x-hidden font-inconsolata 2xl:max-w-screen-xl 2xl:m-auto';
 export const sectionTitleClassName =
   'text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56';
-// PRESENTATION
-export const presentationSectionClassName =
-  'p-2 pt-16 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 xl:items-center xl:flex-row';
-export const presentationImgClassName =
-  'h-300px m-auto max-w-300px min-w-300px object-cover object-bottom rounded-full shadow-lg md:h-650px md:max-w-650px md:min-w-650px';
-export const presentationParagraphClassName =
-  'leading-8 text-center xl:text-left text-base';
-export const presentationButtonContainerClassName =
-  'items-center mt-8 flex flex-col gap-5 md:flex-row md:justify-center xl:justify-start';
-export const presentationButtonClassName =
-  'bg-secondary-color cursor-pointer p-6 rounded-lg shadow-lg text-white tracking-widest w-fit transform transition duration-400 hover:bg-principal-color';
 // TARIFS
 export const pricesSectionSubtitlesClassName =
   'font-bold text-xl bg-secondary-color text-white  rounded-lg text-center';
-// *********************************************** CLASSNAMES TABLEAUX DES PRIX (centre équestre + pension)
+// *********************************************** CLASSNAMES TABLE PRICES (equestrian center + pension)
 export const tableContainerClassName =
   'rounded-lg overflow-hidden border-2 border-secondary-color w-fit m-auto md:m-0';
 export const tableClassName = 'text-sm mobile:text-base';

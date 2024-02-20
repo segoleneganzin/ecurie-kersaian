@@ -116,7 +116,7 @@ const Modal = (props) => {
                     getPrices={props.getPrices}
                   />
                 )}
-                {/* ************************ GENERAL RATES FORM (annual subscription + license) */}
+                {/* ************************ GENERAL PRICES FORM (annual subscription + license) */}
                 {props.type === 'general' && (
                   <GeneralPricesForm
                     generalPrices={props.generalPrices}

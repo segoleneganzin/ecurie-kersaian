@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
 import SignInModule from '../components/SignInModule';
@@ -38,11 +37,11 @@ const Admin = () => {
       <ul className='pt-4 leading-8 text-left space-y-4'>
         <li>
           Les <span className='font-bold text-green-800'>tarifs</span> des pages
-          'centre équestre' et 'pension'
+          &lsquo;centre équestre&rsquo; et &lsquo;pension&rsquo;
         </li>
         <li>
           Les <span className='font-bold text-green-800'>plannings</span> de la
-          page 'centre équestre'
+          page &lsquo;centre équestre&rsquo;
         </li>
       </ul>
     </div>
@@ -85,9 +84,9 @@ const Admin = () => {
         </a>
         {/* **************************************SCROLL UP */}
         {showScrollButton && <ScrollUp />}
-        {/* ************************************************************** ADMINISTRATION ACCUEIL */}
+        {/* ************************************************************** ADMINISTRATION HOME */}
         {choice === null && defaultDisplay}
-        {/* ************************************************************** ADMINISTRATION CENTRE EQUESTRE */}
+        {/* ************************************************************** ADMINISTRATION EQUESTRIAN CENTER */}
         {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
           <div>
@@ -108,19 +107,19 @@ const Admin = () => {
               <WeeklyPlanner editable period={'school'} />
               <WeeklyPlanner editable period={'holiday'} />
             </section>
-            {/* ***************************************TARIFS */}
+            {/* ***************************************PRICES */}
             <EquestrianCenterPrices editable />
           </div>
         )}
         {/* ************************************************************** ADMINISTRATION PENSION */}
         {choice === 'pension' && (
           <div>
-            {/* **************************************FORMULES */}
+            {/* **************************************FORMULAS */}
             <section className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
               <h3 className={sectionTitleClassName}>Nos formules</h3>
               <p className='italic'>(Bientôt disponible)</p>
             </section>
-            {/* ***************************************TARIFS */}
+            {/* ***************************************PRICES */}
             <PensionPrices editable />
           </div>
         )}
