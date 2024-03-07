@@ -32,6 +32,7 @@ const Carousel = ({ medias }) => {
         onClick={() => manageCarousel('previous')}
         aria-label='image précédente'
         aria-controls='display-medias'
+        className='cursor-pointer'
       >
         <svg
           className='h-10 w-10'
@@ -70,6 +71,7 @@ const Carousel = ({ medias }) => {
         onClick={() => manageCarousel('next')}
         aria-label='image suivante'
         aria-controls='display-medias'
+        className='cursor-pointer'
       >
         <svg
           className='h-10 w-10'
