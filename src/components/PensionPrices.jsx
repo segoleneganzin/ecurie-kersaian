@@ -40,9 +40,9 @@ const PensionPrices = ({ editable = false }) => {
   return (
     <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
       {editable ? (
-        <h3 className={sectionTitleClassName}>Les tarifs</h3>
+        <h3 className={sectionTitleClassName}>Nos tarifs</h3>
       ) : (
-        <h2 className={sectionTitleClassName}>Les tarifs</h2>
+        <h2 className={sectionTitleClassName}>Nos tarifs</h2>
       )}
       <p className='italic'>(Bientôt disponible)</p>
       <div className='py-4'>

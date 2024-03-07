@@ -46,7 +46,7 @@ const EquestrianCenter = () => {
         <EquestrianCenterPrices />
         {/* ***************************************PLANNING */}
         <section className={sectionClassName} id='planning'>
-          <h2 className={sectionTitleClassName}>Le planning</h2>
+          <h2 className={sectionTitleClassName}>Notre planning</h2>
           <WeeklyPlanner period={'school'} />
           <WeeklyPlanner period={'holiday'} />
         </section>

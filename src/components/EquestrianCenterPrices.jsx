@@ -61,9 +61,9 @@ const EquestrianCenterPrices = ({ editable = false }) => {
   return (
     <section className={sectionClassName} id='prices'>
       {editable ? (
-        <h3 className={sectionTitleClassName}>Les tarifs</h3>
+        <h3 className={sectionTitleClassName}>Nos tarifs</h3>
       ) : (
-        <h2 className={sectionTitleClassName}>Les tarifs</h2>
+        <h2 className={sectionTitleClassName}>Nos tarifs</h2>
       )}
       {/* general prices */}
       <GeneralPrices editable={editable} />
