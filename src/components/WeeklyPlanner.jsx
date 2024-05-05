@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
-import Modal from './Modal';
+import Modal from '../layouts/Modal';
 
 /**
  * Component for display weekly planner

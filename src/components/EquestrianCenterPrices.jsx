@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { fetchPricesByCategory } from '../api/PricesApi';
-import Modal from './Modal';
+import Modal from '../layouts/Modal';
 import { useEffect } from 'react';
 import GeneralPrices from './GeneralPrices';
 import {

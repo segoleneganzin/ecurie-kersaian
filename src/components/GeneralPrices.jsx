@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import Modal from './Modal';
+import Modal from '../layouts/Modal';
 import { fetchPricesByCategory } from '../api/PricesApi';
 import { adminEditButtonClassname } from '../utils/GeneralClassNames';
 

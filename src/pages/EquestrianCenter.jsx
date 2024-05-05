@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../layouts/Header';
+import Footer from '../layouts/Footer';
 import ScrollUp from '../components/ScrollUp';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';

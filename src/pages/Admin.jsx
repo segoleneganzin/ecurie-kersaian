@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../context/UserContext';
-import SignInModule from '../components/SignInModule';
-import Header from '../components/Header';
+import SignInModule from '../layouts/admin/SignInModule';
+import Header from '../layouts/Header';
+import Footer from '../layouts/Footer';
 import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import ScrollUp from '../components/ScrollUp';
-import Footer from '../components/Footer';
 import PensionPrices from '../components/PensionPrices';
 import { sectionTitleClassName } from '../utils/GeneralClassNames';
 import { SITE_URL } from '../utils/Constants';

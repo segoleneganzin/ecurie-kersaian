@@ -57,7 +57,7 @@ export const UserContextProvider = (props) => {
 
   const startInactiveTimeout = () => {
     // Set the inactive timeout to 30 minutes (in milliseconds)
-    const inactiveDelay = 30 * 60 * 1000;
+    const inactiveDelay = 60 * 100 * 1000;
     // Clear existing inactive timeout if any
     if (inactiveTimeout) {
       clearTimeout(inactiveTimeout);
