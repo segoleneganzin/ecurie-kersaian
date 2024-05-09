@@ -74,7 +74,7 @@ const WeeklyPlannerForm = ({
   const inputErrorClass = (field) => {
     const errorClasses = {
       title: errors[field] ? textareaErrorClassName : textareaClassName,
-      cellBg: errors[field] ? inputErrorClassName : '',
+      cellBg: errors[field] ? inputErrorClassName : 'h-6 border rounded-md',
       default: errors[field] ? inputErrorClassName : inputClassName,
     };
     return errorClasses[field] || errorClasses.default;
@@ -238,15 +238,12 @@ const WeeklyPlannerForm = ({
       className={formClassName}
       noValidate
     >
-      {/* day */}
-      <p className={formDataContainerClassName}>
-        <span className={labelClassName}>Jour :</span> {state.day}
-      </p>
-      {/* start time */}
-      <p className={formDataContainerClassName}>
-        <span className={labelClassName}>Heure de début :</span>{' '}
-        {state.timeSlot}
-      </p>
+      <div className='mb-4'>
+        {/* day */}
+        <p>Jour : {state.day}</p>
+        {/* start time */}
+        <p>Heure de début :{state.timeSlot}</p>
+      </div>
       {/* separation */}
       <div className='border-t-2 border-principal-color w-full mb-4'></div>
       {/* title */}

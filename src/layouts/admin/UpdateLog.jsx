@@ -31,7 +31,7 @@ const UpdateLog = () => {
   };
 
   return (
-    <div className='flex flex-col gap-6 mt-8'>
+    <div className='flex flex-col gap-4 mt-8'>
       {/* Button to open/close e-mail address update component */}
       {!updateEmailOpen && (
         <button
@@ -45,7 +45,11 @@ const UpdateLog = () => {
         </button>
       )}
       {/* Display e-mail address update component if status is true */}
-      {updateEmailOpen && <UpdateMail />}
+      {updateEmailOpen && (
+        <div>
+          <UpdateMail />
+        </div>
+      )}
       {/* Button to open/close password update component */}
       {!updatePasswordOpen && (
         <button
@@ -58,7 +62,11 @@ const UpdateLog = () => {
         </button>
       )}
       {/* Display password update component if status is true */}
-      {updatePasswordOpen && <UpdatePassword />}
+      {updatePasswordOpen && (
+        <div>
+          <UpdatePassword />
+        </div>
+      )}
       {/* Bouton pour déconnecter l'utilisateur */}
       <button
         onClick={signOutUser}

@@ -32,9 +32,7 @@ const Form = ({
    * @returns {string} - Error class for the field.
    */
   const inputErrorClass = (field) => {
-    return errors[field]
-      ? inputErrorClassName + ' min-w-52'
-      : inputClassName + ' min-w-52';
+    return errors[field] ? inputErrorClassName : inputClassName;
   };
 
   // Error messages for input validation
@@ -57,7 +55,7 @@ const Form = ({
     >
       {/* TODO manage h level */}
       {title && (
-        <h2 className='text-white text-xl text-center font-bold bg-red-900 rounded-t-sm mb-4'>
+        <h2 className='text-principal-color text-xl text-center font-bold mb-4'>
           {title}
         </h2>
       )}

@@ -55,7 +55,7 @@ const Carousel = ({ medias }) => {
         <div>
           <img
             src={currentMedia.src}
-            className='w-full object-contain max-h-400px'
+            className='w-full object-contain max-h-400px rounded-md'
             alt={currentMedia.alt}
             height={400}
             width={300}

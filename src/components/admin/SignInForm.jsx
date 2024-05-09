@@ -19,7 +19,6 @@ const SignInForm = () => {
         onSubmitFunction={handleForm}
         btnText={'Connexion'}
         validation={validation}
-        title={'Se connecter'}
         fieldNames={['email', 'password']}
         classnames={
           ' bg-secondary-color border-2 border-principal-color p-4 rounded-lg max-w-sm mx-auto'

@@ -130,7 +130,6 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
           className={inputErrorClass('annualSubscription')}
           {...register('annualSubscription', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.annualSubscription && (
         <span className={errorMessageClassName}>
@@ -151,7 +150,6 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
           className={inputErrorClass('ffeLicenseUnder18')}
           {...register('ffeLicenseUnder18', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.ffeLicenseUnder18 && (
         <span className={errorMessageClassName}>
@@ -169,7 +167,6 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
           className={inputErrorClass('ffeLicenseOver18')}
           {...register('ffeLicenseOver18', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.ffeLicenseOver18 && (
         <span className={errorMessageClassName}>

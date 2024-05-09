@@ -245,7 +245,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('baby')}
           {...register('baby', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.baby && (
         <span className={errorMessageClassName}>
@@ -263,7 +262,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('oneHourUnder18')}
           {...register('oneHourUnder18', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.oneHourUnder18 && (
         <span className={errorMessageClassName}>
@@ -281,7 +279,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('oneHourOver18')}
           {...register('oneHourOver18', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.oneHourOver18 && (
         <span className={errorMessageClassName}>
@@ -303,7 +300,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('twoHoursUnder18')}
           {...register('twoHoursUnder18', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.twoHoursUnder18 && (
         <span className={errorMessageClassName}>
@@ -321,7 +317,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('twoHoursOver18')}
           {...register('twoHoursOver18', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.twoHoursOver18 && (
         <span className={errorMessageClassName}>
@@ -346,7 +341,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('hours5')}
           {...register('hours5', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.hours5 && (
         <span className={errorMessageClassName}>
@@ -364,7 +358,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('hours10')}
           {...register('hours10', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.hours10 && (
         <span className={errorMessageClassName}>
@@ -386,7 +379,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('clubLesson5')}
           {...register('clubLesson5', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.clubLesson5 && (
         <span className={errorMessageClassName}>
@@ -404,7 +396,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('ownerLesson5')}
           {...register('ownerLesson5', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.ownerLesson5 && (
         <span className={errorMessageClassName}>
@@ -446,7 +437,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('halfPensionTarif')}
           {...register('halfPensionTarif', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.halfPensionTarif && (
         <span className={errorMessageClassName}>
@@ -485,7 +475,6 @@ const EquestrianCenterPricesForm = ({
           className={inputErrorClass('thirdPartPensionTarif')}
           {...register('thirdPartPensionTarif', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.thirdPartPensionTarif && (
         <span className={errorMessageClassName}>

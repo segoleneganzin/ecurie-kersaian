@@ -163,7 +163,6 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
           className={inputErrorClass('halfPensionTarif')}
           {...register('halfPensionTarif', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.halfPensionTarif && (
         <span className={errorMessageClassName}>
@@ -202,7 +201,6 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
           className={inputErrorClass('thirdPartPensionTarif')}
           {...register('thirdPartPensionTarif', { required: true })}
         />
-        <span>€</span>
       </div>
       {errors.thirdPartPensionTarif && (
         <span className={errorMessageClassName}>

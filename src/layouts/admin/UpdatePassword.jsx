@@ -58,7 +58,7 @@ const UpdatePassword = () => {
         </div>
       ) : (
         // Display password update form
-        <>
+        <div>
           <Form
             onSubmitFunction={updateUserPassword}
             btnText={'Valider'}
@@ -79,12 +79,12 @@ const UpdatePassword = () => {
               <li>* Un caractère spécial</li>
             </ul>
           </div>
-        </>
+        </div>
       )
     ) : (
       // Reauthentication required to update user data
       <div>
-        <h2 className='text-white text-xl text-center font-bold bg-red-900 rounded-t-sm mb-4'>
+        <h2 className='rounded-md text-white text-xl text-center font-bold bg-red-900 border border-solid border-red-900 '>
           Modifier votre mot de passe
         </h2>
         <ReauthenticateForm setOpenUpdate={setOpenUpdate} />

@@ -1,20 +1,26 @@
 // Contient les regroupements de className pour simplifier les répétitions et éviter les oublis
 // ********************************************* CLASSNAMES FORMULAIRES
 export const subtitleClassName =
-  'bg-secondary-color text-center font-bold mt-8 mb-4 text-white text-xl py-2';
+  'bg-secondary-color text-center font-bold mt-8 mb-4 text-white text-xl py-2 border rounded-md';
 export const separationClassName = 'bg-secondary-color h-1 my-4 w-full';
-export const formClassName =
-  'bg-white mt-4 border-t-2 border-principal-color pt-2';
-export const labelClassName = 'pr-2 text-md font-bold';
+
+export const formClassName = 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4';
 export const formDataContainerClassName = 'mb-4';
-export const inputClassName = 'border-b border-black max-w-12';
-export const inputErrorClassName = 'border-b border-red-300';
-export const textareaContainerClassName = 'flex flex-col';
-export const textareaClassName = 'border border-black pl-2';
-export const textareaErrorClassName = 'border border-red-300';
-export const errorMessageClassName = 'text-red-800';
+export const labelClassName =
+  'block text-gray-700 text-sm font-bold mb-2 text-left';
+export const inputClassName =
+  'shadow appearance-none border rounded-md w-full py-2 px-2 leading-tight focus:outline-none focus:shadow-outline';
+export const inputErrorClassName =
+  'shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-b border-red-300';
+export const textareaContainerClassName = 'flex flex-col mb-4';
+export const textareaClassName =
+  'shadow appearance-none border rounded-md w-full py-2 px-2 leading-tight focus:outline-none focus:shadow-outline';
+export const textareaErrorClassName =
+  'shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-b border-red-300';
+export const errorMessageClassName = 'text-red-800 text-xs italic';
 export const buttonClassName =
   'm-auto w-fit rounded-md px-4 py-2 text-white shadow-sm transition ease-in-out duration-150 tracking-wide';
+
 // *********************************************** CLASSNAMES ADMIN
 export const adminEditButtonClassname =
   'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2 self-end mr-2';

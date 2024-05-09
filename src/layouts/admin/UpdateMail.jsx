@@ -50,7 +50,7 @@ const UpdateMail = () => {
         </div>
       ) : (
         // Display e-mail address update form
-        <>
+        <div>
           <Form
             onSubmitFunction={updateUserEmail}
             btnText={'Valider'}
@@ -59,12 +59,12 @@ const UpdateMail = () => {
             subtitle={'E-mail actuel : ' + currentUser.email}
             fieldNames={['newEmail']}
           />
-        </>
+        </div>
       )
     ) : (
       // Reauthentication required to update user data
       <div>
-        <h2 className='text-white text-xl text-center font-bold bg-red-900 rounded-t-sm mb-4'>
+        <h2 className='rounded-md text-white text-xl text-center font-bold bg-red-900 border border-solid border-red-900 '>
           Modifier votre e-mail
         </h2>
         <ReauthenticateForm setOpenUpdate={setOpenUpdate} />
