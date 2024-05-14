@@ -104,7 +104,6 @@ const Admin = () => {
                 Il est également possible de modifier la date des vacances
                 scolaires.
               </p>
-              <WeeklyPlanner editable period={'school'} />
               <WeeklyPlanner editable period={'holiday'} />
             </section>
             {/* ***************************************PRICES */}

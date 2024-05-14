@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import FormField from './formFields/FormField';
+import FormFieldManager from './formFields/FormFieldManager';
 import {
   formClassName,
   buttonClassName,
@@ -62,17 +62,14 @@ const Form = ({
       {subtitle && <p className={formDataContainerClassName}>{subtitle}</p>}
 
       {fieldNames.map((fieldName, index) => {
-        const confirmation =
-          fieldName === 'newPasswordConfirmation' ? true : false;
         return (
-          <FormField
+          <FormFieldManager
             key={index}
             fieldName={fieldName}
             inputErrorClass={inputErrorClass}
             register={register}
             errors={errors}
             inputErrorMessage={inputErrorMessage}
-            confirmation={confirmation}
           />
         );
       })}

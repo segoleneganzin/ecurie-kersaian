@@ -1,54 +1,53 @@
 import PropTypes from 'prop-types';
-import EmailFormData from './EmailFormData';
-import PasswordFormData from './PasswordFormData';
-import NewPasswordFormData from './NewPasswordFormData';
-import NewEmailFormData from './NewEmailFormData';
+import {
+  formDataContainerClassName,
+  labelClassName,
+  errorMessageClassName,
+} from '../../../utils/GeneralClassNames';
 
 const FormField = ({
-  fieldName,
+  tag: Tag,
+  name,
+  label,
+  type,
+  pattern,
+  isRequired,
   inputErrorClass,
   register,
   errors,
   inputErrorMessage,
-  confirmation = false,
 }) => {
-  let Component;
-  switch (fieldName) {
-    case 'email':
-      Component = EmailFormData;
-      break;
-    case 'newEmail':
-      Component = NewEmailFormData;
-      break;
-    case 'newPassword':
-      Component = NewPasswordFormData;
-      break;
-    case 'newPasswordConfirmation':
-      Component = NewPasswordFormData;
-      break;
-    case 'password':
-      Component = PasswordFormData;
-      break;
-    default:
-      return null;
-  }
   return (
-    <Component
-      inputErrorClass={inputErrorClass}
-      register={register}
-      errors={errors}
-      inputErrorMessage={inputErrorMessage}
-      confirmation={confirmation}
-    />
+    <div className={formDataContainerClassName}>
+      <label htmlFor={name} className={labelClassName}>
+        {label}
+      </label>
+      <Tag
+        id={name}
+        name={name}
+        type={type}
+        className={inputErrorClass(name)}
+        {...register(name, { required: isRequired, pattern: pattern })}
+      />
+      {errors[name]?.type === 'required' && (
+        <p className={errorMessageClassName}>{inputErrorMessage[name]}</p>
+      )}
+      {errors[name]?.type === 'pattern' && (
+        <p className={errorMessageClassName}> Champ invalide</p>
+      )}
+    </div>
   );
 };
 FormField.propTypes = {
-  fieldName: PropTypes.string,
+  tag: PropTypes.string,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  pattern: PropTypes.instanceOf(RegExp),
+  isRequired: PropTypes.bool,
   inputErrorClass: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   inputErrorMessage: PropTypes.object.isRequired,
-  confirmation: PropTypes.bool,
 };
-
 export default FormField;
