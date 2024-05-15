@@ -38,6 +38,7 @@ const Form = ({
   // Error messages for input validation
   const inputErrorMessage = {
     email: errors.email ? 'Veuillez entrer votre email' : '',
+    newEmail: errors.newEmail ? 'Veuillez entrer votre nouvel email' : '',
     password: errors.password ? 'Veuillez entrer votre mot de passe' : '',
     newPassword: errors.newPassword ? 'Veuillez rentrer un mot de passe' : '',
     newPasswordConfirmation: errors.newPasswordConfirmation
