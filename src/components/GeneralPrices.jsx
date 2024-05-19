@@ -35,7 +35,7 @@ const GeneralPrices = ({ editable = false }) => {
   };
 
   return (
-    <div>
+    <>
       {editable ? (
         <h4 className='text-principal-color font-bold text-2xl'>
           Saison {generalPrices && generalPrices['season']}
@@ -84,7 +84,7 @@ const GeneralPrices = ({ editable = false }) => {
           getPrices={getGeneralPrices}
         />
       )}
-    </div>
+    </>
   );
 };
 

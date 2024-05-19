@@ -26,7 +26,7 @@ const Carousel = ({ medias }) => {
   };
 
   return (
-    <div className='flex flex-row items-center justify-center'>
+    <div className='mt-4 flex flex-row items-center justify-center'>
       <a
         ref={previousCarouselMedia}
         onClick={() => manageCarousel('previous')}

@@ -35,9 +35,7 @@ const Cavalry = () => {
   return (
     <section className={sectionClassName} id='cavalry'>
       <h2 className={sectionTitleClassName}>Notre cavalerie</h2>
-      <div className='mt-4'>
-        <Carousel medias={images} />
-      </div>
+      <Carousel medias={images} />
     </section>
   );
 };
