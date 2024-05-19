@@ -303,7 +303,7 @@ const WeeklyPlannerForm = ({
           {inputErrorMessage.cellBg}
         </span>
       )}
-      <div className='bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+      <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
         <button
           className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
         >

@@ -161,7 +161,7 @@ const Modal = (props) => {
             </div>
           </div>
           {/* Button section (e.g., Close, Cancel) */}
-          <div className='bg-gray-50 px-4 py-3 sm:px-6 flex flex-col gap-2 justify-center'>
+          <div className='px-4 py-3 sm:px-6 flex flex-col gap-2 justify-center'>
             {deleteButton}
             <button
               onClick={closeModal}
