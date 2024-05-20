@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import { createContext, useState, useEffect } from 'react';
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from 'firebase/auth';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '../firebase-config';
 
@@ -27,13 +23,7 @@ export const UserContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState();
   // Local state to indicate data loading.
   const [loadingData, setLoadingData] = useState(true);
-  // Local state to indicate user activity timeout.
-  const [inactiveTimeout, setInactiveTimeout] = useState(null);
 
-  /**
-   * Side effect to listen for authentication state changes.
-   * @function
-   */
   useEffect(() => {
     /**
      * Unsubscribe function to stop listening for state changes.
@@ -42,45 +32,12 @@ export const UserContextProvider = (props) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setCurrentUser(currentUser);
       setLoadingData(false);
-      // Reset the inactive timeout on every user change
-      setInactiveTimeout(null);
-      startInactiveTimeout();
-      startUserActivityListener();
     });
     return () => {
       unsubscribe();
-      window.removeEventListener('mousemove', handleUserActivity);
-      window.removeEventListener('keydown', handleUserActivity);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const startInactiveTimeout = () => {
-    // Set the inactive timeout to 30 minutes (in milliseconds)
-    const inactiveDelay = 60 * 100 * 1000;
-    // Clear existing inactive timeout if any
-    if (inactiveTimeout) {
-      clearTimeout(inactiveTimeout);
-    }
-
-    // Set a new inactive timeout
-    const newInactiveTimeout = setTimeout(() => {
-      // Logout function after inactive timeout
-      signOut(auth);
-    }, inactiveDelay);
-
-    setInactiveTimeout(newInactiveTimeout);
-  };
-
-  const startUserActivityListener = () => {
-    window.addEventListener('mousemove', handleUserActivity);
-    window.addEventListener('keydown', handleUserActivity);
-  };
-
-  const handleUserActivity = () => {
-    // User performed an action, reset the inactive timeout
-    startInactiveTimeout();
-  };
 
   /**
    * Function to sign in with email and password.
