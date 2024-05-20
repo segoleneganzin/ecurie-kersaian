@@ -55,10 +55,10 @@ export const UserContextProvider = (props) => {
       console.log(error.code);
       if (error.code === 'auth/too-many-requests') {
         setValidation(
-          'Too many login attempts, please wait and try again in a few seconds.'
+          'Trop de tentatives de connexion, veuillez patienter un instant avant de réessayer'
         );
       } else {
-        setValidation('Invalid email and/or password');
+        setValidation('Email et/ou mot de passe invalides');
       }
     }
   };
