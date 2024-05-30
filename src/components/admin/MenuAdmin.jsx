@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import Modal from '../Modal';
+import Modal from '../../layouts/Modal';
+import UpdateLog from './authentication/UpdateLog';
 
 /**
  * MenuAdmin component to display a link that opens a modal for user parameters.
@@ -36,8 +37,10 @@ const MenuAdmin = () => {
         <Modal
           isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
-          type={'updateLog'}
-        />
+          title={'Gestion du compte administrateur'}
+        >
+          <UpdateLog />
+        </Modal>
       )}
     </div>
   );

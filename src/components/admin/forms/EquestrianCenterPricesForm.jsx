@@ -31,7 +31,6 @@ import {
 const EquestrianCenterPricesForm = ({
   equestrianCenterPrices,
   pensionPrices,
-  closeModal,
   getPrices,
 }) => {
   const {
@@ -185,7 +184,7 @@ const EquestrianCenterPricesForm = ({
     await updatePrices('equestrianCenter', equestrianCenterDatas);
     await updatePrices('pension', pensionDatas);
     await getPrices();
-    closeModal();
+    window.location.reload(true);
   };
 
   return (
@@ -496,7 +495,6 @@ EquestrianCenterPricesForm.propTypes = {
   generalPrices: PropTypes.object,
   equestrianCenterPrices: PropTypes.object,
   pensionPrices: PropTypes.object,
-  closeModal: PropTypes.func,
   getPrices: PropTypes.func,
 };
 

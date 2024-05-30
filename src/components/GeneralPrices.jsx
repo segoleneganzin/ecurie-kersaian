@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Modal from '../layouts/Modal';
 import { fetchPricesByCategory } from '../api/PricesApi';
 import { adminEditButtonClassname } from '../utils/GeneralClassNames';
+import GeneralPricesForm from '../components/admin/forms/GeneralPricesForm';
 
 /**
  * GeneralPrices component
@@ -79,10 +80,13 @@ const GeneralPrices = ({ editable = false }) => {
         <Modal
           isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
-          type={'general'}
-          generalPrices={generalPrices}
-          getPrices={getGeneralPrices}
-        />
+          title={'Gestion des tarifs'}
+        >
+          <GeneralPricesForm
+            generalPrices={generalPrices}
+            getGeneralPrices={getGeneralPrices}
+          />
+        </Modal>
       )}
     </>
   );

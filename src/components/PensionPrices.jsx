@@ -5,6 +5,8 @@ import Modal from '../layouts/Modal';
 import { useEffect } from 'react';
 import { adminEditButtonClassname } from '../utils/GeneralClassNames';
 import { sectionTitleClassName } from '../utils/GeneralClassNames';
+import PensionPricesForm from '../components/admin/forms/PensionPricesForm';
+
 /**
  * PensionPrices component
  *
@@ -59,10 +61,13 @@ const PensionPrices = ({ editable = false }) => {
         <Modal
           isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
-          type={'pension'}
-          pensionPrices={pensionPrices}
-          getPrices={getPrices}
-        />
+          title={'Gestion des tarifs'}
+        >
+          <PensionPricesForm
+            pensionPrices={pensionPrices}
+            getPrices={getPrices}
+          />
+        </Modal>
       )}
     </section>
   );

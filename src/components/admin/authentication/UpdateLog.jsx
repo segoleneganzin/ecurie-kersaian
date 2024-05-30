@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase-config';
+import { auth } from '../../../firebase-config';
 import UpdateMail from './UpdateMail';
 import UpdatePassword from './UpdatePassword';
-import { buttonClassName } from '../../utils/GeneralClassNames';
+import { buttonClassName } from '../../../utils/GeneralClassNames';
 
 /**
  * React component for managing user account updates.
@@ -46,9 +46,9 @@ const UpdateLog = () => {
       )}
       {/* Display e-mail address update component if status is true */}
       {updateEmailOpen && (
-        <div>
+        <>
           <UpdateMail />
-        </div>
+        </>
       )}
       {/* Button to open/close password update component */}
       {!updatePasswordOpen && (
@@ -63,9 +63,9 @@ const UpdateLog = () => {
       )}
       {/* Display password update component if status is true */}
       {updatePasswordOpen && (
-        <div>
+        <>
           <UpdatePassword />
-        </div>
+        </>
       )}
       {/* Bouton pour déconnecter l'utilisateur */}
       <button

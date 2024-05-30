@@ -14,20 +14,17 @@ import {
 } from '../utils/GeneralClassNames';
 import Presentation from '../components/Presentation';
 import Activities from '../components/Activities';
+import { handleScroll } from '../utils/functions';
 
 const EquestrianCenter = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    // Adjust this value based on the scroll position where you want the button to appear
-    const showScrollButtonThreshold = 500;
-    setShowScrollButton(scrollPosition > showScrollButtonThreshold);
-  };
+
   useEffect(() => {
-    handleScroll();
+    setShowScrollButton(handleScroll);
     // Attach the event listener
     window.addEventListener('scroll', handleScroll);
   }, [showScrollButton]);
+
   return (
     <div className='h-dvh'>
       <Header menu={'equestrianCenter'} />

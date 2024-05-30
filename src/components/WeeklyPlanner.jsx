@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
 import Modal from '../layouts/Modal';
+import WeeklyPlannerForm from '../components/admin/forms/WeeklyPlannerForm';
+import HolidayWeeklyPlannerForm from '../components/admin/forms/HolidayWeeklyPlannerForm';
 
 /**
  * Component for display weekly planner
@@ -236,25 +238,32 @@ const WeeklyPlanner = ({ editable = false, period }) => {
         <Modal
           isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
-          type={'weeklyPlanner'}
-          fetchPlanning={fetchPlanning}
-          schedule={schedule}
-          daysOfWeek={daysOfWeek}
-          timeSlots={timeSlots}
-          selectedTimeSlot={selectedTimeSlot}
-          selectedDay={selectedDay}
-          period={period}
-        />
+          title={'Gestion des plannings'}
+        >
+          <WeeklyPlannerForm
+            fetchPlanning={fetchPlanning}
+            schedule={schedule}
+            daysOfWeek={daysOfWeek}
+            timeSlots={timeSlots}
+            selectedTimeSlot={selectedTimeSlot}
+            selectedDay={selectedDay}
+            period={period}
+            // setDeleteButton={setDeleteButton}
+          />
+        </Modal>
       )}
       {/* Modal to manage holiday dates */}
       {isHolidayModalOpen && (
         <Modal
           isModalOpen={isHolidayModalOpen}
-          holidayDateWeeklyPlanner={schedulePeriod}
-          type={'holidayWeeklyPlanner'}
           setModalOpen={setHolidayModalOpen}
-          fetchPlanning={fetchPlanning}
-        />
+          title={'Gestion des plannings'}
+        >
+          <HolidayWeeklyPlannerForm
+            holidayDateWeeklyPlanner={schedulePeriod}
+            fetchPlanning={fetchPlanning}
+          />
+        </Modal>
       )}
     </div>
   );

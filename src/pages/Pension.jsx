@@ -10,17 +10,13 @@ import {
   sectionTitleClassName,
 } from '../utils/GeneralClassNames';
 import Presentation from '../components/Presentation';
+import { handleScroll } from '../utils/functions';
 
 const Pension = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    // Adjust this value based on the scroll position where you want the button to appear
-    const showScrollButtonThreshold = 500;
-    setShowScrollButton(scrollPosition > showScrollButtonThreshold);
-  };
+
   useEffect(() => {
-    handleScroll();
+    setShowScrollButton(handleScroll);
     // Attach the event listener
     window.addEventListener('scroll', handleScroll);
   }, [showScrollButton]);

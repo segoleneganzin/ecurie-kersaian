@@ -4,6 +4,7 @@ import { fetchPricesByCategory } from '../api/PricesApi';
 import Modal from '../layouts/Modal';
 import { useEffect } from 'react';
 import GeneralPrices from './GeneralPrices';
+import EquestrianCenterPricesForm from '../components/admin/forms/EquestrianCenterPricesForm';
 import {
   adminEditButtonClassname,
   tableDataClassName,
@@ -320,12 +321,13 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         <Modal
           isModalOpen={isModalOpen}
           setModalOpen={setModalOpen}
-          type={'equestrianCenter'}
-          generalPrices={state.generalPrices}
-          equestrianCenterPrices={state.equestrianCenterPrices}
-          pensionPrices={state.pensionPrices}
-          getPrices={getPrices}
-        />
+          title={'Gestion des tarifs'}
+        >
+          <EquestrianCenterPricesForm
+            equestrianCenterPrices={state.equestrianCenterPrices}
+            getPrices={state.getPrices}
+          />
+        </Modal>
       )}
     </section>
   );

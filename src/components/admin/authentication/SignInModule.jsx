@@ -4,9 +4,8 @@
 import { useState } from 'react';
 import ForgotPassword from './ForgotPassword';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/images/logo.webp';
-
-import SignInForm from '../../components/admin/SignInForm';
+import logo from '../../../assets/images/logo.webp';
+import SignInForm from './SignInForm';
 
 /**
  * React component for the administrator login module.

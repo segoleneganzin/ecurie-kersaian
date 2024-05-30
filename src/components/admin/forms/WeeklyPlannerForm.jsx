@@ -38,8 +38,8 @@ const WeeklyPlannerForm = ({
   selectedTimeSlot,
   selectedDay,
   period,
-  setDeleteButton,
 }) => {
+  const [deleteButton, setDeleteButton] = useState(null);
   const [state, setState] = useState({
     day: null,
     time: null,
@@ -233,84 +233,88 @@ const WeeklyPlannerForm = ({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(addTimeSlot)}
-      className={formClassName}
-      noValidate
-    >
-      <div className='mb-4'>
-        {/* day */}
-        <p>Jour : {state.day}</p>
-        {/* start time */}
-        <p>Heure de début :{state.timeSlot}</p>
-      </div>
-      {/* separation */}
-      <div className='border-t-2 border-principal-color w-full mb-4'></div>
-      {/* title */}
-      <div className={textareaContainerClassName}>
-        <label className={labelClassName} htmlFor='title'>
-          Intitulé :
-        </label>
-        <textarea
-          id='title'
-          name='title'
-          type='text'
-          rows='5'
-          className={inputErrorClass('title') + ' w-full'}
-          {...register('title', { required: true })}
-        />
-      </div>
-      {errors.title && (
-        <span className={errorMessageClassName}>{inputErrorMessage.title}</span>
-      )}
-      {/* duration */}
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='duration'>
-          Durée (tranche de 15 minutes) :
-        </label>
-        <input
-          id='duration'
-          name='duration'
-          type='number'
-          className={inputErrorClass('duration')}
-          {...register('duration', {
-            required: true,
-            validate: isDurationValid,
-          })}
-        />
-      </div>
-      {errors.duration && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage.duration}
-        </span>
-      )}
-
-      {/* background color of timeslot */}
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='cellBg'>
-          Couleur de fond :
-        </label>
-        <input
-          id='cellBg'
-          name='cellBg'
-          type='color'
-          className={inputErrorClass('cellBg')}
-          {...register('cellBg', { required: true })}
-        />
-      </div>
-      {errors.cellBg && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage.cellBg}
-        </span>
-      )}
-      <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
-        <button
-          className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
-        >
-          Valider
-        </button>
-      </div>
-    </form>
+    <>
+      <form
+        onSubmit={handleSubmit(addTimeSlot)}
+        className={formClassName}
+        noValidate
+      >
+        <div className='mb-4'>
+          {/* day */}
+          <p>Jour : {state.day}</p>
+          {/* start time */}
+          <p>Heure de début :{state.timeSlot}</p>
+        </div>
+        {/* separation */}
+        <div className='border-t-2 border-principal-color w-full mb-4'></div>
+        {/* title */}
+        <div className={textareaContainerClassName}>
+          <label className={labelClassName} htmlFor='title'>
+            Intitulé :
+          </label>
+          <textarea
+            id='title'
+            name='title'
+            type='text'
+            rows='5'
+            className={inputErrorClass('title') + ' w-full'}
+            {...register('title', { required: true })}
+          />
+        </div>
+        {errors.title && (
+          <span className={errorMessageClassName}>
+            {inputErrorMessage.title}
+          </span>
+        )}
+        {/* duration */}
+        <div className={formDataContainerClassName}>
+          <label className={labelClassName} htmlFor='duration'>
+            Durée (tranche de 15 minutes) :
+          </label>
+          <input
+            id='duration'
+            name='duration'
+            type='number'
+            className={inputErrorClass('duration')}
+            {...register('duration', {
+              required: true,
+              validate: isDurationValid,
+            })}
+          />
+        </div>
+        {errors.duration && (
+          <span className={errorMessageClassName}>
+            {inputErrorMessage.duration}
+          </span>
+        )}
+        {/* background color of timeslot */}
+        <div className={formDataContainerClassName}>
+          <label className={labelClassName} htmlFor='cellBg'>
+            Couleur de fond :
+          </label>
+          <input
+            id='cellBg'
+            name='cellBg'
+            type='color'
+            className={inputErrorClass('cellBg')}
+            {...register('cellBg', { required: true })}
+          />
+        </div>
+        {errors.cellBg && (
+          <span className={errorMessageClassName}>
+            {inputErrorMessage.cellBg}
+          </span>
+        )}
+        <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
+          <button
+            className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
+          >
+            Valider
+          </button>
+        </div>
+      </form>
+      {deleteButton}
+    </>
   );
 };
 

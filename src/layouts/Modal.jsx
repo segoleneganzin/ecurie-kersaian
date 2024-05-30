@@ -1,72 +1,25 @@
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import EquestrianCenterPricesForm from './admin/forms/EquestrianCenterPricesForm';
-import GeneralPricesForm from './admin/forms/GeneralPricesForm';
-import WeeklyPlannerForm from './admin/forms/WeeklyPlannerForm';
-import HolidayWeeklyPlannerForm from './admin/forms/HolidayWeeklyPlannerForm';
-import PensionPricesForm from './admin/forms/PensionPricesForm';
-import UpdateLog from './admin/UpdateLog';
 import { buttonClassName } from '../utils/GeneralClassNames';
 
 /**
- * Modal component
+ * Modal Layout
  * use for all forms
  * @param {Object} props
  * @param {boolean} props.isModalOpen
  * @param {function} props.setModalOpen
- * @param {string} props.type - ('equestrianCenter', 'general', 'weeklyPlanner', 'holidayWeeklyPlanner', 'updateLog')
- * @param {Object} props.generalPrices necessary for 'general' type
- * @param {Object} props.equestrianCenterPrices - necessary for 'equestrianCenter' type
- * @param {Object} props.pensionPrices - necessary for 'equestrianCenter'
- * @param {function} props.getPrices - necessary for 'equestrianCenter' and 'general' types
- * @param {function} props.fetchPlanning - necessary for 'weeklyPlanner' and 'holidayWeeklyPlanner' types
- * @param {Array} props.schedule - necessary for 'weeklyPlanner' type
- * @param {Array} props.daysOfWeek - necessary for 'weeklyPlanner' type
- * @param {Array} props.timeSlots - necessary for 'weeklyPlanner' type
- * @param {Object} props.selectedTimeSlot - necessary for 'weeklyPlanner' type
- * @param {Object} props.selectedDay - necessary for 'weeklyPlanner' type
- * @param {string} props.period - necessary for 'weeklyPlanner' type
- * @param {string} props.holidayDateWeeklyPlanner - necessary for 'holidayWeeklyPlanner' type.
- * @param {function} props.setHolidayModalOpen - necessary for 'holidayWeeklyPlanner' type.
+ * @param {string} props.title
+ * @param {ReactNode} props.children
  * @returns {JSX.Element}
  */
-const Modal = (props) => {
-  const [deleteButton, setDeleteButton] = useState(null);
-  const [title, setTitle] = useState(null);
-
-  // ************** TITLE
-  const displayTitle = () => {
-    if (
-      props.type === 'equestrianCenter' ||
-      props.type === 'general' ||
-      props.type === 'pension'
-    ) {
-      setTitle('Gestion des tarifs');
-    } else if (
-      props.type === 'weeklyPlanner' ||
-      props.type === 'holidayWeeklyPlanner'
-    ) {
-      setTitle('Gestion des plannings');
-    } else if (props.type === 'updateLog') {
-      setTitle('Gestion du compte administrateur');
-    }
-  };
-
-  // Updates title when modal type is changed
-  // runs only once after initial rendering
-  useEffect(() => {
-    displayTitle();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+const Modal = ({ isModalOpen, setModalOpen, title, children }) => {
   const closeModal = () => {
-    props.setModalOpen(false);
+    setModalOpen(false);
   };
 
   return (
     <div
       className='fixed inset-0 z-40 overflow-y-auto'
-      aria-hidden={!props.isModalOpen}
+      aria-hidden={!isModalOpen}
       aria-describedby='modalTitle'
       role='dialog'
     >
@@ -106,63 +59,13 @@ const Modal = (props) => {
                 >
                   {title && title}
                 </h2>
-                {/* Specific forms for each type of modal */}
-                {/* ************************ RIDING CENTER RATE FORM (packages + cards + half and third pension) */}
-                {props.type === 'equestrianCenter' && (
-                  <EquestrianCenterPricesForm
-                    equestrianCenterPrices={props.equestrianCenterPrices}
-                    pensionPrices={props.pensionPrices}
-                    closeModal={closeModal}
-                    getPrices={props.getPrices}
-                  />
-                )}
-                {/* ************************ GENERAL PRICES FORM (annual subscription + license) */}
-                {props.type === 'general' && (
-                  <GeneralPricesForm
-                    generalPrices={props.generalPrices}
-                    closeModal={closeModal}
-                    getGeneralPrices={props.getPrices}
-                  />
-                )}
-                {/* ************************ PENSION RATE FORM (third, half, full) */}
-                {props.type === 'pension' && (
-                  <PensionPricesForm
-                    pensionPrices={props.pensionPrices}
-                    closeModal={closeModal}
-                    getPrices={props.getPrices}
-                  />
-                )}
-
-                {/* ************************ PLANNING FORM */}
-                {props.type === 'weeklyPlanner' && (
-                  <WeeklyPlannerForm
-                    closeModal={closeModal}
-                    fetchPlanning={props.fetchPlanning}
-                    schedule={props.schedule}
-                    daysOfWeek={props.daysOfWeek}
-                    timeSlots={props.timeSlots}
-                    selectedTimeSlot={props.selectedTimeSlot}
-                    selectedDay={props.selectedDay}
-                    period={props.period}
-                    setDeleteButton={setDeleteButton}
-                  />
-                )}
-                {/* ************************ VACATION PERIOD DATE FORM */}
-                {props.type === 'holidayWeeklyPlanner' && (
-                  <HolidayWeeklyPlannerForm
-                    closeModal={closeModal}
-                    holidayDateWeeklyPlanner={props.holidayDateWeeklyPlanner}
-                    fetchPlanning={props.fetchPlanning}
-                  />
-                )}
-                {/* ************************ ADMINISTRATOR PARAMETERS MANAGEMENT (mail/mdp/logout) */}
-                {props.type === 'updateLog' && <UpdateLog />}
+                {/* modal content */}
+                {children}
               </div>
             </div>
           </div>
           {/* Button section (e.g., Close, Cancel) */}
           <div className='px-4 py-3 sm:px-6 flex flex-col gap-2 justify-center'>
-            {deleteButton}
             <button
               onClick={closeModal}
               type='button'
@@ -170,7 +73,9 @@ const Modal = (props) => {
                 buttonClassName + 'border-2 bg-blue-700 hover:bg-blue-500'
               }
             >
-              {props.type === 'updateLog' ? 'Fermer' : 'Annuler'}
+              {title === 'Gestion du compte administrateur'
+                ? 'Fermer'
+                : 'Annuler'}
             </button>
           </div>
         </div>
@@ -180,22 +85,10 @@ const Modal = (props) => {
 };
 
 Modal.propTypes = {
+  children: PropTypes.element.isRequired,
   isModalOpen: PropTypes.bool,
   setModalOpen: PropTypes.func,
-  type: PropTypes.string,
-  generalPrices: PropTypes.object,
-  equestrianCenterPrices: PropTypes.object,
-  pensionPrices: PropTypes.object,
-  getPrices: PropTypes.func,
-  fetchPlanning: PropTypes.func,
-  schedule: PropTypes.arrayOf(PropTypes.object),
-  daysOfWeek: PropTypes.arrayOf(PropTypes.string),
-  timeSlots: PropTypes.arrayOf(PropTypes.string),
-  selectedTimeSlot: PropTypes.object,
-  selectedDay: PropTypes.object,
-  period: PropTypes.string,
-  holidayDateWeeklyPlanner: PropTypes.string,
-  setHolidayModalOpen: PropTypes.func,
+  title: PropTypes.string.isRequired,
 };
 
 export default Modal;

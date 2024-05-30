@@ -45,5 +45,18 @@
   .button-neumorphism-shadow {
     box-shadow: 5px 5px 10px #292625, -5px -5px 10px #292625;
   }
+  .sg-form-lib {
+    background-color: #634d4c;
+  }
+  .sg-form-lib .sg-form-lib__input,
+  .sg-form-lib__textarea,
+  .sg-form-lib__select {
+    background-color: white;
+    color: #000000;
+  }
+  .sg-form-lib .sg-form-lib__data--error,
+  .sg-form-lib__message--error {
+    color: #f2abab;
+  }
 }
 /* npx tailwindcss -i ./src/input.css -o ./src/output.css --watch */
