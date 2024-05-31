@@ -44,7 +44,7 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <div className='flex flex-col justify-center bg-white w-fit m-auto p-8 rounded-lg'>
+    <div className='flex flex-col justify-center w-fit m-auto p-8 rounded-lg'>
       {emailMessage ? (
         // Display message after email is sent
         <>
@@ -71,7 +71,7 @@ const ForgotPassword = (props) => {
             origin={'forgotPassword'}
           />
           <button
-            className={buttonClassName + ' flex justify-center'}
+            className={buttonClassName + ' flex justify-center bg-red-400'}
             onClick={() => props.setForgotPassword(false)}
           >
             Retour
