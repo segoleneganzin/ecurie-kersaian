@@ -19,7 +19,7 @@ const Admin = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
-    setShowScrollButton(handleScroll);
+    setShowScrollButton(handleScroll());
     // Attach the event listener
     window.addEventListener('scroll', handleScroll);
   }, [showScrollButton]);

@@ -1,33 +1,30 @@
-import { useNavigate } from 'react-router-dom';
-import logo from '../assets/images/logo.webp';
+import { Link } from 'react-router-dom/dist';
+import logo from '../assets/logo2.png';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const goTo = (page) => {
-    navigate(page);
-  };
-
   return (
-    <div className='bg-principal-color h-dvh'>
-      <header>
-        <h1 className='m-auto pt-6 w-fit lg:pt-16'>
-          <img src={logo} alt='Logo du site' className='w-64 sm:w-auto' />
-        </h1>
+    <div className='h-dvh'>
+      <header className='m-auto mt-24 w-fit lg:mt-48'>
+        <img
+          src={logo}
+          alt="Logo de l'écurie Kersaïan"
+          className='w-64 sm:w-auto'
+        />
       </header>
       <main className='font-inconsolata'>
-        <div className='flex flex-col gap-16 items-center justify-center mt-24 text-grey text-3xl lg:flex-row lg:gap-32'>
-          <a
-            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
-            onClick={() => goTo('/centre-equestre')}
+        <div className='flex flex-col gap-16 items-center justify-center mt-28 text-3xl lg:gap-28'>
+          <Link
+            className='hover:text-gray-500 hover:font-bold cursor-pointer pb-2 border-b-2 border-black hover:border-gray-500'
+            to={'/centre-equestre'}
           >
-            <h2>Centre équestre</h2>
-          </a>
-          <a
-            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
-            onClick={() => goTo('/pension')}
+            Centre équestre
+          </Link>
+          <Link
+            className='hover:text-gray-500 hover:font-bold cursor-pointer pb-2 border-b-2 border-black hover:border-gray-500'
+            to={'/pension'}
           >
-            <h2>Pension</h2>
-          </a>
+            Pension
+          </Link>
         </div>
       </main>
     </div>

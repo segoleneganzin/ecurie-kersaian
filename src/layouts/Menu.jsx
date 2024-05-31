@@ -24,7 +24,7 @@ const Menu = ({ page }) => {
   useEffect(() => {
     if (hamburgerOpen) {
       setMenuClassName(
-        'absolute bg-principal-color lg:rounded-bl-3xl flex flex-col h-fit pb-12 lg:pl-12 right-0 top-200 z-97 w-full lg:w-auto'
+        'absolute bg-white lg:rounded-bl-3xl flex flex-col h-fit pb-12 lg:pl-12 right-0 top-200 z-97 w-full lg:w-auto xl:bg-secondary-color xl:top-64 xl:rounded-l-3xl'
       );
     } else {
       setMenuClassName('hidden');
@@ -35,9 +35,9 @@ const Menu = ({ page }) => {
     <div>
       {/* hamburger icon */}
       <div className='space-y-2 cursor-pointer' onClick={toggleResponsiveMenu}>
-        <div className='w-14 h-2 bg-secondary-color'></div>
-        <div className='w-14 h-2 bg-secondary-color'></div>
-        <div className='w-14 h-2 bg-secondary-color'></div>
+        <div className='rounded w-14 h-1 bg-black'></div>
+        <div className='rounded w-14 h-1 bg-black'></div>
+        <div className='rounded w-14 h-1 bg-black'></div>
       </div>
       {/* Navigation menu */}
       <nav ref={menu} className={menuClassName}>
