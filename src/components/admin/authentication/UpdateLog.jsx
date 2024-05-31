@@ -31,14 +31,15 @@ const UpdateLog = () => {
   };
 
   return (
-    <div className='flex flex-col gap-4 mt-8'>
+    <div className='flex flex-col gap-6 my-8'>
       {/* Button to open/close e-mail address update component */}
       {!updateEmailOpen && (
         <button
           onClick={toggleUpdateEmail}
           ref={updateMailRef}
           className={
-            buttonClassName + ' bg-principal-color hover:bg-secondary-color'
+            buttonClassName +
+            ' bg-principal-color hover:bg-secondary-color w-full'
           }
         >
           Modifier votre adresse email
@@ -55,7 +56,8 @@ const UpdateLog = () => {
         <button
           onClick={toggleUpdatePassword}
           className={
-            buttonClassName + ' bg-principal-color hover:bg-secondary-color'
+            buttonClassName +
+            ' bg-principal-color hover:bg-secondary-color w-full'
           }
         >
           Modifier votre mot de passe
@@ -70,7 +72,7 @@ const UpdateLog = () => {
       {/* Bouton pour déconnecter l'utilisateur */}
       <button
         onClick={signOutUser}
-        className={buttonClassName + ' bg-red-800 hover:bg-red-600'}
+        className={buttonClassName + ' bg-red-800 hover:bg-red-600 w-full'}
       >
         Déconnexion
       </button>

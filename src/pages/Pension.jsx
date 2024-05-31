@@ -16,9 +16,15 @@ const Pension = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
-    setShowScrollButton(handleScroll());
+    const handleScrollEvent = () => {
+      setShowScrollButton(handleScroll());
+    };
     // Attach the event listener
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScrollEvent);
+    // Remove the event listener on unmount
+    return () => {
+      window.removeEventListener('scroll', handleScrollEvent);
+    };
   }, [showScrollButton]);
 
   return (

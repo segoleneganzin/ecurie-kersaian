@@ -24,7 +24,7 @@ const Header = ({ menu }) => {
       break;
   }
   return (
-    <header className='flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
+    <header className='flex flex-col gap-4 items-center justify-between pb-6 lg:pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
       <div className='flex flex-col justify-center items-center pb-6 lg:flex-row lg:gap-20 lg:pb-0'>
         <a
           href={menu === 'admin' ? '/admin' : '/'}

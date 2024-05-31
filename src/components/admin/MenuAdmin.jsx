@@ -18,7 +18,7 @@ const MenuAdmin = () => {
         onClick={() => {
           setModalOpen(true);
         }}
-        className='cursor-pointer w-10 h-10 bg-secondary-color rounded-full flex justify-center items-center'
+        className='cursor-pointer w-10 h-10 bg-principal-color rounded-full flex justify-center items-center'
       >
         {/* icon */}
         <svg

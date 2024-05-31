@@ -18,7 +18,7 @@ const Modal = ({ isModalOpen, setModalOpen, title, children }) => {
 
   return (
     <div
-      className='fixed inset-0 z-40 overflow-y-auto'
+      className='fixed inset-0 z-40 overflow-y-auto sm:mt-28'
       aria-hidden={!isModalOpen}
       aria-describedby='modalTitle'
       role='dialog'
@@ -70,7 +70,8 @@ const Modal = ({ isModalOpen, setModalOpen, title, children }) => {
               onClick={closeModal}
               type='button'
               className={
-                buttonClassName + 'border-2 bg-blue-700 hover:bg-blue-500'
+                buttonClassName +
+                'border-2 bg-blue-700 hover:bg-blue-500 w-full'
               }
             >
               {title === 'Gestion du compte administrateur'
