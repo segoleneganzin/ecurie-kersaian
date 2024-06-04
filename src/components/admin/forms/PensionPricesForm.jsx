@@ -1,21 +1,18 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { updatePrices } from '../../../api/PricesApi';
 import {
   subtitleClassName,
   separationClassName,
   formClassName,
-  labelClassName,
-  formDataContainerClassName,
   inputClassName,
   inputErrorClassName,
-  textareaContainerClassName,
   textareaClassName,
   textareaErrorClassName,
-  errorMessageClassName,
   buttonClassName,
 } from '../../../utils/GeneralClassNames';
+import FormSectionLayout from '../../../layouts/FormSectionLayout';
+
 /**
  * Form for managing pension prices.
  * @param {Object} props
@@ -53,58 +50,6 @@ const PensionPricesForm = ({ pensionPrices, setModalOpen, getPrices }) => {
   };
 
   /**
-   * Function to obtain the error message for a given field.
-   * @param {string} field
-   * @returns {string} - Field error message
-   */
-  const inputErrorMessage = (field) => {
-    const errorMessages = {
-      halfPensionDescription: errors[field]
-        ? 'Veuillez renseigner une description'
-        : '',
-      thirdPartPensionDescription: errors[field]
-        ? 'Veuillez renseigner une description'
-        : '',
-
-      default: errors[field] ? 'Veuillez renseigner un tarif' : '',
-    };
-    return errorMessages[field] || errorMessages.default;
-  };
-
-  /**
-   * Updates form data with existing prices.
-   */
-  const updateInputDatas = async () => {
-    try {
-      if (pensionPrices) {
-        setValue(
-          'halfPensionDescription',
-          pensionPrices['halfPension']['description']
-        );
-        setValue('halfPensionTarif', pensionPrices['halfPension']['price']);
-        setValue(
-          'thirdPartPensionDescription',
-          pensionPrices['thirdPartPension']['description']
-        );
-        setValue(
-          'thirdPartPensionTarif',
-          pensionPrices['thirdPartPension']['price']
-        );
-      }
-    } catch (e) {
-      console.log(
-        'Erreur lors de la récupération du document mis en cache :',
-        e
-      );
-    }
-  };
-
-  useEffect(() => {
-    updateInputDatas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  /**
    * Submits form data for update and closes the modal.
    */
   const updateFormPrices = async () => {
@@ -135,79 +80,33 @@ const PensionPricesForm = ({ pensionPrices, setModalOpen, getPrices }) => {
       {/******* HALF pension */}
       <h3 className='font-bold text-lg mt-6'>Demi pension</h3>
       <div className={separationClassName}></div>
-      <div className={textareaContainerClassName}>
-        <label className={labelClassName} htmlFor='halfPensionDescription'>
-          Description :
-        </label>
-        <textarea
-          id='halfPensionDescription'
-          name='halfPensionDescription'
-          type='text'
-          className={inputErrorClass('halfPensionDescription')}
-          {...register('halfPensionDescription', { required: true })}
-        />
-      </div>
-      {errors.halfPensionDescription && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('halfPensionDescription')}
-        </span>
-      )}
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='halfPensionTarif'>
-          Tarif :
-        </label>
-        <input
-          id='halfPensionTarif'
-          name='halfPensionTarif'
-          type='number'
-          className={inputErrorClass('halfPensionTarif')}
-          {...register('halfPensionTarif', { required: true })}
-        />
-      </div>
-      {errors.halfPensionTarif && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('halfPensionTarif')}
-        </span>
-      )}
+      <FormSectionLayout
+        fieldNames={['halfPensionDescription', 'halfPensionTarif']}
+        fieldValue={{
+          halfPensionDescription: pensionPrices['halfPension']['description'],
+          halfPensionTarif: pensionPrices['halfPension']['price'],
+        }}
+        register={register}
+        inputErrorClass={inputErrorClass}
+        errors={errors}
+        setValue={setValue}
+      />
 
       {/******* one-third pension */}
       <h3 className='font-bold text-lg mt-6'>Tiers de pension</h3>
       <div className={separationClassName}></div>
-      <div className={textareaContainerClassName}>
-        <label className={labelClassName} htmlFor='thirdPartPensionDescription'>
-          Description :
-        </label>
-        <textarea
-          id='thirdPartPensionDescription'
-          name='thirdPartPensionDescription'
-          type='text'
-          className={inputErrorClass('thirdPartPensionDescription')}
-          {...register('thirdPartPensionDescription', { required: true })}
-        />
-      </div>
-      {errors.thirdPartPensionDescription && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('thirdPartPensionDescription')}
-        </span>
-      )}
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='thirdPartPensionTarif'>
-          Tarif :
-        </label>
-        <input
-          id='thirdPartPensionTarif'
-          name='thirdPartPensionTarif'
-          type='number'
-          className={inputErrorClass('thirdPartPensionTarif')}
-          {...register('thirdPartPensionTarif', { required: true })}
-        />
-      </div>
-      {errors.thirdPartPensionTarif && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('thirdPartPensionTarif')}
-        </span>
-      )}
-
+      <FormSectionLayout
+        fieldNames={['thirdPartPensionDescription', 'thirdPartPensionTarif']}
+        fieldValue={{
+          thirdPartPensionDescription:
+            pensionPrices['thirdPartPension']['description'],
+          thirdPartPensionTarif: pensionPrices['thirdPartPension']['price'],
+        }}
+        register={register}
+        inputErrorClass={inputErrorClass}
+        errors={errors}
+        setValue={setValue}
+      />
       <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
         <button
           className={buttonClassName + ' bg-green-700 hover:bg-green-500'}

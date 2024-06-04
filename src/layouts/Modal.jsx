@@ -18,7 +18,7 @@ const Modal = ({ isModalOpen, setModalOpen, title, children }) => {
 
   return (
     <div
-      className='fixed inset-0 z-40 overflow-y-auto sm:mt-28'
+      className='fixed inset-0 z-40 overflow-y-auto sm:mt-12'
       aria-hidden={!isModalOpen}
       aria-describedby='modalTitle'
       role='dialog'
