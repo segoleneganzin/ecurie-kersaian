@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import Menu from './Menu';
 import MenuAdmin from '../components/admin/MenuAdmin';
-import logo from '../assets/images/logo.webp';
+// import logo from '../assets/images/logo.webp';
+import logo from '../assets/logo2.png';
 
 const Header = ({ menu }) => {
   let headerMenu;
@@ -23,7 +24,7 @@ const Header = ({ menu }) => {
       break;
   }
   return (
-    <header className='bg-principal-color flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 shadow-lg lg:flex-row lg:pr-12 font-inconsolata'>
+    <header className='flex flex-col gap-4 items-center justify-between pb-6 lg:pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
       <div className='flex flex-col justify-center items-center pb-6 lg:flex-row lg:gap-20 lg:pb-0'>
         <a
           href={menu === 'admin' ? '/admin' : '/'}
@@ -33,12 +34,12 @@ const Header = ({ menu }) => {
           <img
             src={logo}
             alt='Logo du site'
-            className='w-64 lg:ml-12'
+            className='w-64 lg:ml-12 my-6'
             width={256}
             height={188}
           />
         </a>
-        <h1 className='text-xl text-white tracking-widest lg:text-left lg:text-3xl w-fit'>
+        <h1 className='text-xl tracking-widest lg:text-left lg:text-3xl w-fit font-bold'>
           {headerSubtitle}
         </h1>
       </div>

@@ -26,7 +26,7 @@ export const adminEditButtonClassname =
   'bg-lime-800 cursor-pointer p-2 rounded-lg shadow-lg text-white tracking-widest w-fit mb-2 self-end mr-2';
 // *********************************************** CLASSNAMES MENU
 export const menuListClassName =
-  'mt-16 gap-10 text-center text-white text-xl lg:mr-14 lg:text-right flex flex-col items-center lg:items-end';
+  'mt-16 gap-10 text-center text-xl lg:mr-14 lg:text-right flex flex-col items-center lg:items-end lg:text-white lg:mt-12';
 export const menuListItemClassName =
   'w-fit transform transition duration-500 hover:scale-125 origin-bottom lg:origin-bottom-right';
 // *********************************************** CLASSNAMES PAGES

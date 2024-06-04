@@ -94,6 +94,6 @@ const Carousel = ({ medias }) => {
   );
 };
 Carousel.propTypes = {
-  medias: PropTypes.arrayOf(PropTypes.object),
+  medias: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 export default Carousel;

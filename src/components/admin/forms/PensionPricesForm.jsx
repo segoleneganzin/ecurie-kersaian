@@ -20,11 +20,11 @@ import {
  * Form for managing pension prices.
  * @param {Object} props
  * @param {Object} props.generalPrices
- * @param {Function} props.closeModal
+ * @param {Function} props.setModalOpen
  * @param {Function} props.getGeneralPrices
  * @returns {JSX.Element}
  */
-const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
+const PensionPricesForm = ({ pensionPrices, setModalOpen, getPrices }) => {
   const {
     register,
     handleSubmit,
@@ -120,7 +120,7 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
     };
     await updatePrices('pension', pensionDatas);
     await getPrices();
-    closeModal();
+    setModalOpen(false);
   };
 
   return (
@@ -220,9 +220,9 @@ const PensionPricesForm = ({ pensionPrices, closeModal, getPrices }) => {
 };
 
 PensionPricesForm.propTypes = {
-  pensionPrices: PropTypes.object,
-  closeModal: PropTypes.func,
-  getPrices: PropTypes.func,
+  pensionPrices: PropTypes.object.isRequired,
+  setModalOpen: PropTypes.func.isRequired.isRequired,
+  getPrices: PropTypes.func.isRequired,
 };
 
 export default PensionPricesForm;

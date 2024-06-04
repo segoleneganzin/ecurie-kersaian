@@ -1,28 +1,29 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { updatePrices } from '../../../api/PricesApi';
 import {
   subtitleClassName,
   separationClassName,
   formClassName,
-  labelClassName,
-  formDataContainerClassName,
   inputClassName,
   inputErrorClassName,
-  errorMessageClassName,
   buttonClassName,
 } from '../../../utils/GeneralClassNames';
+import FormSectionLayout from '../../../layouts/FormSectionLayout';
 
 /**
  * Form to manage general prices.
  * @param {Object} props
  * @param {Object} props.generalPrices
- * @param {Function} props.closeModal
+ * @param {Function} props.setModalOpen
  * @param {Function} props.getGeneralPrices
  * @returns {JSX.Element}
  */
-const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
+const GeneralPricesForm = ({
+  generalPrices,
+  setModalOpen,
+  getGeneralPrices,
+}) => {
   const {
     register,
     handleSubmit,
@@ -41,42 +42,6 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
   };
 
   /**
-   * Function to obtain the error message for a given field.
-   * @param {string} field
-   * @returns {string} - Field error message
-   */
-  const inputErrorMessage = (field) => {
-    const errorMessages = {
-      season: errors[field] ? 'Veuillez renseigner la saison' : '',
-      default: errors[field] ? 'Veuillez renseigner un tarif' : '',
-    };
-    return errorMessages[field] || errorMessages.default;
-  };
-
-  /**
-   * Updates form data with existing general prices.   */
-  const updateInputDatas = async () => {
-    try {
-      if (generalPrices) {
-        setValue('season', generalPrices['season']);
-        setValue('annualSubscription', generalPrices['annualSubscription']);
-        setValue('ffeLicenseUnder18', generalPrices['ffeLicense']['under18']);
-        setValue('ffeLicenseOver18', generalPrices['ffeLicense']['over18']);
-      }
-    } catch (e) {
-      console.log(
-        'Erreur lors de la récupération du document mis en cache :',
-        e
-      );
-    }
-  };
-
-  useEffect(() => {
-    updateInputDatas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  /**
    * Update general prices backend
    */
   const updateFormPrices = async () => {
@@ -90,7 +55,7 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
     };
     await updatePrices('general', generalDatas);
     await getGeneralPrices();
-    closeModal();
+    setModalOpen(false);
   };
 
   return (
@@ -99,80 +64,39 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
       className={formClassName}
       noValidate
     >
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='season'>
-          Saison :
-        </label>
-        <input
-          id='season'
-          name='season'
-          type='text'
-          className={inputErrorClass('season') + 'w-20'}
-          {...register('season', { required: true })}
-        />
-      </div>
-      {errors.season && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('season')}
-        </span>
-      )}
+      <FormSectionLayout
+        fieldNames={['season']}
+        fieldValue={{ season: generalPrices['season'] }}
+        register={register}
+        inputErrorClass={inputErrorClass}
+        errors={errors}
+        setValue={setValue}
+      />
       {/* ****************************GENERAL */}
       <h2 className={subtitleClassName}>Tarifs généraux</h2>
       {/*******  annual subscription */}
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='annualSubscription'>
-          Cotisation annuelle :
-        </label>
-        <input
-          id='annualSubscription'
-          name='annualSubscription'
-          type='number'
-          className={inputErrorClass('annualSubscription')}
-          {...register('annualSubscription', { required: true })}
-        />
-      </div>
-      {errors.annualSubscription && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('annualSubscription')}
-        </span>
-      )}
+      <FormSectionLayout
+        fieldNames={['annualSubscription']}
+        fieldValue={{ annualSubscription: generalPrices['annualSubscription'] }}
+        register={register}
+        inputErrorClass={inputErrorClass}
+        errors={errors}
+        setValue={setValue}
+      />
       {/*******  FFE license */}
       <h3 className='font-bold text-lg mt-6'>Licence annuelle FFE</h3>
       <div className={separationClassName}></div>
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='ffeLicenseUnder18'>
-          - de 18ans :
-        </label>
-        <input
-          id='ffeLicenseUnder18'
-          name='ffeLicenseUnder18'
-          type='number'
-          className={inputErrorClass('ffeLicenseUnder18')}
-          {...register('ffeLicenseUnder18', { required: true })}
-        />
-      </div>
-      {errors.ffeLicenseUnder18 && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('ffeLicenseUnder18')}
-        </span>
-      )}
-      <div className={formDataContainerClassName}>
-        <label className={labelClassName} htmlFor='ffeLicenseOver18'>
-          + de 18ans :
-        </label>
-        <input
-          id='ffeLicenseOver18'
-          name='ffeLicenseOver18'
-          type='number'
-          className={inputErrorClass('ffeLicenseOver18')}
-          {...register('ffeLicenseOver18', { required: true })}
-        />
-      </div>
-      {errors.ffeLicenseOver18 && (
-        <span className={errorMessageClassName}>
-          {inputErrorMessage('ffeLicenseOver18')}
-        </span>
-      )}
+      <FormSectionLayout
+        fieldNames={['ffeLicenseUnder18', 'ffeLicenseOver18']}
+        fieldValue={{
+          ffeLicenseOver18: generalPrices['ffeLicense']['over18'],
+          ffeLicenseUnder18: generalPrices['ffeLicense']['under18'],
+        }}
+        register={register}
+        inputErrorClass={inputErrorClass}
+        errors={errors}
+        setValue={setValue}
+      />
 
       <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
         <button
@@ -186,9 +110,9 @@ const GeneralPricesForm = ({ generalPrices, closeModal, getGeneralPrices }) => {
 };
 
 GeneralPricesForm.propTypes = {
-  generalPrices: PropTypes.object,
-  closeModal: PropTypes.func,
-  getGeneralPrices: PropTypes.func,
+  generalPrices: PropTypes.object.isRequired,
+  setModalOpen: PropTypes.func.isRequired,
+  getGeneralPrices: PropTypes.func.isRequired,
 };
 
 export default GeneralPricesForm;

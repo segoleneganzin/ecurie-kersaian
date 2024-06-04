@@ -1,36 +1,29 @@
-import { useNavigate } from 'react-router-dom';
-import logo from '../assets/images/logo.webp';
+import { Link } from 'react-router-dom/dist';
+import logo from '../assets/logo2.png';
 
 const Home = () => {
-  const navigate = useNavigate();
-  const goTo = (page) => {
-    navigate(page);
-  };
-
   return (
-    <div className='bg-principal-color h-dvh'>
-      <header>
-        <h1 className='m-auto pt-6 w-fit lg:pt-16'>
-          <img src={logo} alt='Logo du site' className='w-64 sm:w-auto' />
-        </h1>
-      </header>
-      <main className='font-inconsolata'>
-        <div className='flex flex-col gap-16 items-center justify-center mt-24 text-grey text-3xl lg:flex-row lg:gap-32'>
-          <a
-            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
-            onClick={() => goTo('/centre-equestre')}
-          >
-            <h2>Centre équestre</h2>
-          </a>
-          <a
-            className='transform transition duration-500 hover:bg-secondary-color hover:text-white cursor-pointer origin-bottom rounded-full bg-principal-color button-neumorphism-shadow p-8'
-            onClick={() => goTo('/pension')}
-          >
-            <h2>Pension</h2>
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className='font-inconsolata lg:mt-60'>
+      <div className='flex flex-col gap-16 items-center justify-center mt-28 text-3xl lg:gap-28 lg:flex-row lg:justify-evenly lg:w-full'>
+        <img
+          src={logo}
+          alt="Logo de l'écurie Kersaïan"
+          className='w-64 sm:w-auto lg:order-2'
+        />
+        <Link
+          className='hover:text-gray-500 hover:font-bold cursor-pointer pb-2 border-b-2 border-black hover:border-gray-500 lg:order-3'
+          to={'/centre-equestre'}
+        >
+          Centre équestre
+        </Link>
+        <Link
+          className='hover:text-gray-500 hover:font-bold cursor-pointer pb-2 border-b-2 border-black hover:border-gray-500 lg:order-1'
+          to={'/pension'}
+        >
+          Pension
+        </Link>
+      </div>
+    </main>
   );
 };
 

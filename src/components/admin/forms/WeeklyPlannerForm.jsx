@@ -1,163 +1,49 @@
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { removeTimeSlot, updateTimeSlot } from '../../../api/WeeklyPlannerApi';
-import {
-  formClassName,
-  labelClassName,
-  formDataContainerClassName,
-  inputClassName,
-  inputErrorClassName,
-  textareaContainerClassName,
-  textareaClassName,
-  textareaErrorClassName,
-  errorMessageClassName,
-  buttonClassName,
-} from '../../../utils/GeneralClassNames';
+import { buttonClassName } from '../../../utils/GeneralClassNames';
+import { Form } from 'sg-form-lib';
+import { formFieldsConfig } from '../../../formFieldsconfig';
+
 /**
  * Modal component to add or modify a time slot in the weekly schedule.
  * @component
  * @param {Object} props
- * @param {function} props.closeModal
  * @param {function} props.fetchPlanning
  * @param {Object[]} props.schedule
  * @param {string[]} props.daysOfWeek
  * @param {string[]} props.timeSlots
  * @param {Object} props.selectedTimeSlot
  * @param {Object} props.selectedDay
- * @param {string} props.period - school or holiday
- * @param {function} props.setDeleteButton
+ * @param {Function} props.setModalOpen
  * @returns {JSX.Element}
  */
 const WeeklyPlannerForm = ({
-  closeModal,
   fetchPlanning,
   schedule,
   daysOfWeek,
   timeSlots,
   selectedTimeSlot,
   selectedDay,
-  period,
+  setModalOpen,
 }) => {
-  const [deleteButton, setDeleteButton] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [state, setState] = useState({
-    day: null,
-    time: null,
-    available: true,
-    duration: 60,
-    title: null,
-    startTime: null,
-    endTime: null,
-    cellBg: null,
+    day: selectedDay.day,
+    timeSlot: selectedTimeSlot.timeSlot,
+    isAvailable: selectedTimeSlot.available,
+    duration: selectedTimeSlot.available ? 60 : selectedTimeSlot.duration,
+    title: selectedTimeSlot.available ? ' ' : selectedTimeSlot.title.join('\n'),
+    startTime: selectedTimeSlot.timeSlot,
+    endTime: selectedTimeSlot.available ? null : selectedTimeSlot.endTime,
+    cellBg: selectedTimeSlot.available ? '#ffffff' : selectedTimeSlot.cellBg,
   });
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    reset,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      duration: 60,
-      title: 'Cours',
-      cellBg: '#000000',
-    },
-  });
-
-  /**
-   * Function to obtain the error class for a given field.
-   * @param {string} field
-   * @returns {string} - Field error class.
-   */
-  const inputErrorClass = (field) => {
-    const errorClasses = {
-      title: errors[field] ? textareaErrorClassName : textareaClassName,
-      cellBg: errors[field] ? inputErrorClassName : 'h-6 border rounded-md',
-      default: errors[field] ? inputErrorClassName : inputClassName,
-    };
-    return errorClasses[field] || errorClasses.default;
-  };
-
-  /**
-   * Obtain the error message for a given field.
-   */
-  const inputErrorMessage = {
-    duration: errors.duration ? 'Veuillez renseigner une durée valide' : '',
-    title: errors.title ? 'Veuillez renseigner un intitulé' : '',
-    cellBg: errors.cellBg ? 'Veuillez renseigner une couleur de fond' : '',
-  };
-
-  /**
-   * Check if the duration is valid (multiple of 15 minutes and greater than 15 minutes).
-   * @param {number} value
-   * @returns {boolean}
-   */
-  const isDurationValid = (value) => {
-    let res = true;
-    if (value % 15 !== 0 || value < 15) {
-      res = false;
-    }
-    return res;
-  };
-
-  // Fill in the data in the form fields (with existing datas if timeslot isn't available, or default if it is)
-  const updateState = () => {
-    if (!selectedTimeSlot.available) {
-      const formattedTitle = selectedTimeSlot.title.join('\n');
-      setState({
-        day: selectedDay.day,
-        timeSlot: selectedTimeSlot.startTime,
-        available: false,
-        duration: selectedTimeSlot.duration,
-        title: formattedTitle,
-        startTime: selectedTimeSlot.startTime,
-        endTime: selectedTimeSlot.endTime,
-        cellBg: selectedTimeSlot.cellBg,
-      });
-      setValue('duration', selectedTimeSlot.duration);
-      setValue('title', formattedTitle);
-      setValue('cellBg', selectedTimeSlot.cellBg);
-      setDeleteButton(
-        <button
-          onClick={() =>
-            deleteTimeSlot(
-              selectedDay.day,
-              selectedTimeSlot.startTime,
-              schedule
-            )
-          }
-          type='button'
-          className={buttonClassName + ' bg-red-700 hover:bg-red-500'}
-        >
-          Supprimer
-        </button>
-      );
-    } else {
-      setDeleteButton('');
-      reset({
-        duration: 60,
-        title: 'Cours',
-        cellBg: '#000000',
-      });
-      setState({
-        day: selectedDay.day,
-        timeSlot: selectedTimeSlot.timeSlot,
-        startTime: selectedTimeSlot.timeSlot,
-      });
-    }
-  };
-
-  useEffect(() => {
-    updateState();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   /**
    * Adds or modifies the time slot in the schedule.
    */
-  const addTimeSlot = async () => {
+  const addTimeSlot = async (inputDuration, inputTitle, inputCellBg) => {
     try {
       const selectedDay = schedule.find((item) => item.day === state.day);
       const dayIndex = daysOfWeek.findIndex((item) => item === state.day);
@@ -167,9 +53,6 @@ const WeeklyPlannerForm = ({
       const timeSlotIndex = selectedDay.schedule.findIndex(
         (item) => item.timeSlot === state.timeSlot
       );
-      const inputDuration = getValues('duration');
-      const inputTitle = getValues('title');
-      const inputCellBg = getValues('cellBg');
       setState({
         duration: inputDuration,
         title: inputTitle,
@@ -195,11 +78,12 @@ const WeeklyPlannerForm = ({
           startTime: startTime,
           endTime: endTime,
         };
-        await updateTimeSlot(dayIndex, i, { datas }, period);
+        await updateTimeSlot(dayIndex, i, { datas }, 'holiday');
       }
       fetchPlanning();
-      closeModal();
+      setModalOpen(false);
     } catch (error) {
+      setErrorMessage("Une erreur s'est produite");
       console.log('Error getting cached document:', error);
     }
   };
@@ -223,10 +107,10 @@ const WeeklyPlannerForm = ({
       const numberOfSlots = timeSlot.duration / 15; // 15 minutes per slot
       const TimeSlotsLength = startTimeSlotIndex + numberOfSlots;
       for (let i = startTimeSlotIndex; i < TimeSlotsLength; i++) {
-        await removeTimeSlot(dayIndex, i, period);
+        await removeTimeSlot(dayIndex, i, 'holiday');
       }
       fetchPlanning();
-      closeModal();
+      setModalOpen(false);
     } catch (error) {
       console.log('Error getting cached document:', error);
     }
@@ -234,100 +118,56 @@ const WeeklyPlannerForm = ({
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(addTimeSlot)}
-        className={formClassName}
-        noValidate
-      >
-        <div className='mb-4'>
-          {/* day */}
-          <p>Jour : {state.day}</p>
-          {/* start time */}
-          <p>Heure de début :{state.timeSlot}</p>
-        </div>
-        {/* separation */}
-        <div className='border-t-2 border-principal-color w-full mb-4'></div>
-        {/* title */}
-        <div className={textareaContainerClassName}>
-          <label className={labelClassName} htmlFor='title'>
-            Intitulé :
-          </label>
-          <textarea
-            id='title'
-            name='title'
-            type='text'
-            rows='5'
-            className={inputErrorClass('title') + ' w-full'}
-            {...register('title', { required: true })}
-          />
-        </div>
-        {errors.title && (
-          <span className={errorMessageClassName}>
-            {inputErrorMessage.title}
-          </span>
-        )}
-        {/* duration */}
-        <div className={formDataContainerClassName}>
-          <label className={labelClassName} htmlFor='duration'>
-            Durée (tranche de 15 minutes) :
-          </label>
-          <input
-            id='duration'
-            name='duration'
-            type='number'
-            className={inputErrorClass('duration')}
-            {...register('duration', {
-              required: true,
-              validate: isDurationValid,
-            })}
-          />
-        </div>
-        {errors.duration && (
-          <span className={errorMessageClassName}>
-            {inputErrorMessage.duration}
-          </span>
-        )}
-        {/* background color of timeslot */}
-        <div className={formDataContainerClassName}>
-          <label className={labelClassName} htmlFor='cellBg'>
-            Couleur de fond :
-          </label>
-          <input
-            id='cellBg'
-            name='cellBg'
-            type='color'
-            className={inputErrorClass('cellBg')}
-            {...register('cellBg', { required: true })}
-          />
-        </div>
-        {errors.cellBg && (
-          <span className={errorMessageClassName}>
-            {inputErrorMessage.cellBg}
-          </span>
-        )}
-        <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
-          <button
-            className={buttonClassName + ' bg-green-700 hover:bg-green-500'}
-          >
-            Valider
-          </button>
-        </div>
-      </form>
-      {deleteButton}
+      <Form
+        fieldsConfig={formFieldsConfig}
+        title={state.isAvailable ? 'Nouvelle séance' : 'Modifier la séance'}
+        subtitle={
+          <>
+            <span className='font-bold underline'>Jour :</span>{' '}
+            {' ' + state.day} <br />
+            <span className='font-bold underline'>Heure de début :</span>
+            {' ' + state.timeSlot}
+          </>
+        }
+        onSubmitFunction={addTimeSlot}
+        btnText={'Valider'}
+        errorMessage={errorMessage}
+        fieldNames={['title', 'duration', 'cellBg']}
+        fieldValue={{
+          title: state.title,
+          duration: state.duration,
+          cellBg: state.cellBg,
+        }}
+      />
+      {!state.isAvailable && (
+        <button
+          onClick={() =>
+            deleteTimeSlot(
+              selectedDay.day,
+              selectedTimeSlot.startTime,
+              schedule
+            )
+          }
+          type='button'
+          className={
+            buttonClassName + ' mt-4 bg-red-700 hover:bg-red-500 w-full'
+          }
+        >
+          Supprimer
+        </button>
+      )}
     </>
   );
 };
 
 WeeklyPlannerForm.propTypes = {
-  closeModal: PropTypes.func,
-  fetchPlanning: PropTypes.func,
-  schedule: PropTypes.arrayOf(PropTypes.object),
-  daysOfWeek: PropTypes.arrayOf(PropTypes.string),
-  timeSlots: PropTypes.arrayOf(PropTypes.string),
-  selectedTimeSlot: PropTypes.object,
-  selectedDay: PropTypes.object,
-  period: PropTypes.string,
-  setDeleteButton: PropTypes.func,
+  setModalOpen: PropTypes.func.isRequired,
+  fetchPlanning: PropTypes.func.isRequired,
+  schedule: PropTypes.arrayOf(PropTypes.object).isRequired,
+  daysOfWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
+  timeSlots: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedTimeSlot: PropTypes.object.isRequired,
+  selectedDay: PropTypes.object.isRequired,
 };
 
 export default WeeklyPlannerForm;

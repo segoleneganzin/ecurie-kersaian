@@ -51,23 +51,20 @@ const ReauthenticateForm = ({ type, setOpenUpdate }) => {
       }
     } catch (error) {
       // Error handling
-      console.error(error);
+      setErrorMessage("Une erreur s'est produite");
     }
   };
 
   return (
-    <>
-      <Form
-        fieldsConfig={formFieldsConfig}
-        title={`Modifier votre ${type}`}
-        subtitle={'Pour des raisons de sécurité, veuillez vous réauthentifier'}
-        onSubmitFunction={reauthenticate}
-        btnText={'Valider'}
-        errorMessage={errorMessage}
-        fieldNames={['email', 'password']}
-        origin={'reauthenticateForm'}
-      />
-    </>
+    <Form
+      fieldsConfig={formFieldsConfig}
+      title={`Modifier votre ${type}`}
+      subtitle={'Pour des raisons de sécurité, veuillez vous réauthentifier'}
+      onSubmitFunction={reauthenticate}
+      btnText={'Valider'}
+      errorMessage={errorMessage}
+      fieldNames={['email', 'password']}
+    />
   );
 };
 

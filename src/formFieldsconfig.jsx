@@ -2,7 +2,17 @@
 // default tag = input
 // default pattern = null
 // label and type are always required
+
 const isRequired = true; // default value
+
+const isDurationValid = (value) => {
+  let res = true;
+  if (value % 15 !== 0 || value < 15) {
+    res = false;
+  }
+  return res;
+};
+
 export const formFieldsConfig = {
   // authentication + contact
   email: {
@@ -33,139 +43,152 @@ export const formFieldsConfig = {
     fieldErrorMessage: 'Veuillez confirmer votre mot de passe',
     isRequired,
   },
-
-  // contact
-  contactName: {
-    label: 'Nom',
-    type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner votre nom',
-    isRequired,
-  },
-
-  message: {
+  // holiday period form
+  HolidayInfos: {
     tag: 'textarea',
-    label: 'Message',
+    label: 'Informations (dates, tarifs) :',
     type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner votre message',
+    fieldErrorMessage: 'Veuillez renseigner la période',
     isRequired,
   },
-
-  // Identity
-  job: {
-    label: 'Emploi*',
+  // general prices
+  season: {
+    label: 'Saison :',
     type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner votre emploi',
+    fieldErrorMessage: 'Veuillez renseigner la saison',
     isRequired,
   },
-  presentation: {
-    tag: 'textarea',
-    label: 'Présentation*',
+  annualSubscription: {
+    label: 'Cotisation annuelle :',
     type: 'number',
-    fieldErrorMessage: 'Veuillez renseigner votre présentation',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-
-  // Project
+  ffeLicenseUnder18: {
+    label: '- de 18ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  ffeLicenseOver18: {
+    label: '+ de 18ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  // equestrian center prices
+  period: {
+    tag: 'textarea',
+    label: 'Période :',
+    type: 'text',
+    fieldErrorMessage: 'Veuillez renseigner la période',
+    isRequired,
+  },
+  infos: {
+    tag: 'textarea',
+    label: 'Informations diverses :',
+    type: 'text',
+    isRequired: false,
+  },
+  baby: {
+    label: 'Baby :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  oneHourUnder18: {
+    label: '- de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  oneHourOver18: {
+    label: '+ de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  twoHoursUnder18: {
+    label: '- de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  twoHoursOver18: {
+    label: '+ de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  hours5: {
+    label: '5 heures :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  hours10: {
+    label: '10 heures :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  clubLesson5: {
+    label: '5 cours club :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  ownerLesson5: {
+    label: '5 cours propriétaire :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  halfPensionDescription: {
+    tag: 'textarea',
+    label: 'Description :',
+    type: 'text',
+    fieldErrorMessage: 'Veuillez renseigner une description',
+    isRequired,
+  },
+  halfPensionTarif: {
+    label: 'Tarif mensuel :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  thirdPartPensionDescription: {
+    tag: 'textarea',
+    label: 'Description :',
+    type: 'text',
+    fieldErrorMessage: 'Veuillez renseigner une description',
+    isRequired,
+  },
+  thirdPartPensionTarif: {
+    label: 'Tarif mensuel :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  // weekly planner
   title: {
-    label: 'Titre*',
-    type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner un titre',
-    isRequired,
-  },
-  description: {
     tag: 'textarea',
-    label: 'Description*',
+    label: 'Intitulé :',
     type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner la description',
+    fieldErrorMessage: 'Veuillez renseigner un intitulé',
     isRequired,
   },
-  context: {
-    tag: 'select',
-    label: 'Contexte*',
-    defaultValue: 'Choisir une option',
-    fieldErrorMessage: 'Veuillez renseigner le contexte',
-    isRequired,
-    options: [
-      {
-        label: 'Projet professionnel',
-        value: 'Projet professionnel',
-      },
-      {
-        label: 'Projet personnel',
-        value: 'Projet personnel',
-      },
-      {
-        label: 'Projet scolaire',
-        value: 'Projet scolaire',
-      },
-    ],
-  },
-  link: {
-    label: 'Lien',
-    type: 'url',
-    isRequired: false,
-  },
-  githubLink: {
-    label: 'Lien GitHub',
-    type: 'url',
-    isRequired: false,
-  },
-  img: {
-    tag: 'textarea',
-    label: 'Image en base64*',
-    type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner votre image',
-    isRequired,
-  },
-  alt: {
-    label: "Description de l'image*",
-    type: 'text',
-    fieldErrorMessage: "Veuillez renseigner une description pour l'image",
-    isRequired,
-  },
-  technos: {
-    label: 'Technos (séparées par une virgule)*',
-    type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner une ou plusieurs technos',
-    isRequired,
-  },
-  date: {
-    label: 'Date de réalisation*',
-    type: 'date',
-    fieldErrorMessage: 'Veuillez renseigner une date',
-    isRequired,
-  },
-
-  // Skill
-  name: {
-    label: 'Nom de la compétence*',
-    type: 'text',
-    fieldErrorMessage: 'Veuillez renseigner un nom',
-    isRequired,
-  },
-  level: {
-    label: 'Niveau (multiple de 5)*',
+  duration: {
+    label: 'Durée (tranche de 15 minutes) :',
     type: 'number',
-    step: '5',
-    pattern: /^(2[5]|[3-9][05]|100)$/, //multiple of 5, between 25 and 100
-    fieldErrorMessage: 'Veuillez renseigner un niveau',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    validate: isDurationValid,
     isRequired,
   },
-  type: {
-    tag: 'select',
-    label: 'Type*',
-    defaultValue: 'Choisir une option',
-    fieldErrorMessage: 'Veuillez renseigner le type',
+  cellBg: {
+    label: 'Couleur de fond :',
+    type: 'color',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
-    options: [
-      {
-        label: 'Hardskill',
-        value: 'hardskill',
-      },
-      {
-        label: 'Softskill',
-        value: 'softskill',
-      },
-    ],
   },
 };

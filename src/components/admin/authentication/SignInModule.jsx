@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import ForgotPassword from './ForgotPassword';
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/images/logo.webp';
+import logo from '../../../assets/logo2.png';
 import SignInForm from './SignInForm';
 
 /**
@@ -18,9 +18,9 @@ const SignInModule = () => {
   const [forgotPassword, setForgotPassword] = useState(false);
 
   return (
-    <div className='font-inconsolata min-h-screen bg-principal-color '>
-      <header className='flex flex-col gap-4 items-center justify-between pb-12 lg:pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
-        <div className='flex flex-col justify-center items-center pb-6 lg:flex-row lg:gap-20 lg:pb-0'>
+    <div className='font-inconsolata min-h-screen'>
+      <header className='flex flex-col gap-4 items-center justify-between pb-12 pt-12 lg:flex-row lg:pr-12 font-inconsolata'>
+        <div className='flex flex-col justify-center items-center pb-6 lg:flex-row gap-12 lg:gap-20 lg:pb-0'>
           <img
             src={logo}
             alt='Logo du site'
@@ -28,7 +28,7 @@ const SignInModule = () => {
             width={256}
             height={188}
           />
-          <h1 className='text-xl text-white tracking-widest text-center lg:text-left lg:text-3xl w-fit'>
+          <h1 className='text-xl tracking-widest text-center lg:text-left lg:text-3xl w-fit'>
             Connexion à la page d&apos;administration
           </h1>
         </div>
@@ -40,14 +40,17 @@ const SignInModule = () => {
         ) : (
           <>
             <SignInForm />
-            <div className='flex flex-col gap-4 mt-4 items-center'>
+            <div className='flex flex-col gap-8 mt-8 items-center'>
               <a
                 onClick={() => setForgotPassword(true)}
-                className='text-white cursor-pointer'
+                className='transform transition duration-500 hover:scale-125 cursor-pointer origin-center'
               >
                 Mot de passe oublié
               </a>
-              <Link to='/' className='text-white cursor-pointer'>
+              <Link
+                to='/'
+                className='transform transition duration-500 hover:scale-125 cursor-pointer origin-center'
+              >
                 Aller sur le site
               </Link>
             </div>

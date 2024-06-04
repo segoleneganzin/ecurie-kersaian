@@ -54,11 +54,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
     getPrices();
   }, []);
 
-  const openModal = () => {
-    if (!editable) return;
-    setModalOpen(true);
-  };
-
   return (
     <section className={sectionClassName} id='prices'>
       {editable ? (
@@ -71,12 +66,13 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       {/* Packages */}
       <div className='py-4'>
         {/* Price edit button (visible only in edit mode) */}
-        {editable ? (
-          <button onClick={openModal} className={adminEditButtonClassname}>
+        {editable && (
+          <button
+            onClick={() => setModalOpen(true)}
+            className={adminEditButtonClassname}
+          >
             Modifier les tarifs du centre équestre
           </button>
-        ) : (
-          ''
         )}
       </div>
       {editable ? (
@@ -306,15 +302,16 @@ const EquestrianCenterPrices = ({ editable = false }) => {
           </div>
         </div>
       </div>
-      {editable ? (
+      {editable && (
         <div className='py-4'>
           {/* Price edit button (visible only in edit mode) */}
-          <button onClick={openModal} className={adminEditButtonClassname}>
+          <button
+            onClick={() => setModalOpen(true)}
+            className={adminEditButtonClassname}
+          >
             Modifier les tarifs du centre équestre
           </button>
         </div>
-      ) : (
-        ''
       )}
       {/* edit prices modal */}
       {isModalOpen && (
@@ -325,7 +322,9 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         >
           <EquestrianCenterPricesForm
             equestrianCenterPrices={state.equestrianCenterPrices}
-            getPrices={state.getPrices}
+            pensionPrices={state.pensionPrices}
+            getPrices={getPrices}
+            setModalOpen={setModalOpen}
           />
         </Modal>
       )}
