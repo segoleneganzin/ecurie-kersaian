@@ -55,7 +55,7 @@ const Menu = ({ page }) => {
 };
 
 Menu.propTypes = {
-  page: PropTypes.string,
+  page: PropTypes.string.isRequired,
 };
 
 export default Menu;

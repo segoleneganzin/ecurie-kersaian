@@ -30,11 +30,6 @@ const GeneralPrices = ({ editable = false }) => {
     getGeneralPrices();
   }, []);
 
-  const openModal = () => {
-    if (!editable) return;
-    setModalOpen(true);
-  };
-
   return (
     <>
       {editable ? (
@@ -48,12 +43,13 @@ const GeneralPrices = ({ editable = false }) => {
       )}
 
       {/* Price edit button (visible only in edit mode) */}
-      {editable ? (
-        <button onClick={openModal} className={adminEditButtonClassname}>
+      {editable && (
+        <button
+          onClick={() => setModalOpen(true)}
+          className={adminEditButtonClassname}
+        >
           Modifier les tarifs généraux
         </button>
-      ) : (
-        ''
       )}
 
       <ul className='py-4 md:flex md:gap-16 md:justify-center md:border-2 border-green-800 rounded-lg md:mt-2'>
@@ -85,6 +81,7 @@ const GeneralPrices = ({ editable = false }) => {
           <GeneralPricesForm
             generalPrices={generalPrices}
             getGeneralPrices={getGeneralPrices}
+            setModalOpen={setModalOpen}
           />
         </Modal>
       )}

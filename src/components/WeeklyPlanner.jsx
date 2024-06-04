@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
 import Modal from '../layouts/Modal';
 import WeeklyPlannerForm from '../components/admin/forms/WeeklyPlannerForm';
-import HolidayWeeklyPlannerForm from '../components/admin/forms/HolidayWeeklyPlannerForm';
+import HolidayInfosForm from '../components/admin/forms/HolidayInfosForm';
 
 /**
  * Component for display weekly planner
@@ -11,10 +11,9 @@ import HolidayWeeklyPlannerForm from '../components/admin/forms/HolidayWeeklyPla
  * @component
  * @param {Object} props
  * @param {boolean} props.editable
- * @param {string} props.period
  * @returns {JSX.Element}
  */
-const WeeklyPlanner = ({ editable = false, period }) => {
+const WeeklyPlanner = ({ editable = false }) => {
   const daysOfWeek = [
     'Lundi',
     'Mardi',
@@ -72,6 +71,8 @@ const WeeklyPlanner = ({ editable = false, period }) => {
     '20h00',
   ];
 
+  let idLine = 0;
+
   /**
    * Initial schedule with all available time slots.
    * @type {Array}
@@ -82,7 +83,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   }));
 
   const [schedule, setSchedule] = useState(initialSchedule);
-  const [schedulePeriod, setSchedulePeriod] = useState('');
+  const [scheduleInfos, setScheduleInfos] = useState('');
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -94,15 +95,14 @@ const WeeklyPlanner = ({ editable = false, period }) => {
    * @function
    */
   const fetchPlanning = async () => {
-    const datas = await fetchWeeklyPlanner(period);
+    const datas = await fetchWeeklyPlanner('holiday');
     setSchedule(datas.days);
-    setSchedulePeriod(datas.dates);
+    setScheduleInfos(datas.infos);
   };
   useEffect(() => {
     fetchPlanning();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   /**
    * Open schedule editing modal
    * @function
@@ -131,30 +131,43 @@ const WeeklyPlanner = ({ editable = false, period }) => {
   return (
     <div>
       {editable ? (
-        <h4 className='text-principal-color font-bold text-2xl pl-0 sm:pl-8  md:text-center'>
-          {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
+        <h4 className='text-principal-color font-bold text-2xl pl-2 md:pl-0  md:text-center'>
+          Vacances scolaires
         </h4>
       ) : (
-        <h3 className='text-principal-color font-bold text-2xl pl-0 sm:pl-8 md:text-center'>
-          {period === 'school' ? 'Période scolaire' : 'Vacances scolaires'}
+        <h3 className='text-principal-color font-bold text-2xl pl-2 md:pl-0 md:text-center'>
+          Vacances scolaires
         </h3>
       )}
 
-      {period === 'holiday' && (
-        <div className='flex gap-8 md:justify-center w-full pl-2 sm:pl-8 pt-0 md:pl-0 '>
-          <p className='italic'>{schedulePeriod}</p>
-          {editable && (
-            <button onClick={openHolidayModal} className='h-6 w-6'>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-                <path
-                  fill='#033e0c'
-                  d='M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z'
-                />
-              </svg>
-            </button>
-          )}
-        </div>
-      )}
+      <div className='flex gap-8 md:justify-center items-center w-full pl-2 sm:pl-8 pt-0 md:pl-0 '>
+        <p className='italic md:text-center'>
+          {scheduleInfos &&
+            scheduleInfos.infos.map((line) => {
+              idLine += 1;
+              return (
+                <span key={idLine}>
+                  {line}
+                  <br />
+                </span>
+              );
+            })}
+        </p>
+        {editable && (
+          <button
+            onClick={openHolidayModal}
+            className='h-6 w-6 absolute right-24 md:right-52 lg:right-80 xl:right-96'
+          >
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+              <path
+                fill='#033e0c'
+                d='M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z'
+              />
+            </svg>
+          </button>
+        )}
+      </div>
+
       <div className='overflow-x-auto my-2 lg:m-2'>
         <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit border-2 border-secondary-color'>
           <table>
@@ -192,7 +205,9 @@ const WeeklyPlanner = ({ editable = false, period }) => {
                           onClick={() => editable && openModal(day, timeSlot)}
                         >
                           <p className='flex flex-col items-center px-1 text-center w-fit'>
-                            {scheduleItem.startTime}/{scheduleItem.endTime}
+                            <span className=' font-bold'>
+                              {scheduleItem.startTime}/{scheduleItem.endTime}
+                            </span>
                             {Array.isArray(scheduleItem.title) ? (
                               scheduleItem.title.map((line, index) => (
                                 <span key={index} className='w-fit'>
@@ -235,11 +250,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
       </div>
       {/* Modal to add a new slot */}
       {isModalOpen && (
-        <Modal
-          isModalOpen={isModalOpen}
-          setModalOpen={setModalOpen}
-          title={'Gestion des plannings'}
-        >
+        <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
           <WeeklyPlannerForm
             fetchPlanning={fetchPlanning}
             schedule={schedule}
@@ -247,8 +258,7 @@ const WeeklyPlanner = ({ editable = false, period }) => {
             timeSlots={timeSlots}
             selectedTimeSlot={selectedTimeSlot}
             selectedDay={selectedDay}
-            period={period}
-            // setDeleteButton={setDeleteButton}
+            setModalOpen={setModalOpen}
           />
         </Modal>
       )}
@@ -257,11 +267,11 @@ const WeeklyPlanner = ({ editable = false, period }) => {
         <Modal
           isModalOpen={isHolidayModalOpen}
           setModalOpen={setHolidayModalOpen}
-          title={'Gestion des plannings'}
         >
-          <HolidayWeeklyPlannerForm
-            holidayDateWeeklyPlanner={schedulePeriod}
+          <HolidayInfosForm
+            holidayInfosWeeklyPlanner={scheduleInfos}
             fetchPlanning={fetchPlanning}
+            setModalOpen={setHolidayModalOpen}
           />
         </Modal>
       )}
@@ -271,7 +281,6 @@ const WeeklyPlanner = ({ editable = false, period }) => {
 
 WeeklyPlanner.propTypes = {
   editable: PropTypes.bool,
-  period: PropTypes.string,
 };
 
 export default WeeklyPlanner;

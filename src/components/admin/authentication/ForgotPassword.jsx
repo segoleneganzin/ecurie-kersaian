@@ -71,7 +71,10 @@ const ForgotPassword = (props) => {
             origin={'forgotPassword'}
           />
           <button
-            className={buttonClassName + ' flex justify-center'}
+            className={
+              buttonClassName +
+              ' flex justify-center bg-red-800 hover:bg-red-600 mt-6'
+            }
             onClick={() => props.setForgotPassword(false)}
           >
             Retour
@@ -83,7 +86,7 @@ const ForgotPassword = (props) => {
 };
 
 ForgotPassword.propTypes = {
-  setForgotPassword: PropTypes.func,
+  setForgotPassword: PropTypes.func.isRequired,
 };
 
 export default ForgotPassword;

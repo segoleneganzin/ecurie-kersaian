@@ -100,7 +100,7 @@ const UpdatePassword = () => {
 };
 
 UpdatePassword.propTypes = {
-  setUpdatePasswordOpen: PropTypes.func,
+  setUpdatePasswordOpen: PropTypes.func.isRequired,
 };
 
 export default UpdatePassword;

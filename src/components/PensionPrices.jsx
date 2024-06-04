@@ -34,11 +34,6 @@ const PensionPrices = ({ editable = false }) => {
     getPrices();
   }, []);
 
-  const openModal = () => {
-    if (!editable) return;
-    setModalOpen(true);
-  };
-
   return (
     <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
       {editable ? (
@@ -49,12 +44,13 @@ const PensionPrices = ({ editable = false }) => {
       <p className='italic'>(Bientôt disponible)</p>
       <div className='py-4'>
         {/* Price edit button (visible only in edit mode) */}
-        {editable ? (
-          <button onClick={openModal} className={adminEditButtonClassname}>
+        {editable && (
+          <button
+            onClick={() => setModalOpen(true)}
+            className={adminEditButtonClassname}
+          >
             Modifier
           </button>
-        ) : (
-          ''
         )}
       </div>
       {isModalOpen && (
@@ -65,6 +61,7 @@ const PensionPrices = ({ editable = false }) => {
         >
           <PensionPricesForm
             pensionPrices={pensionPrices}
+            setModalOpen={setModalOpen}
             getPrices={getPrices}
           />
         </Modal>

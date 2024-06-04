@@ -100,11 +100,11 @@ const updateTimeSlot = async (dayIndex, timeSlotIndex, { datas }, period) => {
  * @param {Array<string>} dates - The new holiday dates to update.
  * @throws {Error} An error if updating dates fails.
  */
-const updateHolidayDates = async (dates) => {
+const updateHolidayInfos = async (infos) => {
   try {
     // Using the updateDoc function to update holiday dates
     await updateDoc(doc(db, `holidayWeeklyPlanner`, 'schedule'), {
-      dates: dates,
+      infos: infos,
     });
     sessionStorage.removeItem(`holidayWeeklyPlanner`);
   } catch (error) {
@@ -161,5 +161,5 @@ export {
   updateTimeSlot,
   addDays,
   removeTimeSlot,
-  updateHolidayDates,
+  updateHolidayInfos,
 };

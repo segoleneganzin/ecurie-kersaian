@@ -12,7 +12,7 @@ const HomeAdmin = () => {
           &lsquo;centre équestre&rsquo; et &lsquo;pension&rsquo;
         </li>
         <li>
-          Les <span className='font-bold text-green-800'>plannings</span> de la
+          Le <span className='font-bold text-green-800'>planning</span> de la
           page &lsquo;centre équestre&rsquo;
         </li>
       </ul>

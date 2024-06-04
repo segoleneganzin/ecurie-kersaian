@@ -78,7 +78,7 @@ const UpdateMail = () => {
 };
 
 UpdateMail.propTypes = {
-  setUpdateEmailOpen: PropTypes.func,
+  setUpdateEmailOpen: PropTypes.func.isRequired,
 };
 
 export default UpdateMail;
