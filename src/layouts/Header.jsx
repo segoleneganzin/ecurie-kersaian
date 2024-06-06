@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import Menu from './Menu';
 import MenuAdmin from '../components/admin/MenuAdmin';
-// import logo from '../assets/images/logo.webp';
 import logo from '../assets/logo2.png';
 
 const Header = ({ menu }) => {

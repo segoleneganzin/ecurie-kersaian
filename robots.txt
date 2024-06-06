@@ -1,9 +1,9 @@
-## Autorise l’acces a tous les crawler
-# User-Agent: *
-## Lien vers le sitemap pour le referencement
-# Sitemap: https://ecurie-kersaian-languidic.web.app/sitemap.xml
-## Autorise l’acces à toutes les ressources css
-#Allow: /*.css$
-## Autorise l’acces aux repertoires :
-#Allow: /dist/
+# Autorise l’acces a tous les crawler
+User-Agent: *
+# Lien vers le sitemap pour le referencement
+Sitemap: https://ecuriekersaian.fr/sitemap.xml
+# Autorise l’acces à toutes les ressources css
+Allow: /*.css$
+# Autorise l’acces aux repertoires :
+Allow: /dist/
 
