@@ -24,4 +24,4 @@ ReactJS <br>
 Vue.js <br>
 Firebase (firestore, hosting, authentication) <br>
 
-Voir le site : ( [écurie Kersaïan](https://ecurie-kersaian-languidic.web.app/) )
+Voir le site : ( [écurie Kersaïan](https://ecuriekersaian.fr/) )
