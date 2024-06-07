@@ -4,6 +4,7 @@ import { fetchWeeklyPlanner } from '../api/WeeklyPlannerApi';
 import Modal from '../layouts/Modal';
 import WeeklyPlannerForm from '../components/admin/forms/WeeklyPlannerForm';
 import HolidayInfosForm from '../components/admin/forms/HolidayInfosForm';
+import Section from '../layouts/Section';
 
 /**
  * Component for display weekly planner
@@ -88,6 +89,7 @@ const WeeklyPlanner = ({ editable = false }) => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isHolidayModalOpen, setHolidayModalOpen] = useState(false);
+  const SubtitleTag = editable ? 'h4' : 'h3';
 
   /**
    * Function to retrieve the schedule from the API.
@@ -129,73 +131,107 @@ const WeeklyPlanner = ({ editable = false }) => {
   };
 
   return (
-    <div>
-      {editable ? (
-        <h4 className='text-principal-color font-bold text-2xl pl-2 md:pl-0  md:text-center'>
-          Vacances scolaires
-        </h4>
-      ) : (
-        <h3 className='text-principal-color font-bold text-2xl pl-2 md:pl-0 md:text-center'>
-          Vacances scolaires
-        </h3>
-      )}
-
-      <div className='flex gap-8 md:justify-center items-center w-full pl-2 sm:pl-8 pt-0 md:pl-0 '>
-        <p className='italic md:text-center'>
-          {scheduleInfos &&
-            scheduleInfos.infos.map((line) => {
-              idLine += 1;
-              return (
-                <span key={idLine}>
-                  {line}
-                  <br />
-                </span>
-              );
-            })}
-        </p>
+    <Section editable={editable} title={'Notre planning'} id={'planning'}>
+      <>
         {editable && (
-          <button
-            onClick={openHolidayModal}
-            className='h-6 w-6 absolute right-24 md:right-52 lg:right-80 xl:right-96'
-          >
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-              <path
-                fill='#033e0c'
-                d='M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z'
-              />
-            </svg>
-          </button>
+          <p className='italic pl-2 sm:pl-8 lg:pl-16 pt-0 pb-4'>
+            Sélectionner la case du créneau souhaité et remplir le formulaire
+            (attention le texte est noir donc choisir une couleur de fond
+            compatible) <br />
+            Le créneau apparaîtra sur la page publique (penser à fermer la page
+            du centre équestre et à la réouvrir)
+            <br />
+            Il est également possible de modifier la date des vacances
+            scolaires.
+          </p>
         )}
-      </div>
-
-      <div className='overflow-x-auto my-2 lg:m-2'>
-        <div className='max-h-500px overflow-scroll m-auto sm:rounded-lg w-fit border-2 border-secondary-color'>
-          <table>
-            <thead className='h-8 bg-secondary-color text-white sticky top-0 z-20'>
-              <tr>
-                {daysOfWeek.map((day) => (
-                  <th key={day} className='min-w-24 px-2'>
-                    {day}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {timeSlots.map((timeSlot) => (
-                <tr key={timeSlot} className='h-6 max-h-6'>
-                  {daysOfWeek.map((day) => {
-                    const scheduleItem = schedule
-                      .find((item) => item.day === day)
-                      .schedule.find((item) => item.timeSlot === timeSlot);
-                    const numberOfSlots =
-                      scheduleItem && !scheduleItem.available
-                        ? scheduleItem.duration / 15
-                        : 1;
-                    return scheduleItem && !scheduleItem.available ? (
-                      timeSlot === scheduleItem.startTime && (
+        <SubtitleTag className='text-principal-color font-bold text-2xl pl-2 md:pl-0  md:text-center'>
+          Vacances scolaires
+        </SubtitleTag>
+        <div className='flex gap-8 md:justify-center items-center w-full pl-2 sm:pl-8 pt-0 md:pl-0 '>
+          <p className='italic md:text-center'>
+            {scheduleInfos &&
+              scheduleInfos.infos.map((line) => {
+                idLine += 1;
+                return (
+                  <span key={idLine}>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+          </p>
+          {editable && (
+            <button
+              onClick={openHolidayModal}
+              className='h-6 w-6 absolute right-24 md:right-52 lg:right-80 xl:right-96'
+            >
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+                <path
+                  fill='#033e0c'
+                  d='M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z'
+                />
+              </svg>
+            </button>
+          )}
+        </div>
+        <div className='overflow-x-auto my-2 lg:m-2'>
+          <div className='max-h-[500px] overflow-scroll m-auto sm:rounded-lg w-fit border-2 border-secondary-color'>
+            <table>
+              <thead className='h-8 bg-secondary-color text-white sticky top-0 z-20'>
+                <tr>
+                  {daysOfWeek.map((day) => (
+                    <th key={day} className='min-w-24 px-2'>
+                      {day}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {timeSlots.map((timeSlot) => (
+                  <tr key={timeSlot} className='h-6 max-h-6'>
+                    {daysOfWeek.map((day) => {
+                      const scheduleItem = schedule
+                        .find((item) => item.day === day)
+                        .schedule.find((item) => item.timeSlot === timeSlot);
+                      const numberOfSlots =
+                        scheduleItem && !scheduleItem.available
+                          ? scheduleItem.duration / 15
+                          : 1;
+                      return scheduleItem && !scheduleItem.available ? (
+                        timeSlot === scheduleItem.startTime && (
+                          <td
+                            key={`${day}-${timeSlot}`}
+                            className={`border-t-1 border-t-black text-black w-fit`}
+                            style={{
+                              backgroundColor: scheduleItem.available
+                                ? ''
+                                : scheduleItem.cellBg,
+                            }}
+                            rowSpan={numberOfSlots}
+                            onClick={() => editable && openModal(day, timeSlot)}
+                          >
+                            <p className='flex flex-col items-center px-1 text-center w-fit'>
+                              <span className=' font-bold'>
+                                {scheduleItem.startTime}/{scheduleItem.endTime}
+                              </span>
+                              {Array.isArray(scheduleItem.title) ? (
+                                scheduleItem.title.map((line, index) => (
+                                  <span key={index} className='w-fit'>
+                                    {line}
+                                    <br />
+                                  </span>
+                                ))
+                              ) : (
+                                <span>{scheduleItem.title}</span>
+                              )}
+                            </p>
+                          </td>
+                        )
+                      ) : scheduleItem && editable ? (
                         <td
-                          key={`${day}-${timeSlot}`}
-                          className={`border-t-1 border-t-black text-black w-fit`}
+                          key={`${day}-${timeSlot}-editable`}
+                          className={`border-t border-black bg-gray-200 text-center`}
                           style={{
                             backgroundColor: scheduleItem.available
                               ? ''
@@ -204,78 +240,50 @@ const WeeklyPlanner = ({ editable = false }) => {
                           rowSpan={numberOfSlots}
                           onClick={() => editable && openModal(day, timeSlot)}
                         >
-                          <p className='flex flex-col items-center px-1 text-center w-fit'>
-                            <span className=' font-bold'>
-                              {scheduleItem.startTime}/{scheduleItem.endTime}
-                            </span>
-                            {Array.isArray(scheduleItem.title) ? (
-                              scheduleItem.title.map((line, index) => (
-                                <span key={index} className='w-fit'>
-                                  {line}
-                                  <br />
-                                </span>
-                              ))
-                            ) : (
-                              <span>{scheduleItem.title}</span>
-                            )}
-                          </p>
+                          {timeSlot}
                         </td>
-                      )
-                    ) : scheduleItem && editable ? (
-                      <td
-                        key={`${day}-${timeSlot}-editable`}
-                        className={`border-t border-black bg-gray-200 text-center`}
-                        style={{
-                          backgroundColor: scheduleItem.available
-                            ? ''
-                            : scheduleItem.cellBg,
-                        }}
-                        rowSpan={numberOfSlots}
-                        onClick={() => editable && openModal(day, timeSlot)}
-                      >
-                        {timeSlot}
-                      </td>
-                    ) : (
-                      <td
-                        key={`${day}-${timeSlot}-available`}
-                        className='bg-gray-200'
-                      ></td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      ) : (
+                        <td
+                          key={`${day}-${timeSlot}-available`}
+                          className='bg-gray-200'
+                        ></td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      {/* Modal to add a new slot */}
-      {isModalOpen && (
-        <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
-          <WeeklyPlannerForm
-            fetchPlanning={fetchPlanning}
-            schedule={schedule}
-            daysOfWeek={daysOfWeek}
-            timeSlots={timeSlots}
-            selectedTimeSlot={selectedTimeSlot}
-            selectedDay={selectedDay}
-            setModalOpen={setModalOpen}
-          />
-        </Modal>
-      )}
-      {/* Modal to manage holiday dates */}
-      {isHolidayModalOpen && (
-        <Modal
-          isModalOpen={isHolidayModalOpen}
-          setModalOpen={setHolidayModalOpen}
-        >
-          <HolidayInfosForm
-            holidayInfosWeeklyPlanner={scheduleInfos}
-            fetchPlanning={fetchPlanning}
+        {/* Modal to add a new slot */}
+        {isModalOpen && (
+          <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen}>
+            <WeeklyPlannerForm
+              fetchPlanning={fetchPlanning}
+              schedule={schedule}
+              daysOfWeek={daysOfWeek}
+              timeSlots={timeSlots}
+              selectedTimeSlot={selectedTimeSlot}
+              selectedDay={selectedDay}
+              setModalOpen={setModalOpen}
+            />
+          </Modal>
+        )}
+        {/* Modal to manage holiday infos */}
+        {isHolidayModalOpen && (
+          <Modal
+            isModalOpen={isHolidayModalOpen}
             setModalOpen={setHolidayModalOpen}
-          />
-        </Modal>
-      )}
-    </div>
+          >
+            <HolidayInfosForm
+              holidayInfosWeeklyPlanner={scheduleInfos}
+              fetchPlanning={fetchPlanning}
+              setModalOpen={setHolidayModalOpen}
+            />
+          </Modal>
+        )}
+      </>
+    </Section>
   );
 };
 

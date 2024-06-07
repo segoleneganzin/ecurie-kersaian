@@ -5,10 +5,7 @@ import shetlands from '../assets/images/shetlands.webp';
 import intrepide from '../assets/images/intrepide.webp';
 import isisIntrepide from '../assets/images/isis-intrepide.webp';
 import Carousel from './Carousel';
-import {
-  sectionTitleClassName,
-  sectionClassName,
-} from '../utils/GeneralClassNames';
+import Section from '../layouts/Section';
 
 const Cavalry = () => {
   const images = [
@@ -33,10 +30,9 @@ const Cavalry = () => {
   ];
 
   return (
-    <section className={sectionClassName} id='cavalry'>
-      <h2 className={sectionTitleClassName}>Notre cavalerie</h2>
+    <Section editable={false} title={'Notre cavalerie'} id={'cavalry'}>
       <Carousel medias={images} />
-    </section>
+    </Section>
   );
 };
 

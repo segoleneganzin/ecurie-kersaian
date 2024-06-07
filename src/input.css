@@ -3,45 +3,6 @@
 @tailwind utilities;
 /* customized property */
 @layer utilities {
-  .w-300px {
-    width: 300px;
-  }
-  .h-300px {
-    height: 300px;
-  }
-  .h-500px {
-    height: 500px;
-  }
-  .w-650px {
-    width: 650px;
-  }
-  .h-650px {
-    height: 650px;
-  }
-  .min-w-300px {
-    min-width: 300px;
-  }
-  .max-w-300px {
-    max-width: 300px;
-  }
-  .min-w-650px {
-    min-width: 650px;
-  }
-  .max-w-500px {
-    max-width: 500px;
-  }
-  .max-w-650px {
-    max-width: 650px;
-  }
-  .max-h-400px {
-    max-height: 400px;
-  }
-  .max-h-500px {
-    max-height: 500px;
-  }
-  .right-125 {
-    right: 125%;
-  }
   .button-neumorphism-shadow {
     box-shadow: 5px 5px 10px #292625, -5px -5px 10px #292625;
   }

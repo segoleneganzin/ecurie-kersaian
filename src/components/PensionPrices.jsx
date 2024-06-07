@@ -4,8 +4,8 @@ import { fetchPricesByCategory } from '../api/PricesApi';
 import Modal from '../layouts/Modal';
 import { useEffect } from 'react';
 import { adminEditButtonClassname } from '../utils/GeneralClassNames';
-import { sectionTitleClassName } from '../utils/GeneralClassNames';
 import PensionPricesForm from '../components/admin/forms/PensionPricesForm';
+import Section from '../layouts/Section';
 
 /**
  * PensionPrices component
@@ -35,38 +35,35 @@ const PensionPrices = ({ editable = false }) => {
   }, []);
 
   return (
-    <section className='p-2 pt-6 lg:p-16 sm:p-8' id='prices'>
-      {editable ? (
-        <h3 className={sectionTitleClassName}>Nos tarifs</h3>
-      ) : (
-        <h2 className={sectionTitleClassName}>Nos tarifs</h2>
-      )}
-      <p className='italic'>(Bientôt disponible)</p>
-      <div className='py-4'>
-        {/* Price edit button (visible only in edit mode) */}
-        {editable && (
-          <button
-            onClick={() => setModalOpen(true)}
-            className={adminEditButtonClassname}
-          >
-            Modifier
-          </button>
-        )}
-      </div>
-      {isModalOpen && (
-        <Modal
-          isModalOpen={isModalOpen}
-          setModalOpen={setModalOpen}
-          title={'Gestion des tarifs'}
-        >
-          <PensionPricesForm
-            pensionPrices={pensionPrices}
+    <Section editable={editable} title={'Nos tarifs'} id={'prices'}>
+      <>
+        <p className='italic'>(Bientôt disponible)</p>
+        <div className='py-4'>
+          {/* Price edit button (visible only in edit mode) */}
+          {editable && (
+            <button
+              onClick={() => setModalOpen(true)}
+              className={adminEditButtonClassname}
+            >
+              Modifier
+            </button>
+          )}
+        </div>
+        {isModalOpen && (
+          <Modal
+            isModalOpen={isModalOpen}
             setModalOpen={setModalOpen}
-            getPrices={getPrices}
-          />
-        </Modal>
-      )}
-    </section>
+            title={'Gestion des tarifs'}
+          >
+            <PensionPricesForm
+              pensionPrices={pensionPrices}
+              setModalOpen={setModalOpen}
+              getPrices={getPrices}
+            />
+          </Modal>
+        )}
+      </>
+    </Section>
   );
 };
 

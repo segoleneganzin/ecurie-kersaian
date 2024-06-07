@@ -24,7 +24,7 @@ const Menu = ({ page }) => {
   useEffect(() => {
     if (hamburgerOpen) {
       setMenuClassName(
-        ' border-b-2 border-b-secondary-color absolute bg-white rounded-b-3xl  flex flex-col h-fit pb-6  right-0 top-200 z-97 w-full lg:pb-12 lg:pl-12 lg:border-0 lg:rounded-b-0 lg:w-auto lg:bg-secondary-color lg:top-64 lg:rounded-l-3xl'
+        ' border-b-2 border-b-secondary-color absolute bg-white rounded-b-3xl flex flex-col h-fit pb-6 right-0 top-200 z-50 w-full md:pb-12 md:pl-12 md:border-0 md:rounded-b-0 md:w-auto md:bg-secondary-color md:top-48 md:rounded-l-3xl lg:top-64'
       );
     } else {
       setMenuClassName('hidden');

@@ -1,18 +1,14 @@
-import {
-  sectionTitleClassName,
-  sectionClassName,
-} from '../utils/GeneralClassNames';
+import ImportantWord from './ImportantWord';
+import Section from '../layouts/Section';
+
 const Contact = () => {
   return (
-    <section className={sectionClassName} id='contact'>
-      <h2 className={sectionTitleClassName}>Contactez-nous</h2>
+    <Section editable={false} title={'Contactez-nous'} id={'contact'}>
       <div className='flex flex-col gap-2 lg:flex-row lg:gap-10 justify-center p-2 md:p-0  text-base '>
         <ul className='leading-10'>
           <li>
-            <span className='color-secondary-color font-bold text-lg'>
-              Adresse :
-            </span>
-            Kerhouant Vraz, 56440 Languidic
+            <ImportantWord>Adresse : </ImportantWord>
+            Kerhouant Vraz, 56440 Languidic{' '}
             <a
               href='https://maps.app.goo.gl/5EoUuYe8artgZYcd8'
               target='_blank'
@@ -23,15 +19,11 @@ const Contact = () => {
             </a>
           </li>
           <li>
-            <span className='color-secondary-color font-bold text-lg'>
-              Téléphone :
-            </span>
+            <ImportantWord>Téléphone : </ImportantWord>
             06 79 89 85 93
           </li>
           <li>
-            <span className='color-secondary-color font-bold text-lg'>
-              Email :
-            </span>
+            <ImportantWord>Email : </ImportantWord>
             alexia.lemoine@hotmail.fr
           </li>
           <li>
@@ -46,9 +38,7 @@ const Contact = () => {
           </li>
         </ul>
         <div className='space-y-2'>
-          <p className='color-secondary-color font-bold text-lg py-1'>
-            Horaires d&apos;ouverture :
-          </p>
+          <ImportantWord>Horaires d&apos;ouverture : </ImportantWord>
           <ul className='ml-6'>
             <li>Lundi : 9h00 - 18h00</li>
             <li>Mardi : 9h00 - 18h30</li>
@@ -60,7 +50,7 @@ const Contact = () => {
           </ul>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 

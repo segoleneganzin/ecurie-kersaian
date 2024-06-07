@@ -1,45 +1,28 @@
-import {
-  sectionTitleClassName,
-  sectionClassName,
-} from '../utils/GeneralClassNames';
+import Section from '../layouts/Section';
+import ImportantWord from './ImportantWord';
+
 const Installations = () => {
   return (
-    <section className={sectionClassName} id='installations'>
-      <h2 className={sectionTitleClassName}>Nos installations</h2>
-      <ul className='leading-10 mt-4 space-y-5 text-base '>
+    <Section editable={false} title={'Nos installations'} id={'installations'}>
+      <ul className='leading-10 mt-4 space-y-5 text-base pl-2'>
         <li>
-          Des{' '}
-          <span className='color-secondary-color font-bold text-lg'>boxs</span>{' '}
-          pour préparer les chevaux
+          Des <ImportantWord>boxs</ImportantWord> pour préparer les chevaux
         </li>
         <li>
-          Une{' '}
-          <span className='color-secondary-color font-bold text-lg'>
-            sellerie
-          </span>
+          Une <ImportantWord>sellerie</ImportantWord>
         </li>
         <li>
-          Un{' '}
-          <span className='color-secondary-color font-bold text-lg'>
-            manège
-          </span>{' '}
-          (40x16m)
+          Un <ImportantWord>manège</ImportantWord> (40x16m)
         </li>
         <li>
-          Une grande{' '}
-          <span className='color-secondary-color font-bold text-lg'>
-            carrière
-          </span>
+          Une grande <ImportantWord>carrière</ImportantWord>
         </li>
         <li>
-          De{' '}
-          <span className='color-secondary-color font-bold text-lg'>
-            nombreux chemins de balades
-          </span>{' '}
-          accéssibles directement depuis les écuries
+          De <ImportantWord>nombreux chemins de balades</ImportantWord>{' '}
+          accessibles directement depuis les écuries
         </li>
       </ul>
-    </section>
+    </Section>
   );
 };
 

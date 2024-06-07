@@ -5,12 +5,10 @@ import Installations from '../components/Installations';
 import Contact from '../components/Contact';
 import ScrollUp from '../components/ScrollUp';
 import PensionPrices from '../components/PensionPrices';
-import {
-  mainClassName,
-  sectionTitleClassName,
-} from '../utils/GeneralClassNames';
+import { mainClassName } from '../utils/GeneralClassNames';
 import Presentation from '../components/Presentation';
 import { handleScroll } from '../utils/functions';
+import Section from '../layouts/Section';
 
 const Pension = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -36,10 +34,9 @@ const Pension = () => {
         {/* **************************************SCROLL UP */}
         {showScrollButton && <ScrollUp />}
         {/* **************************************FORMULAS */}
-        <section className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
-          <h2 className={sectionTitleClassName}>Nos formules</h2>
+        <Section editable={false} title={'Nos formules'} id={'formulas'}>
           <p className='italic'>(Bientôt disponible)</p>
-        </section>
+        </Section>
         {/* ***************************************INSTALLATIONS */}
         <Installations />
         {/* ***************************************PRICES */}

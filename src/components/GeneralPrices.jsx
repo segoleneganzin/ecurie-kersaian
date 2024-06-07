@@ -14,6 +14,7 @@ import GeneralPricesForm from '../components/admin/forms/GeneralPricesForm';
 const GeneralPrices = ({ editable = false }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [generalPrices, setGeneralPrices] = useState(null);
+  const SubtitleTag = editable ? 'h4' : 'h3';
 
   /**
    * Function to retrieve prices from the API.
@@ -32,15 +33,9 @@ const GeneralPrices = ({ editable = false }) => {
 
   return (
     <>
-      {editable ? (
-        <h4 className='text-principal-color font-bold text-2xl'>
-          Saison {generalPrices && generalPrices['season']}
-        </h4>
-      ) : (
-        <h3 className='text-principal-color font-bold text-2xl'>
-          Saison {generalPrices && generalPrices['season']}
-        </h3>
-      )}
+      <SubtitleTag className='text-principal-color font-bold text-2xl'>
+        Saison {generalPrices && generalPrices['season']}
+      </SubtitleTag>
 
       {/* Price edit button (visible only in edit mode) */}
       {editable && (

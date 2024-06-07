@@ -7,11 +7,11 @@ import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import ScrollUp from '../components/ScrollUp';
 import PensionPrices from '../components/PensionPrices';
-import { sectionTitleClassName } from '../utils/GeneralClassNames';
 import { handleScroll } from '../utils/functions';
 import HomeAdmin from '../components/admin/HomeAdmin';
 import ChoicePageAdmin from '../components/admin/ChoicePageAdmin';
 import SiteLink from '../components/SiteLink';
+import Section from '../layouts/Section';
 
 const Admin = () => {
   const { currentUser } = useContext(UserContext);
@@ -43,35 +43,19 @@ const Admin = () => {
         {/* ************************************************************** ADMINISTRATION EQUESTRIAN CENTER */}
         {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
-          <div>
-            <section className='pb-2 pt-16 lg:pb-4 sm:py-8' id='planning'>
-              <h3 className={sectionTitleClassName + ' pl-2 sm:pl-8 lg:pl-16'}>
-                Le planning
-              </h3>
-              <p className='italic pl-2 sm:pl-8 lg:pl-16 pt-0 pb-4'>
-                Sélectionner la case du créneau souhaité et remplir le
-                formulaire (attention le texte est noir donc choisir une couleur
-                de fond compatible) <br />
-                Le créneau apparaîtra sur la page publique (penser à fermer la
-                page du centre équestre et à la réouvrir)
-                <br />
-                Il est également possible de modifier la date des vacances
-                scolaires.
-              </p>
-              <WeeklyPlanner editable period={'holiday'} />
-            </section>
+          <>
+            <WeeklyPlanner editable />
             {/* ***************************************PRICES */}
             <EquestrianCenterPrices editable />
-          </div>
+          </>
         )}
         {/* ************************************************************** ADMINISTRATION PENSION */}
         {choice === 'pension' && (
           <div>
             {/* **************************************FORMULAS */}
-            <section className='p-4 pt-16 lg:p-16 sm:p-8' id='formulas'>
-              <h3 className={sectionTitleClassName}>Nos formules</h3>
+            <Section editable title={'Nos formules'} id={'formulas'}>
               <p className='italic'>(Bientôt disponible)</p>
-            </section>
+            </Section>
             {/* ***************************************PRICES */}
             <PensionPrices editable />
           </div>
