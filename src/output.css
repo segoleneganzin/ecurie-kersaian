@@ -859,7 +859,7 @@ video {
 }
 
 .animate-closeMenu {
-  animation: closeMenu 1s ease-in forwards;
+  animation: closeMenu 0.5s ease-in forwards;
 }
 
 @keyframes closeMenuMobile {
@@ -873,7 +873,7 @@ video {
 }
 
 .animate-closeMenuMobile {
-  animation: closeMenuMobile 1s ease-in forwards;
+  animation: closeMenuMobile 0.5s ease-in forwards;
 }
 
 @keyframes fadeIn {
@@ -901,7 +901,7 @@ video {
 }
 
 .animate-openMenu {
-  animation: openMenu 1s ease-out forwards;
+  animation: openMenu 0.5s ease-out forwards;
 }
 
 @keyframes openMenuMobile {
@@ -915,7 +915,7 @@ video {
 }
 
 .animate-openMenuMobile {
-  animation: openMenuMobile 1s ease-out forwards;
+  animation: openMenuMobile 0.5s ease-out forwards;
 }
 
 .cursor-pointer {

@@ -37,10 +37,10 @@ export default {
       },
       animation: {
         fadeIn: 'fadeIn 1.5s ease-out forwards',
-        openMenuMobile: 'openMenuMobile 1s ease-out forwards',
-        closeMenuMobile: 'closeMenuMobile 1s ease-in forwards',
-        openMenu: 'openMenu 1s ease-out forwards',
-        closeMenu: 'closeMenu 1s ease-in forwards',
+        openMenuMobile: 'openMenuMobile 0.5s ease-out forwards',
+        closeMenuMobile: 'closeMenuMobile 0.5s ease-in forwards',
+        openMenu: 'openMenu 0.5s ease-out forwards',
+        closeMenu: 'closeMenu 0.5s ease-in forwards',
       },
     },
     letterSpacing: {

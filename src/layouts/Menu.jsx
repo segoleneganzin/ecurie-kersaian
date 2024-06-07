@@ -38,7 +38,7 @@ const Menu = ({ page }) => {
       } else {
         setMenuClassName(menuClassNamesBasics + ' animate-closeMenu');
       }
-      setTimeout(() => setMenuClassName('hidden'), 1000);
+      setTimeout(() => setMenuClassName('hidden'), 500);
     }
   }, [hamburgerOpen, menuClassName]);
 
