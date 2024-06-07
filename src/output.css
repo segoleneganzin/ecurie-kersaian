@@ -594,6 +594,14 @@ video {
   top: 0px;
 }
 
+.top-\[420px\] {
+  top: 420px;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
 .z-20 {
   z-index: 20;
 }
@@ -648,10 +656,6 @@ video {
 
 .mt-10 {
   margin-top: 2.5rem;
-}
-
-.mt-16 {
-  margin-top: 4rem;
 }
 
 .mt-2 {
@@ -844,20 +848,74 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+@keyframes closeMenu {
+  0% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-closeMenu {
+  animation: closeMenu 1s ease-in forwards;
+}
+
+@keyframes closeMenuMobile {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-closeMenuMobile {
+  animation: closeMenuMobile 1s ease-in forwards;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(20px);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 .animate-fadeIn {
   animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes openMenu {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.animate-openMenu {
+  animation: openMenu 1s ease-out forwards;
+}
+
+@keyframes openMenuMobile {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-openMenuMobile {
+  animation: openMenuMobile 1s ease-out forwards;
 }
 
 .cursor-pointer {
@@ -1707,6 +1765,14 @@ video {
     top: 12rem;
   }
 
+  .md\:z-10 {
+    z-index: 10;
+  }
+
+  .md\:z-50 {
+    z-index: 50;
+  }
+
   .md\:m-0 {
     margin: 0px;
   }
@@ -1729,6 +1795,11 @@ video {
 
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
   }
 
   .md\:max-w-\[300px\] {
@@ -1762,10 +1833,6 @@ video {
   .md\:rounded-l-3xl {
     border-top-left-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
-  }
-
-  .md\:border-0 {
-    border-width: 0px;
   }
 
   .md\:border-2 {
@@ -1808,6 +1875,12 @@ video {
   .md\:text-white {
     --tw-text-opacity: 1;
     color: rgb(254 253 253 / var(--tw-text-opacity));
+  }
+
+  .md\:shadow-none {
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
 }
 

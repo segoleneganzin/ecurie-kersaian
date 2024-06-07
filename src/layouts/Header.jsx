@@ -23,8 +23,8 @@ const Header = ({ menu }) => {
       break;
   }
   return (
-    <header className='flex flex-col gap-4 items-center justify-between p-6 lg:pt-12 md:flex-row lg:pr-12 font-inconsolata'>
-      <div className='flex flex-col justify-center items-center pb-6 md:flex-row md:gap-12 md:pb-0'>
+    <header className='relative flex flex-col items-center justify-between p-6 lg:pt-12 md:flex-row lg:pr-12 font-inconsolata'>
+      <div className='bg-white flex flex-col justify-center items-center pb-6 z-50 md:z-10 md:flex-row md:gap-12 md:pb-0'>
         <a
           href={menu === 'admin' ? '/admin' : '/'}
           aria-label="Aller à la page d'accueil"
@@ -38,7 +38,7 @@ const Header = ({ menu }) => {
             height={188}
           />
         </a>
-        <h1 className='text-xl tracking-widest lg:text-left lg:text-3xl w-fit font-bold'>
+        <h1 className='text-xl tracking-widest lg:text-left py-4 lg:text-3xl w-fit font-bold'>
           {headerSubtitle}
         </h1>
       </div>

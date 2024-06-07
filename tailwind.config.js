@@ -15,12 +15,32 @@ export default {
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: 0, transform: 'translateY(20px)' },
-          '100%': { opacity: 1, transform: 'translateY(0)' },
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        openMenuMobile: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(0px)' },
+        },
+        closeMenuMobile: {
+          '0%': { transform: 'translateY(0px)' },
+          '100%': { transform: 'translateY(-100%)' },
+        },
+        openMenu: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0px)' },
+        },
+        closeMenu: {
+          '0%': { transform: 'translateX(0px)' },
+          '100%': { transform: 'translateX(100%)' },
         },
       },
       animation: {
         fadeIn: 'fadeIn 1.5s ease-out forwards',
+        openMenuMobile: 'openMenuMobile 1s ease-out forwards',
+        closeMenuMobile: 'closeMenuMobile 1s ease-in forwards',
+        openMenu: 'openMenu 1s ease-out forwards',
+        closeMenu: 'closeMenu 1s ease-in forwards',
       },
     },
     letterSpacing: {
