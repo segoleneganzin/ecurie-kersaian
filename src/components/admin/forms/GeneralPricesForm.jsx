@@ -47,10 +47,19 @@ const GeneralPricesForm = ({
   const updateFormPrices = async () => {
     const generalDatas = {
       season: getValues('season'),
-      annualSubscription: parseInt(getValues('annualSubscription')),
+      annualSubscription: {
+        baby: parseInt(getValues('annualSubscriptionBaby')),
+        under18: parseInt(getValues('annualSubscriptionUnder18')),
+        over18: parseInt(getValues('annualSubscriptionOver18')),
+      },
       ffeLicense: {
         under18: parseInt(getValues('ffeLicenseUnder18')),
         over18: parseInt(getValues('ffeLicenseOver18')),
+      },
+      trialLesson: {
+        baby: parseInt(getValues('trialLessonBaby')),
+        under18: parseInt(getValues('trialLessonUnder18')),
+        over18: parseInt(getValues('trialLessonOver18')),
       },
     };
     await updatePrices('general', generalDatas);
@@ -74,10 +83,22 @@ const GeneralPricesForm = ({
       />
       {/* ****************************GENERAL */}
       <h2 className={subtitleClassName}>Tarifs généraux</h2>
+      <h3 className='font-bold text-lg mt-6'>Adhésion au club :</h3>
+      <div className={separationClassName}></div>
       {/*******  annual subscription */}
       <FormSectionLayout
-        fieldNames={['annualSubscription']}
-        fieldValue={{ annualSubscription: generalPrices['annualSubscription'] }}
+        fieldNames={[
+          'annualSubscriptionBaby',
+          'annualSubscriptionUnder18',
+          'annualSubscriptionOver18',
+        ]}
+        fieldValue={{
+          annualSubscriptionBaby: generalPrices['annualSubscription']['baby'],
+          annualSubscriptionUnder18:
+            generalPrices['annualSubscription']['under18'],
+          annualSubscriptionOver18:
+            generalPrices['annualSubscription']['over18'],
+        }}
         register={register}
         inputErrorClass={inputErrorClass}
         errors={errors}
@@ -89,8 +110,27 @@ const GeneralPricesForm = ({
       <FormSectionLayout
         fieldNames={['ffeLicenseUnder18', 'ffeLicenseOver18']}
         fieldValue={{
-          ffeLicenseOver18: generalPrices['ffeLicense']['over18'],
           ffeLicenseUnder18: generalPrices['ffeLicense']['under18'],
+          ffeLicenseOver18: generalPrices['ffeLicense']['over18'],
+        }}
+        register={register}
+        inputErrorClass={inputErrorClass}
+        errors={errors}
+        setValue={setValue}
+      />
+      {/*******  FFE license */}
+      <h3 className='font-bold text-lg mt-6'>Cours d&apos;essai :</h3>
+      <div className={separationClassName}></div>
+      <FormSectionLayout
+        fieldNames={[
+          'trialLessonBaby',
+          'trialLessonUnder18',
+          'trialLessonOver18',
+        ]}
+        fieldValue={{
+          trialLessonBaby: generalPrices['trialLesson']['baby'],
+          trialLessonUnder18: generalPrices['trialLesson']['under18'],
+          trialLessonOver18: generalPrices['trialLesson']['over18'],
         }}
         register={register}
         inputErrorClass={inputErrorClass}

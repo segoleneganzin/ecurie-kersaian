@@ -58,8 +58,20 @@ export const formFieldsConfig = {
     fieldErrorMessage: 'Veuillez renseigner la saison',
     isRequired,
   },
-  annualSubscription: {
-    label: 'Cotisation annuelle :',
+  annualSubscriptionBaby: {
+    label: 'Baby :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  annualSubscriptionUnder18: {
+    label: '- de 18ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  annualSubscriptionOver18: {
+    label: '+ de 18ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
@@ -76,6 +88,25 @@ export const formFieldsConfig = {
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
+  trialLessonBaby: {
+    label: 'Baby :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  trialLessonUnder18: {
+    label: '- de 18ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  trialLessonOver18: {
+    label: '+ de 18ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+
   // equestrian center prices
   period: {
     tag: 'textarea',
@@ -90,60 +121,112 @@ export const formFieldsConfig = {
     type: 'text',
     isRequired: false,
   },
-  baby: {
+  annualBaby: {
     label: 'Baby :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  oneHourUnder18: {
+  annualOneHourUnder18: {
     label: '- de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  oneHourOver18: {
+  annualOneHourOver18: {
     label: '+ de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  twoHoursUnder18: {
+  annualTwoHoursUnder18: {
     label: '- de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  twoHoursOver18: {
+  annualTwoHoursOver18: {
     label: '+ de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  hours5: {
-    label: '5 heures :',
+  quarterlyBaby: {
+    label: 'Baby :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  hours10: {
-    label: '10 heures :',
+  quarterlyOneHourUnder18: {
+    label: '- de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  clubLesson5: {
-    label: '5 cours club :',
+  quarterlyOneHourOver18: {
+    label: '+ de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
-  ownerLesson5: {
-    label: '5 cours propriétaire :',
+  quarterlyTwoHoursUnder18: {
+    label: '- de 18 ans :',
     type: 'number',
     fieldErrorMessage: 'Veuillez renseigner le tarif',
     isRequired,
   },
+  quarterlyTwoHoursOver18: {
+    label: '+ de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+
+  hours10Baby: {
+    label: 'Baby :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  hours10Under18: {
+    label: '- de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  hours10Over18: {
+    label: '+ de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+
+  clubLesson5Under18: {
+    label: '- de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  clubLesson5Over18: {
+    label: '+ de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+
+  ownerLesson5Under18: {
+    label: '- de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+  ownerLesson5Over18: {
+    label: '+ de 18 ans :',
+    type: 'number',
+    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    isRequired,
+  },
+
   halfPensionDescription: {
     tag: 'textarea',
     label: 'Description :',
