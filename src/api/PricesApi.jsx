@@ -16,20 +16,18 @@ import { db } from '../firebase-config';
 const fetchPricesByCategory = async (category) => {
   // sessionStorage.clear();
   try {
-    const querySnapshot = await getDoc(doc(db, `prices`, category));
-
-    // if (window.sessionStorage.getItem(`${category}Prices`) === null) {
-    //   // console.log(`${category} prices not cached`);
-    //   const querySnapshot = await getDoc(doc(db, `prices`, category));
-    //   sessionStorage.setItem(
-    //     `${category}Prices`,
-    //     JSON.stringify(querySnapshot.data())
-    //   );
-    return querySnapshot.data();
-    // } else {
-    //   // console.log(`${category} prices already cached`);
-    //   return JSON.parse(window.sessionStorage.getItem(`${category}Prices`));
-    // }
+    if (window.sessionStorage.getItem(`${category}Prices`) === null) {
+      // console.log(`${category} prices not cached`);
+      const querySnapshot = await getDoc(doc(db, `prices`, category));
+      sessionStorage.setItem(
+        `${category}Prices`,
+        JSON.stringify(querySnapshot.data())
+      );
+      return querySnapshot.data();
+    } else {
+      // console.log(`${category} prices already cached`);
+      return JSON.parse(window.sessionStorage.getItem(`${category}Prices`));
+    }
   } catch (error) {
     // Error handling by logging the error to the console
     console.log(error);

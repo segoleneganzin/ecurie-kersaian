@@ -27,21 +27,19 @@ const PensionPricesTable = ({ prices, classNames }) => {
             <tr className={classNames.tableRow}>
               <th className={classNames.tableData}>Tiers de pension</th>
               <td className={classNames.tableData}>
-                {prices && prices['thirdPartPension']['description']}
+                {prices['thirdPartPension']['description']}
               </td>
               <td className={classNames.tableDataLastRow}>
-                {' '}
-                {prices && prices['thirdPartPension']['price']}€
+                {prices['thirdPartPension']['price']}€
               </td>
             </tr>
             <tr className={classNames.tableRow + ' border-b-0'}>
               <th className={classNames.tableData}>Demi pension</th>
               <td className={classNames.tableData}>
-                {prices && prices['halfPension']['description']}
+                {prices['halfPension']['description']}
               </td>
               <td className={classNames.tableDataLastRow}>
-                {' '}
-                {prices && prices['halfPension']['price']}€
+                {prices['halfPension']['price']}€
               </td>
             </tr>
           </tbody>

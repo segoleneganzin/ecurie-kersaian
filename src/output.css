@@ -1785,10 +1785,6 @@ video {
     margin-top: 3rem;
   }
 
-  .md\:mt-2 {
-    margin-top: 0.5rem;
-  }
-
   .md\:flex {
     display: flex;
   }
@@ -1826,17 +1822,9 @@ video {
     gap: 3rem;
   }
 
-  .md\:gap-16 {
-    gap: 4rem;
-  }
-
   .md\:rounded-l-3xl {
     border-top-left-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
-  }
-
-  .md\:border-2 {
-    border-width: 2px;
   }
 
   .md\:bg-secondary-color {
@@ -1921,12 +1909,12 @@ video {
     margin-left: 3rem;
   }
 
-  .lg\:mt-60 {
-    margin-top: 15rem;
-  }
-
   .lg\:mt-2 {
     margin-top: 0.5rem;
+  }
+
+  .lg\:mt-60 {
+    margin-top: 15rem;
   }
 
   .lg\:flex {
@@ -1989,6 +1977,10 @@ video {
     gap: 3rem;
   }
 
+  .lg\:gap-16 {
+    gap: 4rem;
+  }
+
   .lg\:gap-20 {
     gap: 5rem;
   }
@@ -2003,10 +1995,6 @@ video {
 
   .lg\:gap-6 {
     gap: 1.5rem;
-  }
-
-  .lg\:gap-16 {
-    gap: 4rem;
   }
 
   .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]) {

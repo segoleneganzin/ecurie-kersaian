@@ -4,7 +4,7 @@ const CardPricesTable = ({ prices, classNames }) => {
   return (
     <div className='py-4 md:flex md:justify-between'>
       {/* cards infos */}
-      <p className='italic py-4 font-sm'>{prices && prices['infos']} </p>
+      <p className='italic py-4 font-sm'>{prices['infos']} </p>
       {/* cards table prices */}
       <div className={classNames.tableContainer}>
         <table className={classNames.table}>
@@ -31,13 +31,13 @@ const CardPricesTable = ({ prices, classNames }) => {
             <tr className={classNames.tableRow}>
               <th className={classNames.tableData}>10 heures</th>
               <td className={classNames.tableData}>
-                {prices && prices['cardGroupLessons']['tenHours']['baby']}€
+                {prices['cardGroupLessons']['tenHours']['baby']}€
               </td>
               <td className={classNames.tableData}>
-                {prices && prices['cardGroupLessons']['tenHours']['under18']}€
+                {prices['cardGroupLessons']['tenHours']['under18']}€
               </td>
               <td className={classNames.tableDataLastRow}>
-                {prices && prices['cardGroupLessons']['tenHours']['over18']}€
+                {prices['cardGroupLessons']['tenHours']['over18']}€
               </td>
             </tr>
             <tr className={classNames.tableRow}>
@@ -53,28 +53,20 @@ const CardPricesTable = ({ prices, classNames }) => {
               <td className={classNames.tableData + ' bg-secondary-color'}></td>
 
               <td className={classNames.tableData}>
-                {prices &&
-                  prices['cardPrivatesLessons']['fiveClubLessons']['under18']}
-                €
+                {prices['cardPrivatesLessons']['fiveClubLessons']['under18']}€
               </td>
               <td className={classNames.tableDataLastRow}>
-                {prices &&
-                  prices['cardPrivatesLessons']['fiveClubLessons']['over18']}
-                €
+                {prices['cardPrivatesLessons']['fiveClubLessons']['over18']}€
               </td>
             </tr>
             <tr className={classNames.tableRow + ' border-b-0'}>
               <th className={classNames.tableData}>5 heures propriétaire</th>
               <td className={classNames.tableData + ' bg-secondary-color'}></td>
               <td className={classNames.tableData}>
-                {prices &&
-                  prices['cardPrivatesLessons']['fiveOwnerLessons']['under18']}
-                €
+                {prices['cardPrivatesLessons']['fiveOwnerLessons']['under18']}€
               </td>
               <td className={classNames.tableDataLastRow}>
-                {prices &&
-                  prices['cardPrivatesLessons']['fiveOwnerLessons']['over18']}
-                €
+                {prices['cardPrivatesLessons']['fiveOwnerLessons']['over18']}€
               </td>
             </tr>
           </tbody>

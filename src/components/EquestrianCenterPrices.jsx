@@ -77,38 +77,46 @@ const EquestrianCenterPrices = ({ editable = false }) => {
             </button>
           )}
         </div>
-        <SubitleTag className={pricesSectionSubtitlesClassName}>
-          Forfaits annuels
-        </SubitleTag>
-        <PackagePricesTable
-          frequency={'annual'}
-          prices={state.equestrianCenterPrices}
-          classNames={classNames}
-        />
-        <SubitleTag className={pricesSectionSubtitlesClassName}>
-          Forfaits trimestriels
-        </SubitleTag>
-        <PackagePricesTable
-          frequency={'quarterly'}
-          prices={state.equestrianCenterPrices}
-          classNames={classNames}
-        />{' '}
-        {/* Cards */}
-        <SubitleTag className={pricesSectionSubtitlesClassName}>
-          Cartes
-        </SubitleTag>
-        <CardPricesTable
-          prices={state.equestrianCenterPrices}
-          classNames={classNames}
-        />
+        {state.equestrianCenterPrices && (
+          <>
+            <SubitleTag className={pricesSectionSubtitlesClassName}>
+              Forfaits annuels
+            </SubitleTag>
+            <PackagePricesTable
+              frequency={'annual'}
+              prices={state.equestrianCenterPrices}
+              classNames={classNames}
+            />
+            <SubitleTag className={pricesSectionSubtitlesClassName}>
+              Forfaits trimestriels
+            </SubitleTag>
+            <PackagePricesTable
+              frequency={'quarterly'}
+              prices={state.equestrianCenterPrices}
+              classNames={classNames}
+            />{' '}
+            {/* Cards */}
+            <SubitleTag className={pricesSectionSubtitlesClassName}>
+              Cartes
+            </SubitleTag>
+            <CardPricesTable
+              prices={state.equestrianCenterPrices}
+              classNames={classNames}
+            />
+          </>
+        )}
         {/* half and third part pension */}
-        <SubitleTag className={pricesSectionSubtitlesClassName}>
-          Demi pension et tiers de pension
-        </SubitleTag>
-        <PensionPricesTable
-          prices={state.pensionPrices}
-          classNames={classNames}
-        />
+        {state.pensionPrices && (
+          <>
+            <SubitleTag className={pricesSectionSubtitlesClassName}>
+              Demi pension et tiers de pension
+            </SubitleTag>
+            <PensionPricesTable
+              prices={state.pensionPrices}
+              classNames={classNames}
+            />
+          </>
+        )}
         {editable && (
           <div className='py-4'>
             {/* Price edit button (visible only in edit mode) */}
