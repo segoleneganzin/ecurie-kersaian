@@ -120,14 +120,10 @@ const WeeklyPlannerForm = ({
     <>
       <Form
         fieldsConfig={formFieldsConfig}
-        title={state.isAvailable ? 'Nouvelle séance' : 'Modifier la séance'}
-        subtitle={
-          <>
-            <span className='font-bold underline'>Jour :</span>{' '}
-            {' ' + state.day} <br />
-            <span className='font-bold underline'>Heure de début :</span>
-            {' ' + state.timeSlot}
-          </>
+        title={
+          state.isAvailable
+            ? `Ajouter une séance le ${state.day}, à ${state.timeSlot}`
+            : `Modifier la séance du ${state.day}, à ${state.timeSlot}`
         }
         onSubmitFunction={addTimeSlot}
         btnText={'Valider'}

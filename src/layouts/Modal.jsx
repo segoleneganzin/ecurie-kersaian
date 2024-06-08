@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { buttonClassName } from '../utils/GeneralClassNames';
 
 /**
@@ -12,6 +13,18 @@ import { buttonClassName } from '../utils/GeneralClassNames';
  * @returns {JSX.Element}
  */
 const Modal = ({ isModalOpen, setModalOpen, title, children }) => {
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    // Cleanup function to remove the class when the component is unmounted or modal is closed
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [isModalOpen]);
+
   const closeModal = () => {
     setModalOpen(false);
   };

@@ -24,7 +24,7 @@ const Header = ({ menu }) => {
   }
   return (
     <header className='relative flex flex-col items-center justify-between p-6 lg:pt-12 md:flex-row lg:pr-12 font-inconsolata'>
-      <div className='bg-white flex flex-col justify-center items-center pb-6 z-50 md:z-10 md:flex-row md:gap-12 md:pb-0'>
+      <div className='bg-white flex flex-col justify-center items-center pb-6 z-40 md:z-10 md:flex-row md:gap-12 md:pb-0'>
         <a
           href={menu === 'admin' ? '/admin' : '/'}
           aria-label="Aller à la page d'accueil"
