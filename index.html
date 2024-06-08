@@ -10,7 +10,13 @@
   <meta charset="UTF-8">
 
   <!-- icone du site -->
-  <link rel="icon" href="./logo2white.png" type="image/x-icon">
+  <!-- google icon -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+  <!-- Favicons -->
+  <link id="favicon-dark" rel="icon" type="image/png" href="./logo2white.png" disabled>
+  <link id="favicon-light" rel="icon" type="image/png" href="./logo2.png">
+
 
   <!-- Titre du site -->
   <title>Écurie Kersaïan</title>
@@ -56,11 +62,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&display=swap" rel="stylesheet">
 
+
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+  <!-- manage favicon depend of theme browser (dark/light) -->
+  <script>
+    function setFavicon() {
+      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const lightFavicon = document.getElementById('favicon-light');
+      const darkFavicon = document.getElementById('favicon-dark');
+
+      if (isDarkMode) {
+        lightFavicon.removeAttribute('rel');
+        darkFavicon.setAttribute('rel', 'icon');
+      } else {
+        darkFavicon.removeAttribute('rel');
+        lightFavicon.setAttribute('rel', 'icon');
+      }
+    }
+    // Initial set
+    setFavicon();
+    // Listen for changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFavicon);
+  </script>
 </body>
 
 </html>

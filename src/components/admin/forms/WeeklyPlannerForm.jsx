@@ -29,59 +29,66 @@ const WeeklyPlannerForm = ({
 }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [state, setState] = useState({
+  const timeSlotDatas = {
     day: selectedDay.day,
     timeSlot: selectedTimeSlot.timeSlot,
     isAvailable: selectedTimeSlot.available,
     duration: selectedTimeSlot.available ? 60 : selectedTimeSlot.duration,
-    title: selectedTimeSlot.available ? ' ' : selectedTimeSlot.title.join('\n'),
+    title: selectedTimeSlot.available ? '' : selectedTimeSlot.title.join('\n'),
     startTime: selectedTimeSlot.timeSlot,
     endTime: selectedTimeSlot.available ? null : selectedTimeSlot.endTime,
     cellBg: selectedTimeSlot.available ? '#ffffff' : selectedTimeSlot.cellBg,
-  });
+  };
+
+  const isDurationValid = (value) => {
+    return value % 15 === 0 && value > 15;
+  };
 
   /**
    * Adds or modifies the time slot in the schedule.
    */
-  const addTimeSlot = async (inputDuration, inputTitle, inputCellBg) => {
+  const addTimeSlot = async (inputTitle, inputDuration, inputCellBg) => {
     try {
-      const selectedDay = schedule.find((item) => item.day === state.day);
-      const dayIndex = daysOfWeek.findIndex((item) => item === state.day);
-      const timeSlot = selectedDay.schedule.find(
-        (item) => item.timeSlot === state.timeSlot
-      );
-      const timeSlotIndex = selectedDay.schedule.findIndex(
-        (item) => item.timeSlot === state.timeSlot
-      );
-      setState({
-        duration: inputDuration,
-        title: inputTitle,
-        cellBg: inputCellBg,
-      });
-      const numberOfSlots = inputDuration / 15; // 15 minutes par case
-      const TimeSlotsLength = timeSlotIndex + numberOfSlots;
-      const startTime = timeSlot.timeSlot;
-      const titleLines = inputTitle.split('\n');
-      const endTime =
-        timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
-      if (!timeSlot.available) {
-        // time reduction management
-        await deleteTimeSlot(state.day, timeSlot.startTime);
+      if (isDurationValid(inputDuration)) {
+        const selectedDay = schedule.find(
+          (item) => item.day === timeSlotDatas.day
+        );
+        const dayIndex = daysOfWeek.findIndex(
+          (item) => item === timeSlotDatas.day
+        );
+        const timeSlot = selectedDay.schedule.find(
+          (item) => item.timeSlot === timeSlotDatas.timeSlot
+        );
+        const timeSlotIndex = selectedDay.schedule.findIndex(
+          (item) => item.timeSlot === timeSlotDatas.timeSlot
+        );
+        const numberOfSlots = inputDuration / 15; // 15 minutes par case
+        const TimeSlotsLength = timeSlotIndex + numberOfSlots;
+        const startTime = timeSlot.timeSlot;
+        const titleLines = inputTitle.split('\n') || inputTitle;
+        const endTime =
+          timeSlots[timeSlots.indexOf(startTime) + inputDuration / 15];
+        if (!timeSlot.available) {
+          // time reduction management
+          await deleteTimeSlot(timeSlotDatas.day, timeSlot.startTime);
+        }
+        for (let i = timeSlotIndex; i < TimeSlotsLength; i++) {
+          const datas = {
+            timeSlot: timeSlots[i],
+            available: false,
+            duration: inputDuration,
+            title: titleLines,
+            cellBg: inputCellBg,
+            startTime: startTime,
+            endTime: endTime,
+          };
+          await updateTimeSlot(dayIndex, i, { datas }, 'holiday');
+        }
+        fetchPlanning();
+        setModalOpen(false);
+      } else {
+        setErrorMessage('Veuillez entrer une durée valide');
       }
-      for (let i = timeSlotIndex; i < TimeSlotsLength; i++) {
-        const datas = {
-          timeSlot: timeSlots[i],
-          available: false,
-          duration: inputDuration,
-          title: titleLines,
-          cellBg: inputCellBg,
-          startTime: startTime,
-          endTime: endTime,
-        };
-        await updateTimeSlot(dayIndex, i, { datas }, 'holiday');
-      }
-      fetchPlanning();
-      setModalOpen(false);
     } catch (error) {
       setErrorMessage("Une erreur s'est produite");
       console.log('Error getting cached document:', error);
@@ -121,21 +128,21 @@ const WeeklyPlannerForm = ({
       <Form
         fieldsConfig={formFieldsConfig}
         title={
-          state.isAvailable
-            ? `Ajouter une séance le ${state.day}, à ${state.timeSlot}`
-            : `Modifier la séance du ${state.day}, à ${state.timeSlot}`
+          timeSlotDatas.isAvailable
+            ? `Ajouter une séance le ${timeSlotDatas.day}, à ${timeSlotDatas.timeSlot}`
+            : `Modifier la séance du ${timeSlotDatas.day}, à ${timeSlotDatas.timeSlot}`
         }
         onSubmitFunction={addTimeSlot}
         btnText={'Valider'}
         errorMessage={errorMessage}
         fieldNames={['title', 'duration', 'cellBg']}
         fieldValue={{
-          title: state.title,
-          duration: state.duration,
-          cellBg: state.cellBg,
+          title: timeSlotDatas.title,
+          duration: timeSlotDatas.duration,
+          cellBg: timeSlotDatas.cellBg,
         }}
       />
-      {!state.isAvailable && (
+      {!timeSlotDatas.isAvailable && (
         <button
           onClick={() =>
             deleteTimeSlot(

@@ -1,7 +1,6 @@
 //**********************************************************
 //Manage user's update password
 //**********************************************************
-import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import ReauthenticateForm from './ReauthenticateForm';
@@ -97,10 +96,6 @@ const UpdatePassword = () => {
       </>
     )
   );
-};
-
-UpdatePassword.propTypes = {
-  setUpdatePasswordOpen: PropTypes.func.isRequired,
 };
 
 export default UpdatePassword;

@@ -5,14 +5,6 @@
 
 const isRequired = true; // default value
 
-const isDurationValid = (value) => {
-  let res = true;
-  if (value % 15 !== 0 || value < 15) {
-    res = false;
-  }
-  return res;
-};
-
 export const formFieldsConfig = {
   // authentication + contact
   email: {
@@ -264,14 +256,14 @@ export const formFieldsConfig = {
   duration: {
     label: 'Durée (tranche de 15 minutes) :',
     type: 'number',
-    fieldErrorMessage: 'Veuillez renseigner le tarif',
-    validate: isDurationValid,
+    fieldErrorMessage: 'Veuillez renseigner la durée',
+    step: 15,
     isRequired,
   },
   cellBg: {
     label: 'Couleur de fond :',
     type: 'color',
-    fieldErrorMessage: 'Veuillez renseigner le tarif',
+    fieldErrorMessage: 'Veuillez renseigner la couleur',
     isRequired,
   },
 };

@@ -9,24 +9,28 @@ import { db } from '../firebase-config';
  * @returns {Promise<Object>} - The weekly planner data.
  */
 const fetchWeeklyPlanner = async (period) => {
-  // sessionStorage.removeItem(`${period}WeeklyPlanner`);
+  sessionStorage.removeItem(`${period}WeeklyPlanner`);
   try {
-    if (window.sessionStorage.getItem(`${period}WeeklyPlanner`) === null) {
-      // console.log(`${period} weekly planner not cached`);
-      const querySnapshot = await getDoc(
-        doc(db, `${period}WeeklyPlanner`, 'schedule')
-      );
-      sessionStorage.setItem(
-        `${period}WeeklyPlanner`,
-        JSON.stringify(querySnapshot.data())
-      );
-      return querySnapshot.data();
-    } else {
-      // console.log(`${period} weekly planner already cached`);
-      return JSON.parse(
-        window.sessionStorage.getItem(`${period}WeeklyPlanner`)
-      );
-    }
+    const querySnapshot = await getDoc(
+      doc(db, `${period}WeeklyPlanner`, 'schedule')
+    );
+    return querySnapshot.data();
+    // if (window.sessionStorage.getItem(`${period}WeeklyPlanner`) === null) {
+    //   // console.log(`${period} weekly planner not cached`);
+    //   const querySnapshot = await getDoc(
+    //     doc(db, `${period}WeeklyPlanner`, 'schedule')
+    //   );
+    //   sessionStorage.setItem(
+    //     `${period}WeeklyPlanner`,
+    //     JSON.stringify(querySnapshot.data())
+    //   );
+    //   return querySnapshot.data();
+    // } else {
+    //   // console.log(`${period} weekly planner already cached`);
+    //   return JSON.parse(
+    //     window.sessionStorage.getItem(`${period}WeeklyPlanner`)
+    //   );
+    // }
   } catch (error) {
     console.log(error);
   }

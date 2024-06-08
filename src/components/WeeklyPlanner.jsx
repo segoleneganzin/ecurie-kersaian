@@ -211,7 +211,7 @@ const WeeklyPlanner = ({ editable = false }) => {
                             rowSpan={numberOfSlots}
                             onClick={() => editable && openModal(day, timeSlot)}
                           >
-                            <p className='flex flex-col items-center px-1 text-center w-fit'>
+                            <p className='flex flex-col items-center px-1 text-center m-auto w-fit'>
                               <span className=' font-bold'>
                                 {scheduleItem.startTime}/{scheduleItem.endTime}
                               </span>

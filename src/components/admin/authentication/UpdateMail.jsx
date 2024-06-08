@@ -1,7 +1,6 @@
 //**********************************************************
 //Manage user's update email
 //**********************************************************
-import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import ReauthenticateForm from './ReauthenticateForm';
@@ -75,10 +74,6 @@ const UpdateMail = () => {
       </>
     )
   );
-};
-
-UpdateMail.propTypes = {
-  setUpdateEmailOpen: PropTypes.func.isRequired,
 };
 
 export default UpdateMail;
