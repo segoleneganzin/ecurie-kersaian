@@ -11,14 +11,24 @@ const Section = ({ editable, title, id, children }) => {
   const sectionClassName = 'p-2 pt-16 lg:p-16 sm:p-8 z-10';
 
   return (
-    <InView onChange={setInView}>
-      <section className={sectionClassName} id={id}>
-        <div className={inView ? 'animate-fadeIn' : 'opacity-0'}>
+    <>
+      {!editable && (
+        <InView onChange={setInView}>
+          <section className={sectionClassName} id={id}>
+            <div className={inView ? 'animate-fadeIn' : 'opacity-0'}>
+              <TitleTag className={sectionTitleClassName}>{title}</TitleTag>
+              {children}
+            </div>
+          </section>
+        </InView>
+      )}
+      {editable && (
+        <section className={sectionClassName} id={id}>
           <TitleTag className={sectionTitleClassName}>{title}</TitleTag>
           {children}
-        </div>
-      </section>
-    </InView>
+        </section>
+      )}
+    </>
   );
 };
 Section.propTypes = {
