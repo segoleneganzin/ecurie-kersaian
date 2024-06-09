@@ -5,12 +5,13 @@ import ScrollUp from '../components/ScrollUp';
 import Contact from '../components/Contact';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import Installations from '../components/Installations';
-import WeeklyPlanner from '../components/WeeklyPlanner';
+// import WeeklyPlanner from '../components/WeeklyPlanner';
 import Cavalry from '../components/Cavalry';
 import { mainClassName } from '../utils/GeneralClassNames';
 import Presentation from '../components/Presentation';
 import Activities from '../components/Activities';
 import { handleScroll } from '../utils/functions';
+import Planner from '../components/Planner';
 
 const EquestrianCenter = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -41,10 +42,10 @@ const EquestrianCenter = () => {
         <Installations />
         {/* ***************************************CAVALERY */}
         <Cavalry />
+        {/* ***************************************PLANNING */}
+        <Planner />
         {/* ***************************************PRICES */}
         <EquestrianCenterPrices />
-        {/* ***************************************PLANNING */}
-        <WeeklyPlanner />
         {/* ***************************************CONTACT */}
         <Contact />
       </main>

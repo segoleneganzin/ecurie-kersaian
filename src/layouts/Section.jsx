@@ -8,7 +8,7 @@ const Section = ({ editable, title, id, children }) => {
   const TitleTag = editable ? 'h3' : 'h2';
   const sectionTitleClassName =
     'text-principal-color font-bold pb-10 text-4xl w-fit after:absolute after:bg-secondary-color after:block after:h-1 after:mt-4 after:w-56';
-  const sectionClassName = 'p-2 pt-16 lg:p-16 sm:p-8 z-10';
+  const sectionClassName = 'p-2 pt-16 lg:px-16 lg:py-8 sm:p-8 z-10';
 
   return (
     <>

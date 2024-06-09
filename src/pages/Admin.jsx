@@ -3,7 +3,7 @@ import { UserContext } from '../context/UserContext';
 import SignInModule from '../components/admin/authentication/SignInModule';
 import Header from '../layouts/Header';
 import Footer from '../layouts/Footer';
-import WeeklyPlanner from '../components/WeeklyPlanner';
+// import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import ScrollUp from '../components/ScrollUp';
 import PensionPrices from '../components/PensionPrices';
@@ -12,6 +12,7 @@ import HomeAdmin from '../components/admin/HomeAdmin';
 import ChoicePageAdmin from '../components/admin/ChoicePageAdmin';
 import SiteLink from '../components/SiteLink';
 import Section from '../layouts/Section';
+import Planner from '../components/Planner';
 
 const Admin = () => {
   const { currentUser } = useContext(UserContext);
@@ -44,7 +45,8 @@ const Admin = () => {
         {choice === 'equestrianCenter' && (
           /* ***************************************PLANNING */
           <>
-            <WeeklyPlanner editable />
+            <Planner editable />
+            {/* <WeeklyPlanner editable /> */}
             {/* ***************************************PRICES */}
             <EquestrianCenterPrices editable />
           </>

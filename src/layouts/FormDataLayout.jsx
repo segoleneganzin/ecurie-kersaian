@@ -22,7 +22,7 @@ const FormDataLayout = ({ children, fieldName, field, errors }) => {
       <label htmlFor={fieldName} className={labelClassName}>
         {field.label}
       </label>
-      {/* content - manage into Form.jsx */}
+      {/* content */}
       {children}
       {/* error message */}
       <p className={errorMessageClassName}>

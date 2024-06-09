@@ -42,6 +42,7 @@ const FormSectionLayout = ({
       fetchPost();
     }
   }, [fieldNames, fieldValue, setValue]);
+
   return (
     <>
       {fieldNames.map((fieldName, index) => {

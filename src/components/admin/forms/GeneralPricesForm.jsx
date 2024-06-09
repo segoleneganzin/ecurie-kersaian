@@ -118,7 +118,7 @@ const GeneralPricesForm = ({
         errors={errors}
         setValue={setValue}
       />
-      {/*******  FFE license */}
+      {/*******  tial lesson */}
       <h3 className='font-bold text-lg mt-6'>Cours d&apos;essai :</h3>
       <div className={separationClassName}></div>
       <FormSectionLayout
