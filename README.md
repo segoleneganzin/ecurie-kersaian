@@ -20,7 +20,7 @@ Le site comporte :
 HTML5 <br>
 Tailwind CSS <br>
 ReactJS <br>
-Vue.js <br>
+Vite <br>
 Firebase (firestore, hosting, authentication) <br>
 
 Voir le site : ( [écurie Kersaïan](https://ecuriekersaian.fr/) )
