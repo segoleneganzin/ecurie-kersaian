@@ -80,7 +80,6 @@ const PlannerForm = ({ fetchPlanner, setModalOpen, planner }) => {
       try {
         const resizedImage = await convertPicture(file);
         setPreview(resizedImage);
-        setValue('plannerPicture', resizedImage);
       } catch (error) {
         console.error('Error resizing image:', error);
         setErrorMessage('Image invalide');
