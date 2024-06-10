@@ -3,7 +3,7 @@ import ImportantWord from '../layouts/ImportantWord';
 
 const Presentation = () => {
   const presentationSectionClassName =
-    'p-2 pt-4 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 lg:pt-2 lg:flex-row xl:pt-0 xl:gap-16 xl:items-center animate-fadeIn';
+    'p-2 pt-4 gap-6 flex justify-center flex-col sm:p-8 lg:p-16 lg:pt-4 lg:flex-row xl:pt-8 xl:gap-16 xl:items-center animate-fadeIn';
   const presentationImgClassName =
     'relative h-[300px] m-auto w-[300px] object-cover object-bottom rounded-md sm:rounded-full shadow-lg lg:h-[420px] lg:rounded-md xl:rounded-full xl:h-[450px] xl:w-[450px] lg:top-0';
   const presentationParagraphClassName =

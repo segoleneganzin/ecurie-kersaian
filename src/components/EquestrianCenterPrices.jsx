@@ -10,6 +10,7 @@ import Section from '../layouts/Section';
 import PackagePricesTable from './pricesTables/PackagePricesTable';
 import CardPricesTable from './pricesTables/CardPricesTable';
 import PensionPricesTable from './pricesTables/PensionPricesTable';
+import Loader from './Loader';
 
 /**
  * EquestrianCenterPrices component to display equestrian center prices.
@@ -61,88 +62,88 @@ const EquestrianCenterPrices = ({ editable = false }) => {
 
   return (
     <Section editable={editable} title={'Nos tarifs'} id={'prices'}>
-      <>
-        {/* general prices */}
-        <GeneralPrices editable={editable} />
-        <div className='py-4'>
-          {/* Price edit button (visible only in edit mode) */}
-          {editable && (
-            <button
-              onClick={() => setModalOpen(true)}
-              className={adminEditButtonClassname}
-            >
-              Modifier les tarifs du centre équestre
-            </button>
-          )}
-        </div>
-        {state.equestrianCenterPrices && (
-          <>
-            {/* Packages */}
-            <SubitleTag className={pricesSectionSubtitlesClassName}>
-              Forfaits annuels
-            </SubitleTag>
-            <PackagePricesTable
-              frequency={'annual'}
-              prices={state.equestrianCenterPrices}
-              classNames={classNames}
-            />
-            <SubitleTag className={pricesSectionSubtitlesClassName}>
-              Forfaits trimestriels
-            </SubitleTag>
-            <PackagePricesTable
-              frequency={'quarterly'}
-              prices={state.equestrianCenterPrices}
-              classNames={classNames}
-            />
-            {/* Cards */}
-            <SubitleTag className={pricesSectionSubtitlesClassName}>
-              Cartes
-            </SubitleTag>
-            <CardPricesTable
-              prices={state.equestrianCenterPrices}
-              classNames={classNames}
-            />
-          </>
-        )}
-        {/* half and third part pension */}
-        {state.pensionPrices && (
-          <>
-            <SubitleTag className={pricesSectionSubtitlesClassName}>
-              Demi pension et tiers de pension
-            </SubitleTag>
-            <PensionPricesTable
-              prices={state.pensionPrices}
-              classNames={classNames}
-            />
-          </>
-        )}
-        {editable && (
+      {state.equestrianCenterPrices && state.pensionPrices ? (
+        <>
+          {/* general prices */}
+          <GeneralPrices editable={editable} />
           <div className='py-4'>
             {/* Price edit button (visible only in edit mode) */}
-            <button
-              onClick={() => setModalOpen(true)}
-              className={adminEditButtonClassname}
-            >
-              Modifier les tarifs du centre équestre
-            </button>
+            {editable && (
+              <button
+                onClick={() => setModalOpen(true)}
+                className={adminEditButtonClassname}
+              >
+                Modifier les tarifs du centre équestre
+              </button>
+            )}
           </div>
-        )}
-        {/* edit prices modal */}
-        {isModalOpen && (
-          <Modal
-            isModalOpen={isModalOpen}
-            setModalOpen={setModalOpen}
-            title={'Gestion des tarifs'}
-          >
-            <EquestrianCenterPricesForm
-              equestrianCenterPrices={state.equestrianCenterPrices}
-              pensionPrices={state.pensionPrices}
-              getPrices={getPrices}
+
+          {/* Packages */}
+          <SubitleTag className={pricesSectionSubtitlesClassName}>
+            Forfaits annuels
+          </SubitleTag>
+          <PackagePricesTable
+            frequency={'annual'}
+            prices={state.equestrianCenterPrices}
+            classNames={classNames}
+          />
+          <SubitleTag className={pricesSectionSubtitlesClassName}>
+            Forfaits trimestriels
+          </SubitleTag>
+          <PackagePricesTable
+            frequency={'quarterly'}
+            prices={state.equestrianCenterPrices}
+            classNames={classNames}
+          />
+
+          {/* Cards */}
+          <SubitleTag className={pricesSectionSubtitlesClassName}>
+            Cartes
+          </SubitleTag>
+          <CardPricesTable
+            prices={state.equestrianCenterPrices}
+            classNames={classNames}
+          />
+
+          {/* half and third part pension */}
+          <SubitleTag className={pricesSectionSubtitlesClassName}>
+            Demi pension et tiers de pension
+          </SubitleTag>
+          <PensionPricesTable
+            prices={state.pensionPrices}
+            classNames={classNames}
+          />
+
+          {editable && (
+            <div className='py-4'>
+              {/* Price edit button (visible only in edit mode) */}
+              <button
+                onClick={() => setModalOpen(true)}
+                className={adminEditButtonClassname}
+              >
+                Modifier les tarifs du centre équestre
+              </button>
+            </div>
+          )}
+          {/* edit prices modal */}
+          {isModalOpen && (
+            <Modal
+              isModalOpen={isModalOpen}
               setModalOpen={setModalOpen}
-            />
-          </Modal>
-        )}
-      </>
+              title={'Gestion des tarifs'}
+            >
+              <EquestrianCenterPricesForm
+                equestrianCenterPrices={state.equestrianCenterPrices}
+                pensionPrices={state.pensionPrices}
+                getPrices={getPrices}
+                setModalOpen={setModalOpen}
+              />
+            </Modal>
+          )}
+        </>
+      ) : (
+        <Loader />
+      )}
     </Section>
   );
 };
