@@ -7,9 +7,6 @@
   <meta charset="UTF-8">
   <!-- google icon -->
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <!-- Favicons -->
-  <link id="favicon-dark" rel="icon" type="image/png" href="./logo2white.png" disabled>
-  <link id="favicon-light" rel="icon" type="image/png" href="./logo2.png">
 
   <title>Écurie Kersaïan</title>
 
@@ -57,26 +54,6 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-  <!-- manage favicon depend of theme browser (dark/light) -->
-  <script>
-    function setFavicon() {
-      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const lightFavicon = document.getElementById('favicon-light');
-      const darkFavicon = document.getElementById('favicon-dark');
-
-      if (isDarkMode) {
-        lightFavicon.removeAttribute('rel');
-        darkFavicon.setAttribute('rel', 'icon');
-      } else {
-        darkFavicon.removeAttribute('rel');
-        lightFavicon.setAttribute('rel', 'icon');
-      }
-    }
-    // Initial set
-    setFavicon();
-    // Listen for changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setFavicon);
-  </script>
 </body>
 
 </html>
