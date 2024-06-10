@@ -8,8 +8,7 @@
 
 **L'écurie Kersaïan** vient de commencer son activité et souhaite un site où les visiteurs pourront consulter les informations (installations, cavalerie, plannings, tarifs, etc). <br>
 En tant que freelance, j'ai été contactée par la gérante pour mettre en place la solution adéquate.<br>
-Le site comporte deux pages principales et une page d'administration :
-
+Le site comporte :
 <ul>
 <li>une page pour le centre équestre</li>
 <li>une page pour la pension</li>
