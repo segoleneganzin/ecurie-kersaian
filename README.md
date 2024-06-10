@@ -6,8 +6,8 @@
 
 ### 📚 Contexte
 
-**L'écurie Kersaïan** vient de commencer son activité et souhaite un site où les visiteurs pourront consulter les informations (installations, cavalerie, plannings, tarifs, ...). <br>
-En tant que freelance j'ai été contactée par la gerante pour mettre en place la solution adéquate.<br>
+**L'écurie Kersaïan** vient de commencer son activité et souhaite un site où les visiteurs pourront consulter les informations (installations, cavalerie, plannings, tarifs, etc). <br>
+En tant que freelance, j'ai été contactée par la gérante pour mettre en place la solution adéquate.<br>
 Le site comporte deux pages principales et une page d'administration :
 
 <ul>
