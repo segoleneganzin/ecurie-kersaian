@@ -10,27 +10,25 @@ import { formFieldsConfig } from '../../../formFieldsconfig';
  *
  * @component
  * @param {Object} props
- * @param {Function} setOpenUpdate - Function to control visibility of the update form.
- * @param {string} type - Function to control visibility of the update form.
+ * @param {Function} setOpenUpdate
+ * @param {string} type - email or password
  * @returns {JSX.Element}
  */
 const ReauthenticateForm = ({ type, setOpenUpdate }) => {
-  // Using the user context for the login function
   const { currentUser } = useContext(UserContext);
 
-  // Status to manage validation message in case of error  const [validation, setValidation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   /**
    * Function for reauthentication and opening the update form.
-   *
    * @async
    * @function
+   * @param {string} email
+   * @param {string} password
    * @throws {Error} Error if reauthentication fails.
    */
   const reauthenticate = async (email, password) => {
     try {
-      // Check if the entered email matches the current user
       if (email === currentUser.email) {
         const credential = EmailAuthProvider.credential(
           currentUser.email,

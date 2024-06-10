@@ -1,7 +1,7 @@
 import lessonImg from '../assets/images/cours.webp';
 import walkImg from '../assets/images/balade.webp';
 import eventImg from '../assets/images/saian.webp';
-import ImportantWord from './ImportantWord';
+import ImportantWord from '../layouts/ImportantWord';
 import Section from '../layouts/Section';
 
 const Activities = () => {

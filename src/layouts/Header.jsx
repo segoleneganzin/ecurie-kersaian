@@ -2,7 +2,12 @@ import PropTypes from 'prop-types';
 import Menu from './Menu';
 import MenuAdmin from '../components/admin/MenuAdmin';
 import logo from '../assets/logo2.png';
-
+/**
+ * @component
+ * @param {Object} props
+ * @param {string} props.menu
+ * @returns {JSX.Element}
+ */
 const Header = ({ menu }) => {
   let headerMenu;
   let headerSubtitle;

@@ -7,7 +7,7 @@ import {
  * Composant for pension items menu
  *
  * @component
- * @returns {JSX.Element} - L'élément JSX du composant ListItemsPension.
+ * @returns {JSX.Element}
  */
 const ListItemsPension = ({ toggleResponsiveMenu }) => {
   return (

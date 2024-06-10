@@ -6,8 +6,7 @@ import PlannerForm from './admin/forms/PlannerForm';
 import { fetchPlannerApi } from '../api/PlannerApi';
 
 /**
- * Component for display weekly planner picture
- *
+ * Component for display weekly planner infos (if sets) and picture
  * @component
  * @param {Object} props
  * @param {boolean} props.editable
@@ -15,9 +14,7 @@ import { fetchPlannerApi } from '../api/PlannerApi';
  */
 const Planner = ({ editable = false }) => {
   const [isModalOpen, setModalOpen] = useState(false);
-  // const [plannerPicture, setPlannerPicture] = useState('');
   const [planner, setPlanner] = useState(null);
-  // const [plannerInfos, setPlannerInfos] = useState('');
 
   const SubtitleTag = editable ? 'h4' : 'h3';
   let idLine = 0;
@@ -75,7 +72,7 @@ const Planner = ({ editable = false }) => {
         {planner && (
           <img src={planner.picture} alt='planning' className='m-auto' />
         )}
-        {/* Modal to add a new picture */}
+        {/* Modal to modify planner */}
         {isModalOpen && (
           <Modal
             title={'Modifier le planning'}

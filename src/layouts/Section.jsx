@@ -1,9 +1,17 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { InView } from 'react-intersection-observer';
-
+/**
+ * Section Layout
+ * @param {Object} props
+ * @param {boolean} props.editable
+ * @param {string} props.id
+ * @param {string} props.title
+ * @param {ReactNode} props.children
+ * @returns {JSX.Element}
+ */
 const Section = ({ editable, title, id, children }) => {
-  //add class when is visible for animation
+  //add class when is visible for animation (when not editable)
   const [inView, setInView] = useState(false);
   const TitleTag = editable ? 'h3' : 'h2';
   const sectionTitleClassName =

@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
-
+/**
+ * @component
+ * @param {Object} props.prices
+ * @param {Object} props.classNames
+ * @returns {JSX.Element}
+ */
 const PensionPricesTable = ({ prices, classNames }) => {
   return (
     <div className='py-4 w-fit m-auto lg:m-0 lg:w-full lg:flex lg:justify-between'>

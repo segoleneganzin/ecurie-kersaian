@@ -4,7 +4,6 @@ import UpdateLog from './authentication/UpdateLog';
 
 /**
  * MenuAdmin component to display a link that opens a modal for user parameters.
- *
  * @component
  * @returns {JSX.Element}
  */

@@ -10,22 +10,20 @@ import { Form } from 'sg-form-lib';
 
 /**
  * React component for managing user password updates.
- *
  * @component
  * @returns {JSX.Element} Le composant de gestion de la mise à jour du mot de passe.
  */
 const UpdatePassword = () => {
-  // Use user context to retrieve current user information
   const { currentUser } = useContext(UserContext);
-  //display message for user
   const [errorMessage, setErrorMessage] = useState('');
   const [updateOkMessage, setUpdateOkMessage] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
 
   /**
    * Function to update the user's password.
-   *
    * @function
+   * @param {string} newPassword
+   * @param {string} newPasswordConfirmation
    */
   const updateUserPassword = async (newPassword, newPasswordConfirmation) => {
     try {

@@ -5,8 +5,8 @@ import ListItemsPension from '../components/menus/ListItemsPension';
 
 /**
  * React component to display a responsive navigation menu.
- *
  * @component
+ * @param {string} props.page
  * @returns {JSX.Element}
  */
 const Menu = ({ page }) => {

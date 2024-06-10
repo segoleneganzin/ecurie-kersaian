@@ -8,7 +8,7 @@ const Carousel = ({ medias }) => {
 
   /**
    * manage media to display depends of its index
-   * @returns object
+   *  @param {string} direction
    */
   const manageCarousel = (direction) => {
     const srcMedia = currentMedia.src;

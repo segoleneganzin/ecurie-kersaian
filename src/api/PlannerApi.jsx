@@ -2,10 +2,10 @@ import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
 /**
- * Asynchronous function to retrieve weekly planner picture data from Firebase.
+ * Asynchronous function to retrieve weekly planner data from Firebase.
  * @async
  * @function
- * @returns {Promise<Object>} - The weekly planner picture data.
+ * @returns {Promise<Object>} - The weekly planner data (infos, picture).
  */
 const fetchPlannerApi = async () => {
   try {

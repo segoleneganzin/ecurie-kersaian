@@ -15,13 +15,11 @@ import { formFieldsConfig } from '../../../formFieldsconfig';
  * @returns {JSX.Element}
  */
 const ForgotPassword = (props) => {
-  // State to manage email message and validation error
   const [emailMessage, setEmailMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   /**
    * Sends a password reset email using Firebase authentication.
-   *
    * @param {string} email - The email for which to send a password reset email.
    * @returns {Promise<void>} - A promise that resolves when the email is sent.
    */

@@ -7,7 +7,6 @@ import { buttonClassName } from '../../../utils/GeneralClassNames';
 
 /**
  * React component for managing user account updates.
- *
  * @component
  * @returns {JSX.Element}
  */

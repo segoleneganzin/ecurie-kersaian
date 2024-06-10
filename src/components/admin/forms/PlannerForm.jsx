@@ -14,12 +14,12 @@ import {
 } from '../../../utils/GeneralClassNames';
 
 /**
- * Modal component to add or modify a time slot in the weekly schedule.
+ * Modal component to modify the planner.
  * @component
  * @param {Object} props
  * @param {function} props.fetchPlanning
  * @param {Function} props.setModalOpen
- * @param {Object} props.weeklyPlanner
+ * @param {Object} props.planner
  * @returns {JSX.Element}
  */
 const PlannerForm = ({ fetchPlanner, setModalOpen, planner }) => {
@@ -83,17 +83,15 @@ const PlannerForm = ({ fetchPlanner, setModalOpen, planner }) => {
         setValue('plannerPicture', resizedImage);
       } catch (error) {
         console.error('Error resizing image:', error);
+        setErrorMessage('Image invalide');
       }
     }
   };
 
-  /**
-   * Adds or modifies the time slot in the schedule.
-   */
-  const addPlanner = async () => {
+  const updatePlanner = async () => {
     try {
       const plannerDatas = {
-        picture: preview ? preview : planner.picture, // manage actual picture deletation if user doesn't set picture,
+        picture: preview,
         infos: getValues('plannerInfos').split('\n'),
       };
       await updatePlannerApi(plannerDatas);
@@ -106,12 +104,12 @@ const PlannerForm = ({ fetchPlanner, setModalOpen, planner }) => {
 
   return (
     <form
-      onSubmit={handleSubmit(addPlanner)}
+      onSubmit={handleSubmit(updatePlanner)}
       className={formClassName}
       noValidate
     >
       <div className={formDataContainerClassName}>
-        {/* label */}
+        {/* infos */}
         <label htmlFor='plannerInfos' className={labelClassName}>
           Informations facultatives :
         </label>
@@ -124,7 +122,7 @@ const PlannerForm = ({ fetchPlanner, setModalOpen, planner }) => {
         />
       </div>
       <div className={formDataContainerClassName}>
-        {/* label */}
+        {/* picture */}
         <label htmlFor='plannerPicture' className={labelClassName}>
           Image :
         </label>
@@ -135,6 +133,7 @@ const PlannerForm = ({ fetchPlanner, setModalOpen, planner }) => {
           accept='image/png, image/jpeg'
           className={inputErrorClass('plannerPicture') + ' w-20'}
           {...register('plannerPicture', {
+            required: true,
             onChange: (e) => pictureOnChange(e),
           })}
         />

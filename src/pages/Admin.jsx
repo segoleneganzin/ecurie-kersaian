@@ -3,7 +3,6 @@ import { UserContext } from '../context/UserContext';
 import SignInModule from '../components/admin/authentication/SignInModule';
 import Header from '../layouts/Header';
 import Footer from '../layouts/Footer';
-// import WeeklyPlanner from '../components/WeeklyPlanner';
 import EquestrianCenterPrices from '../components/EquestrianCenterPrices';
 import ScrollUp from '../components/ScrollUp';
 import PensionPrices from '../components/PensionPrices';

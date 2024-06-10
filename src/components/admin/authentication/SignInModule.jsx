@@ -9,7 +9,6 @@ import SignInForm from './SignInForm';
 
 /**
  * React component for the administrator login module.
- *
  * @component
  * @returns {JSX.Element}
  */

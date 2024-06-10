@@ -16,9 +16,9 @@ import FormSectionLayout from '../../../layouts/FormSectionLayout';
 /**
  * Form for managing pension prices.
  * @param {Object} props
- * @param {Object} props.generalPrices
+ * @param {Object} props.pensionPrices
  * @param {Function} props.setModalOpen
- * @param {Function} props.getGeneralPrices
+ * @param {Function} props.getPrices
  * @returns {JSX.Element}
  */
 const PensionPricesForm = ({ pensionPrices, setModalOpen, getPrices }) => {
@@ -120,7 +120,7 @@ const PensionPricesForm = ({ pensionPrices, setModalOpen, getPrices }) => {
 
 PensionPricesForm.propTypes = {
   pensionPrices: PropTypes.object.isRequired,
-  setModalOpen: PropTypes.func.isRequired.isRequired,
+  setModalOpen: PropTypes.func.isRequired,
   getPrices: PropTypes.func.isRequired,
 };
 

@@ -15,7 +15,7 @@ export const UserContext = createContext();
  *
  * @component
  * @param {Object} props
- * @param {React.ReactNode} props.children - The child elements to include in the user context.
+ * @param {React.ReactNode} props.children
  * @returns {JSX.Element}
  */
 export const UserContextProvider = (props) => {

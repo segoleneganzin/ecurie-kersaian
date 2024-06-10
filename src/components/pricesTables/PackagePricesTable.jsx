@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types';
-
+/**
+ * @component
+ * @param {Object} props
+ * @param {string} props.frequency
+ * @param {Object} props.prices
+ * @param {Object} props.classNames
+ * @returns {JSX.Element}
+ */
 const PackagePricesTable = ({ frequency, prices, classNames }) => {
   return (
     <div className='py-4 md:flex md:justify-between'>

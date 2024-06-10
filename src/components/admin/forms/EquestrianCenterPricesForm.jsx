@@ -15,13 +15,12 @@ import FormSectionLayout from '../../../layouts/FormSectionLayout';
 
 /**
  * React component for the equestrian center's prices form.
- *
  * @component
  * @param {Object} props
  * @param {Object} props.equestrianCenterPrices
  * @param {Object} props.pensionPrices
- * @param {Function} props.setModalOpen
  * @param {Function} props.getPrices
+ * @param {Function} props.setModalOpen
  * @returns {JSX.Element}
  */
 const EquestrianCenterPricesForm = ({
@@ -59,7 +58,7 @@ const EquestrianCenterPricesForm = ({
     return errorClasses[field] || errorClasses.default;
   };
 
-  // Function for updating tariffs in the backend
+  // Function for updating tarifs in the backend
   const updateFormPrices = async () => {
     const equestrianCenterDatas = {
       period: getValues('period'),
@@ -140,7 +139,7 @@ const EquestrianCenterPricesForm = ({
         setValue={setValue}
       />
 
-      {/* ****************************PACKAGE */}
+      {/* ****************************PACKAGES */}
       <h2 className={subtitleClassName}>Forfaits annuels</h2>
 
       {/******* 1h/ week */}

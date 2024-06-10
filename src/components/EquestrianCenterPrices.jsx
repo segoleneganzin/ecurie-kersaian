@@ -13,7 +13,6 @@ import PensionPricesTable from './pricesTables/PensionPricesTable';
 
 /**
  * EquestrianCenterPrices component to display equestrian center prices.
- *
  * @component
  * @param {Object} props
  * @param {boolean} props.editable
@@ -65,7 +64,6 @@ const EquestrianCenterPrices = ({ editable = false }) => {
       <>
         {/* general prices */}
         <GeneralPrices editable={editable} />
-        {/* Packages */}
         <div className='py-4'>
           {/* Price edit button (visible only in edit mode) */}
           {editable && (
@@ -79,6 +77,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
         </div>
         {state.equestrianCenterPrices && (
           <>
+            {/* Packages */}
             <SubitleTag className={pricesSectionSubtitlesClassName}>
               Forfaits annuels
             </SubitleTag>
@@ -94,7 +93,7 @@ const EquestrianCenterPrices = ({ editable = false }) => {
               frequency={'quarterly'}
               prices={state.equestrianCenterPrices}
               classNames={classNames}
-            />{' '}
+            />
             {/* Cards */}
             <SubitleTag className={pricesSectionSubtitlesClassName}>
               Cartes

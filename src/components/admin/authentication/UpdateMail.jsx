@@ -10,22 +10,19 @@ import { Form } from 'sg-form-lib';
 
 /**
  * React component for managing user e-mail address updates.
- *
  * @component
  * @returns {JSX.Element}
  */
 const UpdateMail = () => {
-  // Use user context to retrieve current user information
   const { currentUser } = useContext(UserContext);
-  //display message for user
   const [errorMessage, setErrorMessage] = useState('');
   const [updateOkMessage, setUpdateOkMessage] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
 
   /**
    * Function to update the user's e-mail address.
-   *
    * @function
+   * @param {string} newEmail
    */
   const updateUserEmail = async (newEmail) => {
     try {

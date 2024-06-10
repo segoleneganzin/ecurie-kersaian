@@ -1,5 +1,5 @@
 import Section from '../layouts/Section';
-import ImportantWord from './ImportantWord';
+import ImportantWord from '../layouts/ImportantWord';
 
 const Installations = () => {
   return (

@@ -1,5 +1,5 @@
 import presentationImg from '../assets/images/cc.webp';
-import ImportantWord from './ImportantWord';
+import ImportantWord from '../layouts/ImportantWord';
 
 const Presentation = () => {
   const presentationSectionClassName =

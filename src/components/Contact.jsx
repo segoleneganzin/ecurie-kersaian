@@ -1,4 +1,4 @@
-import ImportantWord from './ImportantWord';
+import ImportantWord from '../layouts/ImportantWord';
 import Section from '../layouts/Section';
 
 const Contact = () => {

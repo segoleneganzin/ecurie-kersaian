@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types';
-
+/**
+ * Admin nav for choice whose page to modify
+ * @component
+ * @param {Object} props
+ * @param {function} props.setChoice
+ * @returns {JSX.Element}
+ */
 const ChoicePageAdmin = ({ setChoice }) => {
   return (
     <div className='bg-lime-800  flex flex-col gap-8 items-center justify-center py-6 text-white text-xl lg:flex-row lg:gap-32 2xl:rounded-xl'>
